@@ -13,6 +13,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "convex": "^1.17.0",
+    "convex-helpers": "^0.1.63",
+    "jose": "^5.9.6",
     "lucide-react": "^0.454.0",
     "next": "15.0.2",
     "next-auth": "^5.0.0-beta.25",
