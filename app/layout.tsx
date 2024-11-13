@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Apa.ai",
+  title: "UltraNote",
   description: "An Open Source AI-Powered Productivity Tool",
   icons: {
     icon: [

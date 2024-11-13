@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/nav/app-sidebar"
+import { AppSidebar } from "@/components/nav/sidebar"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,9 +13,13 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import Providers from "../providers";
+import { auth } from "@/auth";
+export default async function Page() {
 
-export default function Page() {
+  const session = await auth();
   return (
+    <Providers session={session}>
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
@@ -46,5 +50,6 @@ export default function Page() {
         </div>
       </SidebarInset>
     </SidebarProvider>
+    </Providers>
   )
 }

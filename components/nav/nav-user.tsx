@@ -32,15 +32,7 @@ import {
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}) {
+export function NavUser() {
   const { isMobile } = useSidebar()
   const session = useSession()
 
