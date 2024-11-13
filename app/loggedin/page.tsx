@@ -1,5 +1,5 @@
-import Tasks from "@/components/ui/apa/Tasks";
-import UserProfile from "@/components/ui/apa/UserProfile";
+import Tasks from "@/components/apa/Tasks";
+import UserProfile from "@/components/apa/UserProfile";
 
 export default function Home() {
   return (

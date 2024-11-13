@@ -1,5 +1,7 @@
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import Providers from "../providers";
 import { auth } from "@/auth";
+import { AppSidebar } from "@/components/nav/sidebar";
 
 export default async function RootLayout({
   children,
@@ -7,5 +9,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  return <Providers session={session}>{children}</Providers>;
+  return (
+    <Providers session={session}>
+      
+      <SidebarProvider>
+          <AppSidebar />
+          <main>
+            <SidebarTrigger />
+            {children}
+          </main>
+        </SidebarProvider>
+    </Providers>
+  );
 }
