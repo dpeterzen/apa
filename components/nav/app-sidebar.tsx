@@ -49,15 +49,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuButton>
                   <a href="#" className="text-blue-500 font-semibold flex items-center">
                     <CirclePlusIcon className="size-7 ml-[-2px] mr-1" />
-                    <span className="translate-y-[1px]">Add tile</span>
+                    Add tile
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton>
                   <a href="#" className="flex items-center">
-                    <Search className="size-6 mr-[5px] text-zinc-600" />
-                    <span className="translate-y-[1px]">Search</span>
+                    <Search className="size-6 mr-[5px] text-zinc-700" />
+                    Search
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -75,7 +75,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuButton>
                   <a href="#" className="flex items-center">
                     <Hash className="size-5 mr-2" />
-                    <span className="translate-y-[1px]">TEST WALL NAME</span>
+                    TEST WALL NAME
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>

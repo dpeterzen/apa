@@ -3,6 +3,7 @@
 import {
   BadgeCheck,
   Bell,
+  ChevronDown,
   ChevronsUpDown,
   CreditCard,
   LogOut,
@@ -45,10 +46,7 @@ export function NavUser() {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
+          <SidebarMenuButton className="w-fit px-1.5 my-1">
               {imageUrl && (
                 <Image
                   src={imageUrl}
@@ -58,14 +56,14 @@ export function NavUser() {
                   className="rounded-full"
                 />
               )}
-              <p className="truncate font-semibold">{firstName}</p>
-              <ChevronsUpDown className="ml-auto size-4" />
+              <span className="truncate font-semibold">{firstName}</span>
+              <ChevronDown className="opacity-50" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+            className="w-64 rounded-lg"
+            align="start"
             side="bottom"
-            align="end"
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
