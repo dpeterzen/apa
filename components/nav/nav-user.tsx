@@ -58,7 +58,7 @@ export function NavUser() {
                   className="rounded-full"
                 />
               )}
-              <p className="truncate">{firstName}</p>
+              <p className="truncate font-semibold">{firstName}</p>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>

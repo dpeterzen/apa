@@ -1,11 +1,21 @@
-import * as React from "react"
-import { GalleryVerticalEnd, Minus, Plus, SquareStack, EyeOff, Earth, Hash, SquarePlus, Search } from "lucide-react"
+import * as React from "react";
+import {
+  GalleryVerticalEnd,
+  Minus,
+  Plus,
+  SquareStack,
+  EyeOff,
+  Earth,
+  Hash,
+  SquarePlus,
+  Search,
+} from "lucide-react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
@@ -21,10 +31,9 @@ import {
   SidebarRail,
   SidebarGroupLabel,
   SidebarGroupContent,
-} from "@/components/ui/sidebar"
-import { NavUser } from "@/components/nav/nav-user"
-import { CirclePlusIcon } from "../icons/circle-plus"
-
+} from "@/components/ui/sidebar";
+import { NavUser } from "@/components/nav/nav-user";
+import { CirclePlusIcon } from "../icons/circle-plus";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -34,17 +43,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem>
+              <SidebarMenuItem className="">
                 <SidebarMenuButton>
-                <a href="#" className="text-blue-500 font-semibold"><CirclePlusIcon className="size-7 inline-block ml-[-2px]" />Add tile</a>
+                  <a href="#" className="text-blue-500 font-semibold flex items-center">
+                    <CirclePlusIcon className="size-7 ml-[-2px] mr-1" />
+                    <span className="translate-y-[1px]">Add tile</span>
+                  </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton>
-                  <a href="#"><Search className="size-5 inline-block" />Search</a>
+                  <a href="#" className="flex items-center">
+                    <Search className="size-6 mr-[5px] text-zinc-600" />
+                    <span className="translate-y-[1px]">Search</span>
+                  </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -59,7 +73,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton>
-                <a href="#"><Hash className="size-4 inline-block" />TEST WALL NAME</a>
+                  <a href="#" className="flex items-center">
+                    <Hash className="size-5 mr-2" />
+                    <span className="translate-y-[1px]">TEST WALL NAME</span>
+                  </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -85,5 +102,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter> */}
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
