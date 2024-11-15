@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "UltraNote",
+  title: "Notemaven",
   description: "An Open Source AI-Powered Productivity Tool",
   icons: {
     icon: [

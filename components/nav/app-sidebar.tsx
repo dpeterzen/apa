@@ -23,7 +23,7 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar"
 import { NavUser } from "@/components/nav/nav-user"
-import { SquarePlusIcon } from "../icons/square-plus"
+import { CirclePlusIcon } from "../icons/circle-plus"
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -39,12 +39,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton>
-                <a href="#" className="text-blue-500 font-semibold"><SquarePlusIcon className="size-7 inline-block m-1" />Add tile</a>
+                <a href="#" className="text-blue-500 font-semibold"><CirclePlusIcon className="size-7 inline-block ml-[-2px]" />Add tile</a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton>
-                  <a href="#"><Search className="size-5 inline-block m-1" />Search</a>
+                  <a href="#"><Search className="size-5 inline-block" />Search</a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -59,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton>
-                <a href="#"><Hash className="size-4 inline-block m-1" />TEST WALL NAME</a>
+                <a href="#"><Hash className="size-4 inline-block" />TEST WALL NAME</a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>

@@ -3,7 +3,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/nav/sidebar";
+import { AppSidebar } from "@/components/nav/app-sidebar";
 import Providers from "../providers";
 import { auth } from "@/auth";
 

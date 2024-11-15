@@ -1,4 +1,4 @@
-export function SquarePlusIcon({ className }: { className?: string }) {
+export function CirclePlusIcon({ className }: { className?: string }) {
   return (
     <svg 
       xmlns="http://www.w3.org/2000/svg" 
@@ -8,13 +8,11 @@ export function SquarePlusIcon({ className }: { className?: string }) {
       fill="none"
       className={className}
     >
-      {/* Square outline in blue with transparent background */}
-      <rect 
-        width="18" 
-        height="18" 
-        x="3" 
-        y="3" 
-        rx="2"
+      {/* Circle outline in blue with fill */}
+      <circle 
+        cx="12" 
+        cy="12" 
+        r="9"
         stroke="#2563eb"
         strokeWidth="2"
         strokeLinecap="round"
@@ -37,5 +35,5 @@ export function SquarePlusIcon({ className }: { className?: string }) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
