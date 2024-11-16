@@ -34,7 +34,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 export function NavUser() {
-  const { isMobile } = useSidebar()
+  // const { isMobile } = useSidebar()
   const session = useSession()
 
   const imageUrl = session?.data?.user?.image;
