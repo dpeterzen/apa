@@ -1,20 +1,9 @@
 "use client"
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronDown,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react"
-
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
+import { Monitor, Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,82 +11,137 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
+  // useSidebar,
 } from "@/components/ui/sidebar"
-import Image from "next/image";
-import { useSession } from "next-auth/react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export function NavUser() {
+  const { theme, setTheme } = useTheme()
   // const { isMobile } = useSidebar()
   const session = useSession()
 
-  const imageUrl = session?.data?.user?.image;
   const name = session?.data?.user?.name;
-  // const email = session?.data?.user?.email;
+  const email = session?.data?.user?.email;
   const firstName = name?.split(' ')[0];
+  const lastName = name?.split(' ')[1];
+  const initials = `${firstName?.[0] || ''}${lastName?.[0] || ''}`;
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-          <SidebarMenuButton className="w-fit px-1.5 my-1">
-              {imageUrl && (
-                <Image
-                  src={imageUrl}
-                  width={24}
-                  height={24}
-                  alt={`${name} profile picture`}
-                  className="rounded-full"
-                />
-              )}
-              <span className="truncate font-semibold">{firstName}</span>
-              <ChevronDown className="opacity-50" />
+          <SidebarMenuButton
+              size="lg"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            >
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-pink-500">
+                  <span className="text-xs font-semibold text-white">{initials}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm">{firstName}</span>
+                  <span className="text-xs text-muted-foreground">Free</span>
+                </div>
+              </div>
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-64 rounded-lg"
-            align="start"
-            side="bottom"
-            sideOffset={4}
-          >
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                ?
+          <DropdownMenuContent className="w-full min-w-[275px] md:min-w-[245px] rounded-lg px-0"  >
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-xs leading-none text-muted-foreground mb-2">
+                  {email}
+                </p>
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-pink-500">
+                  <span className="text-xs font-semibold text-white">{initials}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm">{firstName}</span>
+                  <span className="text-xs text-muted-foreground">Free</span>
+                </div>
+              </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
+            <DropdownMenuItem className="w-full">
+              <Button className="w-full" variant="secondary">
+                Upgrade Plan
+              </Button>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>
+              <span className="text-xs font-normal text-muted-foreground">Preferences</span>
+            </DropdownMenuLabel>
+            <DropdownMenuGroup className="space-y-1 px-2 py-2">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">Theme</span>
+                  <div className="flex gap-0.5">
+                    <Button
+                      variant={theme === "system" ? "secondary" : "ghost"}
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => setTheme("system")}
+                    >
+                      <Monitor className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant={theme === "light" ? "secondary" : "ghost"}
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => setTheme("light")}
+                    >
+                      <Sun className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant={theme === "dark" ? "secondary" : "ghost"}
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => setTheme("dark")}
+                    >
+                      <Moon className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">Language</span>
+                  <Select defaultValue="en">
+                    <SelectTrigger className="w-[100px]">
+                      <SelectValue placeholder="Select language" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="es">Spanish</SelectItem>
+                      <SelectItem value="fr">French</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <BadgeCheck />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
+                Log Out
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
+
+
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
