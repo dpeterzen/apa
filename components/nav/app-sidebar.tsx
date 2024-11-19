@@ -39,7 +39,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <NavUser />
+        <h2>Notemaven</h2>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

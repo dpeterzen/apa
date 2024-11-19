@@ -1,6 +1,6 @@
 "use client"
 
-import { Monitor, Moon, Sun } from "lucide-react"
+import { BadgeCheck, LogOut, Monitor, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button"
@@ -58,7 +58,7 @@ export function NavUser() {
               </div>
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full min-w-[275px] md:min-w-[245px] rounded-lg px-0"  >
+          <DropdownMenuContent className="w-full min-w-[273px] md:min-w-[243px] rounded-lg"  >
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-xs leading-none text-muted-foreground mb-2">
@@ -76,16 +76,29 @@ export function NavUser() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="w-full">
+            <DropdownMenuItem>
               <Button className="w-full" variant="secondary">
                 Upgrade Plan
               </Button>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <BadgeCheck />
+                Account
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+              <LogOut />
+              Log Out
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+
             <DropdownMenuLabel>
               <span className="text-xs font-normal text-muted-foreground">Preferences</span>
             </DropdownMenuLabel>
             <DropdownMenuGroup className="space-y-1 px-2 py-2">
+
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Theme</span>
@@ -131,15 +144,8 @@ export function NavUser() {
                 </div>
               </div>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                Log Out
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+
+
 
 
           </DropdownMenuContent>
