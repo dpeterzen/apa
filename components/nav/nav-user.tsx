@@ -36,8 +36,6 @@ export function NavUser() {
   const name = session?.data?.user?.name;
   const email = session?.data?.user?.email;
   const firstName = name?.split(' ')[0];
-  const lastName = name?.split(' ')[1];
-  const initials = `${firstName?.[0] || ''}${lastName?.[0] || ''}`;
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -48,8 +46,7 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-pink-500">
-                  <span className="text-xs font-semibold text-white">{initials}</span>
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
                 </div>
                 <div className="flex flex-col">
                   <span className="text-sm">{firstName}</span>
@@ -65,8 +62,7 @@ export function NavUser() {
                   {email}
                 </p>
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-pink-500">
-                  <span className="text-xs font-semibold text-white">{initials}</span>
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
                 </div>
                 <div className="flex flex-col">
                   <span className="text-sm">{firstName}</span>
