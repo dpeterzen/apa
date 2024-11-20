@@ -9,6 +9,10 @@ import {
   Hash,
   SquarePlus,
   Search,
+  Square,
+  SquareDot,
+  SquarePen,
+  Image,
 } from "lucide-react";
 
 import {
@@ -39,7 +43,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <h2>TidyRecall</h2>
+        <h2 className="m-3">TidyRecall</h2>
       </SidebarHeader>
 
       <SidebarContent>
@@ -79,25 +83,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip="TEST WALL NAME">
-                    <a href="#" className="flex items-center">
-                      <Hash className="size-5 mr-2" />
-                      TEST WALL NAME
-                    </a>
+                  <SidebarMenuButton className="px-2" tooltip="TEST WALL NAME">
+                    <Square className="group-data-[state=open]/collapsible:hidden" />
+                    <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
+                    TEST WALL NAME
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     <SidebarMenuSubItem key="1">
                       <SidebarMenuSubButton asChild>
-                        <a href="#">
-                          <span>Notes go here</span>
-                        </a>
+                        <span>
+                          <SquarePen />
+                          Notes go here
+
+                        </span>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem key="2">
                       <SidebarMenuSubButton asChild>
                         <a href="#">
+                          <Image />
                           <span>random_image.png</span>
                         </a>
                       </SidebarMenuSubButton>
@@ -116,11 +122,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <a href="#" className="flex items-center">
-                    <Hash className="size-5 mr-2" />
-                    TEST WALL NAME
-                  </a>
+                <SidebarMenuButton className="px-2">
+                  <Square className="group-data-[state=closed]/collapsible:hidden" />
+                  TEST WALL NAME
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -134,11 +138,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <a href="#" className="flex items-center">
-                    <Hash className="size-5 mr-2" />
-                    TEST WALL NAME
-                  </a>
+                <SidebarMenuButton className="px-2">
+                  <Square className="group-data-[state=closed]/collapsible:hidden" />
+                  TEST WALL NAME
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -152,11 +154,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <a href="#" className="flex items-center">
-                    <Hash className="size-5 mr-2" />
-                    TEST WALL NAME
-                  </a>
+                <SidebarMenuButton className="px-2">
+                  <Square className="group-data-[state=closed]/collapsible:hidden" />
+                  TEST WALL NAME
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
