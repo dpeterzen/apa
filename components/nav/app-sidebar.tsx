@@ -12,7 +12,12 @@ import {
   Square,
   SquareDot,
   SquarePen,
-  Image,
+  Image as ImageIcon,
+  SquareChartGantt,
+  ChevronsUpDown,
+  LayoutDashboard,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 import {
@@ -38,12 +43,24 @@ import {
 } from "@/components/ui/sidebar";
 import { CirclePlusIcon } from "../icons/circle-plus";
 import { NavUser } from "./nav-user";
+import { Button } from "../ui/button";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <h2 className="m-3">TidyRecall</h2>
+        <SidebarMenu>
+          <SidebarMenuItem>
+
+            <SidebarMenuButton size="lg" className="gap-1">
+              <ChevronRight />
+
+              <span className="font-semibold">TidyRecall</span>
+              <LayoutDashboard className="ml-auto" />
+            </SidebarMenuButton>
+
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
 
       <SidebarContent>
@@ -70,7 +87,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup>
+        <SidebarGroup className="border rounded-lg">
           <SidebarGroupLabel>
             Tile Explorer
           </SidebarGroupLabel>
@@ -94,7 +111,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenuSubItem key="1">
                       <SidebarMenuSubButton asChild>
                         <span>
-                          <SquarePen />
+                          <SquareChartGantt />
                           Notes go here
 
                         </span>
@@ -103,7 +120,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenuSubItem key="2">
                       <SidebarMenuSubButton asChild>
                         <a href="#">
-                          <Image />
+                          <ImageIcon />
                           <span>random_image.png</span>
                         </a>
                       </SidebarMenuSubButton>
@@ -127,37 +144,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   TEST WALL NAME
                 </SidebarMenuButton>
               </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>
-            Starred Walls
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton className="px-2">
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
-                  TEST WALL NAME
+                  Foo Bar Baz
                 </SidebarMenuButton>
               </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>
-            All Walls
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton className="px-2">
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
-                  TEST WALL NAME
+                  Lorum Ipsum
                 </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <Button className="w-full justify-start pl-[10px] text-zinc-400 hover:text-zinc-100" variant={"link"}>
+                  View All
+                  <ChevronRight />
+                </Button>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
@@ -166,7 +169,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
 
       <SidebarFooter>
-
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <Button size="sm" className="w-full rounded-lg px-4 py-2 font-bold text-[15px] bg-zinc-900" variant={"outline"}>
+              New Wall
+            </Button>
+          </SidebarMenuItem>
+        </SidebarMenu>
         <NavUser />
 
       </SidebarFooter>
