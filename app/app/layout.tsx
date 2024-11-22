@@ -3,10 +3,11 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/nav/app-sidebar";
+import { NavSidebar } from "@/components/nav/nav-sidebar";
 import Providers from "../providers";
 import { auth } from "@/auth";
 import { NavActions } from "@/components/nav/nav-actions";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default async function RootLayout({
   children,
@@ -18,12 +19,12 @@ export default async function RootLayout({
     <Providers session={session}>
 
       <SidebarProvider>
-        <AppSidebar />
+        <NavSidebar />
         <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <header className="flex h-16 shrink-0 items-center border-b px-4">
             <SidebarTrigger className="-ml-1" />
-
-            <div className="ml-auto px-3">
+            <ChevronRight size={18} />
+            <div className="ml-auto">
               <NavActions />
             </div>
           </header>

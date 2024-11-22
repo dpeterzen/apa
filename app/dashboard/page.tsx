@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/nav/app-sidebar"
+import { NavSidebar } from "@/components/nav/nav-sidebar"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,7 +21,7 @@ export default async function Page() {
   return (
     <Providers session={session}>
     <SidebarProvider>
-      <AppSidebar />
+      <NavSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />

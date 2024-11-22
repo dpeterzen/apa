@@ -44,23 +44,14 @@ import {
 import { CirclePlusIcon } from "../icons/circle-plus";
 import { NavUser } from "./nav-user";
 import { Button } from "../ui/button";
+import { NavTitle } from "./nav-title";
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-
-            <SidebarMenuButton size="lg" className="gap-1">
-              <ChevronRight />
-
-              <span className="font-semibold">TidyRecall</span>
-              <LayoutDashboard className="ml-auto" />
-            </SidebarMenuButton>
-
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <NavTitle />
       </SidebarHeader>
 
       <SidebarContent>
@@ -69,18 +60,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               <SidebarMenuItem className="">
                 <SidebarMenuButton>
-                  <a href="#" className="text-blue-500 font-semibold flex items-center">
+                  <span className="text-blue-500 font-semibold flex items-center">
                     <CirclePlusIcon className="size-7 ml-[-2px] mr-1" />
                     Add tile
-                  </a>
+                  </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton>
-                  <a href="#" className="flex items-center">
+                  <span className="flex items-center">
                     <Search className="size-6 mr-[5px] text-zinc-700" />
                     Search
-                  </a>
+                  </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
@@ -157,7 +148,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <Button className="w-full justify-start pl-[10px] text-zinc-400 hover:text-zinc-100" variant={"link"}>
+                <Button className="w-full justify-start pl-[10px] dark:text-zinc-400 dark:hover:text-zinc-100" variant={"link"}>
                   View All
                   <ChevronRight />
                 </Button>
@@ -171,7 +162,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <Button size="sm" className="w-full rounded-lg px-4 py-2 font-bold text-[15px] bg-zinc-900" variant={"outline"}>
+            <Button className="w-full rounded-lg mb-1 px-4 py-2 font-bold text-[15px] dark:bg-zinc-900 dark:hover:bg-zinc-800" variant={"outline"}>
               New Wall
             </Button>
           </SidebarMenuItem>

@@ -114,7 +114,7 @@ export function NavActions() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 data-[state=open]:bg-accent"
+            className="data-[state=open]:bg-accent [&_svg]:size-6"
           >
             <MoreHorizontal />
           </Button>

@@ -72,11 +72,9 @@ export function NavUser() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Button className="w-full" variant="secondary">
+              <Button size="sm" className="w-full" variant="outline">
                 Upgrade Plan
               </Button>
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
