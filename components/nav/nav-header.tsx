@@ -8,11 +8,11 @@ import { NavActions } from "@/components/nav/nav-actions";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 
 export function NavHeader() {
-  const { state } = useSidebar();
+  const { state, isMobile } = useSidebar();
 
   return (
     <header className="flex h-16 shrink-0 items-center border-b px-4">
-      {state === "collapsed" && 
+      {(state === "collapsed" || isMobile) && 
       <>
         <SidebarTrigger className="-ml-1" />
       </>
