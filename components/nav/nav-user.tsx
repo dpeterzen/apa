@@ -55,7 +55,7 @@ export function NavUser() {
               </div>
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full min-w-[273px] md:min-w-[243px] rounded-lg"  >
+          <DropdownMenuContent className="w-full min-w-[278px] md:min-w-[246px] rounded-2xl"  >
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-xs leading-none text-muted-foreground mb-2">

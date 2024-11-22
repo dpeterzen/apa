@@ -49,6 +49,7 @@ import { CirclePlusIcon } from "../icons/circle-plus";
 import { NavUser } from "./nav-user";
 import { Button } from "../ui/button";
 import { NavTitle } from "./nav-title";
+import { SquarePlusIcon } from "../icons/square-plus";
 
 export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
@@ -65,7 +66,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuItem className="">
                 <SidebarMenuButton>
                   <span className="text-blue-500 font-semibold flex items-center">
-                    <CirclePlusIcon className="size-7 ml-[-2px] mr-1" />
+                    <SquarePlusIcon className="size-7 ml-[-2px] mr-1" />
                     Add tile
                   </span>
                 </SidebarMenuButton>
