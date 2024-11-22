@@ -18,6 +18,9 @@ import {
   LayoutDashboard,
   ChevronLeft,
   ChevronRight,
+  ArrowBigRight,
+  Eye,
+  ArrowRight,
 } from "lucide-react";
 
 import {
@@ -40,6 +43,7 @@ import {
   SidebarRail,
   SidebarGroupLabel,
   SidebarGroupContent,
+  SidebarMenuAction,
 } from "@/components/ui/sidebar";
 import { CirclePlusIcon } from "../icons/circle-plus";
 import { NavUser } from "./nav-user";
@@ -129,24 +133,38 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
+
               <SidebarMenuItem>
-                <SidebarMenuButton className="px-2">
+                <SidebarMenuButton className="px-2 group">
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
                   TEST WALL NAME
                 </SidebarMenuButton>
+                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 transition-opacity [&>svg]:size-5">
+                  <ArrowRight  />
+                  <span className="sr-only">Toggle</span>
+                </SidebarMenuAction>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton className="px-2">
+                <SidebarMenuButton className="px-2 group">
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
                   Foo Bar Baz
                 </SidebarMenuButton>
+                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 transition-opacity [&>svg]:size-5">
+                  <ArrowRight  />
+                  <span className="sr-only">Toggle</span>
+                </SidebarMenuAction>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton className="px-2">
+                <SidebarMenuButton className="px-2 group">
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
                   Lorum Ipsum
                 </SidebarMenuButton>
+                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 transition-opacity [&>svg]:size-5">
+                  <ArrowRight  />
+                  <span className="sr-only">Toggle</span>
+                </SidebarMenuAction>
               </SidebarMenuItem>
+
               <SidebarMenuItem>
                 <Button className="w-full justify-start pl-[10px] dark:text-zinc-400 dark:hover:text-zinc-100" variant={"link"}>
                   View All

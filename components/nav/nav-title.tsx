@@ -34,7 +34,7 @@ export function NavTitle() {
             />
           </div>
           <h1 className="font-semibold text-[16px]">TidyRecall</h1>
-          <div className={`ml-auto ${!isHovered ? 'opacity-0' : 'opacity-100'}`}>close</div>
+          <div className={`ml-auto transition-opacity duration-100  ${!isHovered ? 'opacity-0' : 'opacity-100 '}`}>close</div>
           {/* <div className={`ml-auto ${!isHovered ? 'opacity-0' : 'opacity-100'}`}>close</div> */}
           
         </SidebarMenuButton>
