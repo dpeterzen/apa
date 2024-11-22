@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, LayoutDashboard, Minimize2, Minus } from "lucide-react"
+import { ChevronLeft, ChevronRight, LayoutDashboard, Minimize2, Minus, Pin } from "lucide-react"
 
 import {
   SidebarMenu,
@@ -19,7 +19,7 @@ export function NavTitle() {
       <SidebarMenuItem>
         <SidebarMenuButton
           size={"lg"}
-          className="justify-between group"
+          className="group gap-1"
           onClick={() => {
             toggleSidebar()
           }}
@@ -35,7 +35,7 @@ export function NavTitle() {
           </div>
           <h1 className="font-semibold text-[16px]">TidyRecall</h1>
           <div className={`ml-auto transition-opacity duration-100  ${!isHovered ? 'opacity-0' : 'opacity-100 '}`}>close</div>
-          {/* <div className={`ml-auto ${!isHovered ? 'opacity-0' : 'opacity-100'}`}>close</div> */}
+          <Pin />
           
         </SidebarMenuButton>
       </SidebarMenuItem>
