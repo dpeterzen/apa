@@ -9,6 +9,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { SquarePlusIcon } from "../icons/square-plus"
 
 export function NavTitle() {
   const { toggleSidebar } = useSidebar()
@@ -36,7 +37,15 @@ export function NavTitle() {
           <h1 className="font-semibold text-[16px]">TidyRecall</h1>
           <div className={`ml-auto transition-opacity duration-200  ${!isHovered ? 'opacity-0' : 'opacity-100 '}`}>close</div>
           <Pin />
-          
+
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem className="mt-2">
+        <SidebarMenuButton>
+          <span className="text-blue-500 font-semibold flex items-center">
+            <SquarePlusIcon className="size-7 ml-[-2px] mr-1" />
+            Add tile
+          </span>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

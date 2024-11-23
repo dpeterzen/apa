@@ -55,22 +55,15 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="pb-1">
         <NavTitle />
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup className="pt-0">
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarMenuItem className="">
-                <SidebarMenuButton>
-                  <span className="text-blue-500 font-semibold flex items-center">
-                    <SquarePlusIcon className="size-7 ml-[-2px] mr-1" />
-                    Add tile
-                  </span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+
               <SidebarMenuItem>
                 <SidebarMenuButton>
                   <span className="flex items-center">
@@ -85,7 +78,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
         <SidebarGroup className="border rounded-lg">
           <SidebarGroupLabel>
-            Tile Explorer
+            Current Wall
           </SidebarGroupLabel>
           <SidebarMenu>
             <Collapsible
@@ -140,7 +133,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
                   TEST WALL NAME
                 </SidebarMenuButton>
-                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 transition-opacity [&>svg]:size-5">
+                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 [&>svg]:size-5">
                   <ArrowRight  />
                   <span className="sr-only">Toggle</span>
                 </SidebarMenuAction>
@@ -150,7 +143,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
                   Foo Bar Baz
                 </SidebarMenuButton>
-                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 transition-opacity [&>svg]:size-5">
+                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 [&>svg]:size-5">
                   <ArrowRight  />
                   <span className="sr-only">Toggle</span>
                 </SidebarMenuAction>
@@ -160,7 +153,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
                   Lorum Ipsum
                 </SidebarMenuButton>
-                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 transition-opacity [&>svg]:size-5">
+                <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 [&>svg]:size-5">
                   <ArrowRight  />
                   <span className="sr-only">Toggle</span>
                 </SidebarMenuAction>
