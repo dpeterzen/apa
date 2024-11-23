@@ -19,6 +19,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { LayoutDashboardIcon } from "../icons/layout-dashboard"
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -284,7 +285,7 @@ const SidebarTrigger = React.forwardRef<
       }}
       {...props}
     >
-      <LayoutDashboard />
+      <LayoutDashboardIcon />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )
@@ -529,7 +530,7 @@ const sidebarMenuButtonVariants = cva(
       size: {
         default: "h-[34px] text-sm",
         sm: "h-7 text-xs",
-        lg: "h-12 text-sm group-data-[collapsible=icon]:!p-0",
+        lg: "h-11 text-sm group-data-[collapsible=icon]:!p-0",
       },
     },
     defaultVariants: {

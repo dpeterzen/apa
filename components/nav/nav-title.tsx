@@ -10,14 +10,15 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { SquarePlusIcon } from "../icons/square-plus"
+import { LayoutDashboardIcon } from "../icons/layout-dashboard"
 
-export function NavTitle() {
+export function   NavTitle() {
   const { toggleSidebar } = useSidebar()
   const [isHovered, setIsHovered] = useState(false)
 
   return (
     <SidebarMenu>
-      <SidebarMenuItem>
+      <SidebarMenuItem className="pt-[3px]">
         <SidebarMenuButton
           size={"lg"}
           className="group gap-1"
@@ -28,11 +29,7 @@ export function NavTitle() {
           onMouseLeave={() => setIsHovered(false)}
         >
           <div>
-            <LayoutDashboard
-              // className={`size-7 transition-transform duration-300 ${isHovered ? 'rotate-90' : 'rotate-0'}`}
-              // className={`size-7 transition-transform duration-300 ${isHovered ? 'rotate-90 ease-out' : 'rotate-0 ease-in'}`}
-              className={`size-7`}
-            />
+            <LayoutDashboardIcon className={`size-7`} />
           </div>
           <h1 className="font-semibold text-[16px]">TidyRecall</h1>
           <div className={`ml-auto transition-opacity duration-200  ${!isHovered ? 'opacity-0' : 'opacity-100 '}`}>close</div>
