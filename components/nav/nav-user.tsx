@@ -27,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { signOutAction } from "@/actions/auth-action";
 
 export function NavUser() {
   const { theme, setTheme } = useTheme()
@@ -78,13 +79,13 @@ export function NavUser() {
             </Button>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="w-full cursor-pointer py-[10px]">
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem 
-                onClick={() => null}
-                className="w-full cursor-pointer"
+                onClick={async () => await signOutAction()}
+                className="w-full cursor-pointer py-[10px]"
 >
                 <LogOut />
                 Log Out
