@@ -1,6 +1,6 @@
 "use client"
 
-import { BadgeCheck, LogOut, Monitor, Moon, Sun } from "lucide-react"
+import { BadgeCheck, ChevronDown, LogOut, Monitor, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button"
@@ -41,7 +41,7 @@ export function NavUser() {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-          <SidebarMenuButton
+            <SidebarMenuButton
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
@@ -53,6 +53,7 @@ export function NavUser() {
                   <span className="text-xs text-muted-foreground">Free</span>
                 </div>
               </div>
+              <ChevronDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-full min-w-[278px] md:min-w-[246px] rounded-2xl drop-shadow-lg">
@@ -61,29 +62,32 @@ export function NavUser() {
                 <p className="text-xs leading-none text-muted-foreground mb-2">
                   {email}
                 </p>
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
+                <div className="flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm">{firstName}</span>
+                    <span className="text-xs text-muted-foreground">Free</span>
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-sm">{firstName}</span>
-                  <span className="text-xs text-muted-foreground">Free</span>
-                </div>
-              </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-              <Button size="sm" className="w-full" variant="outline">
-                Upgrade Plan
-              </Button>
+            <Button size="sm" className="w-full" variant="outline">
+              Upgrade Plan
+            </Button>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem>
-              <LogOut />
-              Log Out
+              <DropdownMenuItem 
+                onClick={() => null}
+                className="w-full cursor-pointer"
+>
+                <LogOut />
+                Log Out
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -138,9 +142,6 @@ export function NavUser() {
                 </div>
               </div>
             </DropdownMenuGroup>
-
-
-
 
           </DropdownMenuContent>
         </DropdownMenu>
