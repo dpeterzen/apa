@@ -18,7 +18,7 @@ export function   NavTitle() {
 
   return (
     <SidebarMenu>
-      <SidebarMenuItem className="pt-[3px]">
+      <SidebarMenuItem>
         <SidebarMenuButton
           size={"lg"}
           className="group gap-1"

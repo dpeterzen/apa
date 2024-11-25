@@ -67,7 +67,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuItem>
                 <SidebarMenuButton>
                   <span className="flex items-center">
-                    <Search className="size-6 mr-[5px] text-zinc-700" />
+                    <Search className="mr-[5px] text-zinc-400" />
                     Search
                   </span>
                 </SidebarMenuButton>
@@ -76,11 +76,12 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup className="border rounded-lg">
+        <SidebarGroup>
           <SidebarGroupLabel>
-            Current Wall
+            My Walls
           </SidebarGroupLabel>
           <SidebarMenu>
+
             <Collapsible
               key="TEST WALL NAME"
               asChild
@@ -118,20 +119,11 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </CollapsibleContent>
               </SidebarMenuItem>
             </Collapsible>
-          </SidebarMenu>
-        </SidebarGroup>
 
-        <SidebarGroup>
-          <SidebarGroupLabel>
-            Recent Walls
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-
-              <SidebarMenuItem>
+            <SidebarMenuItem>
                 <SidebarMenuButton className="px-2 group">
                   <Square className="group-data-[state=closed]/collapsible:hidden" />
-                  TEST WALL NAME
+                  TEST WALL NAME 2
                 </SidebarMenuButton>
                 <SidebarMenuAction className="opacity-0 group-hover/menu-item:opacity-100 [&>svg]:size-5">
                   <ArrowRight  />
@@ -159,16 +151,8 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenuAction>
               </SidebarMenuItem>
 
-              <SidebarMenuItem>
-                <Button className="w-full justify-start pl-[10px] dark:text-zinc-400 dark:hover:text-zinc-100" variant={"link"}>
-                  View All
-                  <ChevronRight />
-                </Button>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
+          </SidebarMenu>
         </SidebarGroup>
-
       </SidebarContent>
 
       <SidebarFooter>

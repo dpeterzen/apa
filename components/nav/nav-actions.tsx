@@ -113,7 +113,7 @@ export function NavActions() {
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            size="icon"
+            size="sm"
             className="data-[state=open]:bg-accent [&_svg]:size-6"
           >
             <MoreHorizontal />
