@@ -72,8 +72,90 @@ const authTables = {
 
 export default defineSchema({
   ...authTables,
-  tasks: defineTable({
+  // Base tile table
+  tiles: defineTable({
+    wallId: v.id("walls"),
+    userId: v.id("users"),
+    type: v.string(), // "note", "image", "youtube", etc.
+    position: v.object({
+      x: v.number(),
+      y: v.number()
+    }),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    isArchived: v.boolean()
+  })
+    .index("byWall", ["wallId"])
+    .index("byType", ["type"]),
+
+  // Type-specific content tables
+  noteTiles: defineTable({
+    tileId: v.id("tiles"),
+    title: v.string(),
+    content: v.string()
+  })
+    .index("byTileId", ["tileId"]),
+
+
+  imageTiles: defineTable({
+    tileId: v.id("tiles"),
+    url: v.string(),
+    caption: v.optional(v.string()),
+    altText: v.string()
+  })
+    .index("byTileId", ["tileId"]),
+
+  // For uploaded images
+  uploadedImageTiles: defineTable({
+    tileId: v.id("tiles"),
+    storageId: v.string(), // Reference to storage system (e.g. S3, Cloudinary)
+    fileName: v.string(),
+    mimeType: v.string(),
+    size: v.number(),
+    caption: v.optional(v.string()),
+    altText: v.string(),
+    thumbnailUrl: v.optional(v.string()) // For optimized preview
+  })
+    .index("byTileId", ["tileId"])
+    .index("byStorageId", ["storageId"]),
+
+  // For YouTube videos
+  youtubeTiles: defineTable({
+    tileId: v.id("tiles"),
+    videoId: v.string(),
+    startTime: v.optional(v.number()),
+    endTime: v.optional(v.number())
+  })
+    .index("byTileId", ["tileId"]),
+
+  // For URL/link tiles
+  linkTiles: defineTable({
+    tileId: v.id("tiles"),
+    url: v.string(),
+    title: v.optional(v.string()), // User provided or scraped title
+    description: v.optional(v.string()), // User provided or meta description
+    // Preview metadata
+    previewData: v.optional(v.object({
+      siteName: v.optional(v.string()),
+      favicon: v.optional(v.string()),
+      ogImage: v.optional(v.string()), // Open Graph image URL
+      ogTitle: v.optional(v.string()),
+      ogDescription: v.optional(v.string())
+    }))
+  })
+    .index("byTileId", ["tileId"])
+    .index("byUrl", ["url"]),
+    // Basic URL storage
+    // Rich preview capabilities
+    // User customization
+    // SEO metadata storage
+    // Efficient querying by tile ID or URL
+
+  // For tasks
+  taskTiles: defineTable({
+    tileId: v.id("tiles"),
     isCompleted: v.boolean(),
     text: v.string(),
   }),
+
 });
