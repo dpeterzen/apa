@@ -7,7 +7,6 @@ import {
   SquareChartGantt,
   ArrowRight,
 } from "lucide-react";
-
 import {
   Collapsible,
   CollapsibleContent,
@@ -30,17 +29,15 @@ import {
   SidebarGroupContent,
   SidebarMenuAction,
 } from "@/components/ui/sidebar";
-import { CirclePlusIcon } from "../icons/circle-plus";
 import { NavUser } from "./nav-user";
 import { Button } from "../ui/button";
 import { NavTitle } from "./nav-title";
-import { SquarePlusIcon } from "../icons/square-plus";
 
 export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar {...props}>
-      <SidebarHeader className="pb-1">
+      <SidebarHeader className="pb-1 pt-[6px]">
         <NavTitle />
       </SidebarHeader>
 

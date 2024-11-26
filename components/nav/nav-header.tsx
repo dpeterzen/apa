@@ -11,13 +11,16 @@ export function NavHeader() {
   const { state, isMobile } = useSidebar();
 
   return (
-    <header className="flex h-14 shrink-0 items-center pl-3 pr-[10px]">
+    <header className="flex h-14 shrink-0 items-center pl-2 pr-[10px]">
       {(state === "collapsed" || isMobile) &&
         <>
-          <SidebarTrigger className="-ml-1 mr-[2px]" />
+          <SidebarTrigger className="-ml-0 mr-[2px]" />
         </>
       }
-        <Button variant="ghost" size="sm" className="font-semibold">TEST WALL NAME</Button>
+      <div className="flex-1 flex">
+      <Button variant="ghost" size="sm" className="font-semibold">TEST WALL NAME</Button>
+
+      </div>
       <div className="ml-auto">
         <NavActions />
       </div>

@@ -6,7 +6,6 @@ import { NavSidebar } from "@/components/nav/nav-sidebar";
 import Providers from "../providers";
 import { auth } from "@/auth";
 import { NavHeader } from "@/components/nav/nav-header";
-import WallTitle from "@/components/walls/wall-title";
 
 export default async function RootLayout({
   children,

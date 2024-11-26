@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/sidebar"
 import { SquarePlusIcon } from "../icons/square-plus"
 import { LayoutDashboardIcon } from "../icons/layout-dashboard"
+import PanelLeft from "../icons/panel-left"
 
 export function   NavTitle() {
   const { toggleSidebar } = useSidebar()
@@ -33,7 +34,9 @@ export function   NavTitle() {
           </div>
           <h1 className="font-semibold text-[16px]">TidyRecall</h1>
           <div className={`ml-auto transition-opacity duration-200  ${!isHovered ? 'opacity-0' : 'opacity-100 '}`}>close</div>
-          <Pin />
+          <div className="[&_svg]:size-5">
+            <PanelLeft />
+          </div>
 
         </SidebarMenuButton>
       </SidebarMenuItem>
