@@ -1,25 +1,10 @@
 import * as React from "react";
 import {
-  GalleryVerticalEnd,
-  Minus,
-  Plus,
-  SquareStack,
-  EyeOff,
-  Earth,
-  Hash,
-  SquarePlus,
   Search,
   Square,
   SquareDot,
-  SquarePen,
   Image as ImageIcon,
   SquareChartGantt,
-  ChevronsUpDown,
-  LayoutDashboard,
-  ChevronLeft,
-  ChevronRight,
-  ArrowBigRight,
-  Eye,
   ArrowRight,
 } from "lucide-react";
 

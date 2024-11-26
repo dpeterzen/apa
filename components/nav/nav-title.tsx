@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, LayoutDashboard, Minimize2, Minus, Pin } from "lucide-react"
+import { Pin } from "lucide-react"
 
 import {
   SidebarMenu,

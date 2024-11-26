@@ -3,8 +3,8 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
-import { ChevronRight, LayoutDashboard, PanelLeft } from "lucide-react"
-
+import { ChevronRight, LayoutDashboard } from "lucide-react"
+import PanelLeft from "@/components/icons/panel-left";
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -277,15 +277,15 @@ const SidebarTrigger = React.forwardRef<
       ref={ref}
       data-sidebar="trigger"
       variant="ghost"
-      size="icon"
-      className={cn("[&_svg]:size-7", className)}
+      size="sm"
+      className={cn("[&_svg]:size-5 px-[6px]", className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      <LayoutDashboardIcon />
+      <PanelLeft />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

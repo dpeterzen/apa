@@ -73,19 +73,19 @@ export function NavUser() {
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator />
             <Button size="sm" className="w-full" variant="outline">
               Upgrade Plan
-            </Button>
+            </Button> */}
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="w-full cursor-pointer py-[10px]">
+              <DropdownMenuItem className="w-full cursor-pointer py-[10px] rounded-md">
                 <BadgeCheck />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={async () => await signOutAction()}
-                className="w-full cursor-pointer py-[10px]"
+                className="w-full cursor-pointer py-[10px] rounded-md"
 >
                 <LogOut />
                 Log Out

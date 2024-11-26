@@ -22,7 +22,6 @@ export default async function RootLayout({
 
         <SidebarInset>
           <NavHeader />
-          <WallTitle />
           {children}
         </SidebarInset>
 
