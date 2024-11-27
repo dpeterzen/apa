@@ -77,7 +77,6 @@ export default defineSchema({
   walls: defineTable({
     userId: v.id("users"),
     title: v.string(),
-    description: v.optional(v.string()),
     createdAt: v.number(),
     updatedAt: v.number(),
     isArchived: v.boolean(),
@@ -88,7 +87,7 @@ export default defineSchema({
   .index("byPublic", ["isPublic"]), // For discovering public walls
 
   // Base tile table
-  tiles: defineTable({
+  baseTiles: defineTable({
     wallId: v.id("walls"),
     userId: v.id("users"),
     type: v.string(), // "note", "image", "youtube", etc.
@@ -105,7 +104,7 @@ export default defineSchema({
 
   // Type-specific content tables
   noteTiles: defineTable({
-    tileId: v.id("tiles"),
+    tileId: v.id("baseTiles"),
     title: v.string(),
     content: v.string()
   })
@@ -113,7 +112,7 @@ export default defineSchema({
 
 
   imageTiles: defineTable({
-    tileId: v.id("tiles"),
+    tileId: v.id("baseTiles"),
     url: v.string(),
     caption: v.optional(v.string()),
     altText: v.string()
@@ -122,7 +121,7 @@ export default defineSchema({
 
   // For uploaded images
   uploadedImageTiles: defineTable({
-    tileId: v.id("tiles"),
+    tileId: v.id("baseTiles"),
     storageId: v.string(), // Reference to storage system (e.g. S3, Cloudinary)
     fileName: v.string(),
     mimeType: v.string(),
@@ -136,7 +135,7 @@ export default defineSchema({
 
   // For YouTube videos
   youtubeTiles: defineTable({
-    tileId: v.id("tiles"),
+    tileId: v.id("baseTiles"),
     videoId: v.string(),
     startTime: v.optional(v.number()),
     endTime: v.optional(v.number())
@@ -145,7 +144,7 @@ export default defineSchema({
 
   // For URL/link tiles
   linkTiles: defineTable({
-    tileId: v.id("tiles"),
+    tileId: v.id("baseTiles"),
     url: v.string(),
     title: v.optional(v.string()), // User provided or scraped title
     description: v.optional(v.string()), // User provided or meta description
@@ -168,7 +167,7 @@ export default defineSchema({
 
   // For tasks
   taskTiles: defineTable({
-    tileId: v.id("tiles"),
+    tileId: v.id("baseTiles"),
     isCompleted: v.boolean(),
     text: v.string(),
   }),

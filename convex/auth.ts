@@ -11,10 +11,10 @@ async function getViewerId(ctx: { auth: Auth }) {
   return identity.subject as Id<"users">;
 }
 
-export async function handleUserId(ctx: { auth: Auth }) {
+export async function getUserIdentity(ctx: { auth: Auth }) {
   const viewerId = await getViewerId(ctx);
 
-  if (viewerId !== null) {
+  if (viewerId === null) {
     console.error("user is not authenticated");
   }
 

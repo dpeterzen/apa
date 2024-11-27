@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import {
   Search,
@@ -32,9 +34,13 @@ import {
 import { NavUser } from "./nav-user";
 import { Button } from "../ui/button";
 import { NavTitle } from "./nav-title";
+import { AddWallDialog } from "../Dialogs/add-wall-dialog";
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api";
 
 export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const walls = useQuery(api.walls.getUserWalls)
   return (
     <Sidebar {...props}>
       <SidebarHeader className="pb-1 pt-[6px]">
@@ -63,6 +69,26 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             My Walls
           </SidebarGroupLabel>
           <SidebarMenu>
+          {walls?.map((wall) => (
+            <Collapsible
+              key={wall._id}
+              asChild
+              defaultOpen={false}
+              className="group/collapsible"
+            >
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton className="px-2" tooltip={wall.title}>
+                    <Square className="group-data-[state=open]/collapsible:hidden" />
+                    <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
+                    {wall.title}
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+              </SidebarMenuItem>
+            </Collapsible>
+          ))}
+        </SidebarMenu>
+          {/* <SidebarMenu>
 
             <Collapsible
               key="TEST WALL NAME"
@@ -133,22 +159,28 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenuAction>
               </SidebarMenuItem>
 
-          </SidebarMenu>
+          </SidebarMenu> */}
         </SidebarGroup>
       </SidebarContent>
 
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <Button className="w-full rounded-lg mb-1 px-4 py-2 font-bold text-[15px] dark:bg-zinc-900 dark:hover:bg-zinc-800" variant={"outline"}>
-              New Wall
-            </Button>
+          <Button 
+            className="w-full rounded-lg mb-1 px-4 py-2 font-bold text-[15px] dark:bg-zinc-900 dark:hover:bg-zinc-800" 
+            variant={"outline"}
+            onClick={() => setDialogOpen(true)}
+          >
+            New Wall
+          </Button>
           </SidebarMenuItem>
+          <AddWallDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </SidebarMenu>
         <NavUser />
 
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
+    
   );
 }
