@@ -72,6 +72,21 @@ const authTables = {
 
 export default defineSchema({
   ...authTables,
+  
+  // Walls
+  walls: defineTable({
+    userId: v.id("users"),
+    title: v.string(),
+    description: v.optional(v.string()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    isArchived: v.boolean(),
+    isPublic: v.optional(v.boolean()) // For future sharing capabilities
+  })
+  .index("byUser", ["userId"])
+  .index("byUserAndUpdated", ["userId", "updatedAt"])
+  .index("byPublic", ["isPublic"]), // For discovering public walls
+
   // Base tile table
   tiles: defineTable({
     wallId: v.id("walls"),
