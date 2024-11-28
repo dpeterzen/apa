@@ -1,5 +1,26 @@
+"use client"
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { redirect } from 'next/navigation';
+import { useConvexAuth } from "convex/react";
 
 export default function WallIdPage({ params }: { params: { wallId: string } }) {
+  const { isAuthenticated, isLoading } = useConvexAuth();
+
+  // Show loading state while checking auth
+  if (isLoading) {
+    return (
+      <main className="flex flex-1 flex-col items-center justify-center">
+        <h1>Loading...</h1>
+      </main>
+    );
+  }
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    redirect('/');
+  }
+
   return (
     <main className="flex flex-1 flex-col gap-3 p-3 pt-1">
       <div className="grid grid-flow-dense grid-cols-6 grid-rows-4 gap-3 h-[900px] ">

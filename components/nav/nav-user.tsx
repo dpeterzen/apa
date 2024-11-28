@@ -28,8 +28,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { signOutAction } from "@/actions/auth-action";
+import { useRouter } from "next/navigation";
 
 export function NavUser() {
+  const router = useRouter();
   const { theme, setTheme } = useTheme()
   // const { isMobile } = useSidebar()
   const session = useSession()
@@ -37,6 +39,21 @@ export function NavUser() {
   const name = session?.data?.user?.name;
   const email = session?.data?.user?.email;
   const firstName = name?.split(' ')[0];
+
+  const handleSignOut = async () => {
+    try {
+      await signOutAction();
+      // Add a small delay to ensure logout completes
+      setTimeout(() => {
+        router.replace('/');
+      }, 100);
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Force redirect on error
+      router.replace('/');
+    }
+  };
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -84,7 +101,7 @@ export function NavUser() {
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem 
-                onClick={async () => await signOutAction()}
+                onClick={handleSignOut}
                 className="w-full cursor-pointer py-[10px] rounded-md"
 >
                 <LogOut />
