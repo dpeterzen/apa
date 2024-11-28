@@ -1,17 +1,18 @@
+import { Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server"
 import { v } from "convex/values"
-import { getUserIdentity } from "./auth";
 
 export const create = mutation({
   args: { title: v.string() },
   handler: async (ctx, args) => {
-    const identity = await getUserIdentity(ctx);
+    const identity = await ctx.auth.getUserIdentity();
+
     if (!identity) {
       throw new Error("User ID is null");
     }
 
     const wall = await ctx.db.insert("walls", {
-      userId: identity,
+      userId: identity.subject as Id<"users">,
       title: args.title,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -24,14 +25,15 @@ export const create = mutation({
 
 export const getUserWalls = query({
   handler: async (ctx) => {
-    const identity = await getUserIdentity(ctx);
+    const identity = await ctx.auth.getUserIdentity();
+
     if (!identity) {
       throw new Error("Not authenticated")
     }
 
     const walls = await ctx.db
       .query("walls")
-      .filter((q) => q.eq(q.field("userId"), identity))
+      .filter((q) => q.eq(q.field("userId"), identity.subject))
       .filter((q) => q.eq(q.field("isArchived"), false))
       .order("desc")
       .collect()
@@ -39,3 +41,23 @@ export const getUserWalls = query({
     return walls;
   }
 })
+
+export const getFirstWall = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // This is where returning null is appropriate - when no wall exists
+    const wall = await ctx.db
+      .query("walls")
+      .filter((q) => q.eq(q.field("userId"), identity.subject))
+      .filter((q) => q.eq(q.field("isArchived"), false))
+      .order("desc")
+      .first();
+
+    // This is a valid "no data" case
+    return wall; // might be null if no walls exist
+  }
+});
