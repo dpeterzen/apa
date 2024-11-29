@@ -92,10 +92,12 @@ export const checkWallAccess = query({
   args: { wallId: v.string() },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
+    // Return false instead of throwing for unauthenticated users
     if (!identity) return false;
 
     const wall = await ctx.db.get(args.wallId as Id<"walls">);
-    // Return true if wall exists and belongs to current user
-    return wall?.userId === identity.subject;
+    if (!wall) return false;
+    
+    return wall.userId === identity.subject;
   },
 });

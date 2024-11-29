@@ -8,13 +8,19 @@ import React from 'react';
 export default function WallIdPage({ params }: { params: Promise<{ wallId: string }> }) {
   const resolvedParams = React.use(params);
   const { isAuthenticated, isLoading } = useConvexAuth();
-  // Query to check if current user has access to this wall
-  const hasAccess = useQuery(api.walls.checkWallAccess, { 
-    wallId: resolvedParams.wallId 
-  });
+  
+  // Not authenticated, redirect immediately
+  if (!isLoading && !isAuthenticated) {
+    redirect('/');
+  }
 
-  // Show loading state while checking auth and access
-  if (isLoading || hasAccess === undefined) {
+  // Query only if authenticated
+  const hasAccess = useQuery(api.walls.checkWallAccess, 
+    isAuthenticated ? { wallId: resolvedParams.wallId } : "skip"
+  );
+
+  // Show loading state
+  if (isLoading || (isAuthenticated && hasAccess === undefined)) {
     return (
       <main className="flex flex-1 flex-col items-center justify-center">
         <h1>Loading...</h1>
@@ -22,12 +28,7 @@ export default function WallIdPage({ params }: { params: Promise<{ wallId: strin
     );
   }
 
-  // Not authenticated, redirect to login
-  if (!isAuthenticated) {
-    redirect('/');
-  }
-
-  // No access to this wall, redirect to their wall list
+  // No access to this wall
   if (!hasAccess) {
     redirect('/wall');
   }
