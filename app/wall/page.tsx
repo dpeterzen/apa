@@ -4,6 +4,7 @@ import { api } from "@/convex/_generated/api";
 import { redirect } from 'next/navigation';
 import { useConvexAuth } from "convex/react";
 
+
 export default function WallPage() {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const wall = useQuery(api.walls.getFirstWall);
