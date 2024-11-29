@@ -61,3 +61,41 @@ export const getFirstWall = query({
     return wall; // might be null if no walls exist
   }
 });
+
+export const getUserWall = query({
+  args: { id: v.string() },
+  handler: async (ctx, args) => {
+    // Get the authenticated user's ID
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Get the wall document
+    const wall = await ctx.db.get(args.id as Id<"walls">);
+    if (!wall) {
+      throw new Error("Wall not found");
+    }
+
+    // Check ownership
+    const isOwner = wall.userId === identity.subject;
+
+    // Return wall data with ownership flag
+    return {
+      ...wall,
+      isOwner,
+    };
+  },
+});
+
+export const checkWallAccess = query({
+  args: { wallId: v.string() },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return false;
+
+    const wall = await ctx.db.get(args.wallId as Id<"walls">);
+    // Return true if wall exists and belongs to current user
+    return wall?.userId === identity.subject;
+  },
+});

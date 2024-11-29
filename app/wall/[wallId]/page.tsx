@@ -3,12 +3,18 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { redirect } from 'next/navigation';
 import { useConvexAuth } from "convex/react";
+import React from 'react';
 
-export default function WallIdPage({ params }: { params: { wallId: string } }) {
+export default function WallIdPage({ params }: { params: Promise<{ wallId: string }> }) {
+  const resolvedParams = React.use(params);
   const { isAuthenticated, isLoading } = useConvexAuth();
+  // Query to check if current user has access to this wall
+  const hasAccess = useQuery(api.walls.checkWallAccess, { 
+    wallId: resolvedParams.wallId 
+  });
 
-  // Show loading state while checking auth
-  if (isLoading) {
+  // Show loading state while checking auth and access
+  if (isLoading || hasAccess === undefined) {
     return (
       <main className="flex flex-1 flex-col items-center justify-center">
         <h1>Loading...</h1>
@@ -16,11 +22,17 @@ export default function WallIdPage({ params }: { params: { wallId: string } }) {
     );
   }
 
-  // Redirect to login if not authenticated
+  // Not authenticated, redirect to login
   if (!isAuthenticated) {
     redirect('/');
   }
 
+  // No access to this wall, redirect to their wall list
+  if (!hasAccess) {
+    redirect('/wall');
+  }
+
+  // User has access, render wall content
   return (
     <main className="flex flex-1 flex-col gap-3 p-3 pt-1">
       <div className="grid grid-flow-dense grid-cols-6 grid-rows-4 gap-3 h-[900px] ">

@@ -43,13 +43,10 @@ export function NavUser() {
   const handleSignOut = async () => {
     try {
       await signOutAction();
-      // Add a small delay to ensure logout completes
-      setTimeout(() => {
-        router.replace('/');
-      }, 100);
+      router.refresh(); // Clear router cache
+      router.replace('/');
     } catch (error) {
       console.error('Logout error:', error);
-      // Force redirect on error
       router.replace('/');
     }
   };
