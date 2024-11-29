@@ -42,5 +42,5 @@ export default function WallPage() {
   }
 
   // Not authenticated, redirect to login
-  redirect('/login');
+  redirect('/');
 }

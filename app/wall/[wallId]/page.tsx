@@ -28,10 +28,11 @@ export default function WallIdPage({ params }: { params: Promise<{ wallId: strin
     );
   }
 
-  // No access to this wall
+  // Invalid wall ID or no access
   if (!hasAccess) {
-    redirect('/wall');
+    redirect('/wall'); // Redirect to wall list
   }
+
 
   // User has access, render wall content
   return (

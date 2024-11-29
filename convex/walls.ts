@@ -1,7 +1,8 @@
 import { Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server"
 import { v } from "convex/values"
-
+import { GenericId } from "convex/values";
+import { isValidConvexId } from "./utils";
 export const create = mutation({
   args: { title: v.string() },
   handler: async (ctx, args) => {
@@ -91,13 +92,49 @@ export const getUserWall = query({
 export const checkWallAccess = query({
   args: { wallId: v.string() },
   handler: async (ctx, args) => {
+    if (!isValidConvexId(args.wallId)) {
+      return false;
+    }
+
     const identity = await ctx.auth.getUserIdentity();
-    // Return false instead of throwing for unauthenticated users
     if (!identity) return false;
 
-    const wall = await ctx.db.get(args.wallId as Id<"walls">);
-    if (!wall) return false;
-    
-    return wall.userId === identity.subject;
+    try {
+      // Use ctx.db.normalizeId instead of Id.from
+      const wallId = ctx.db.normalizeId("walls", args.wallId);
+      if (!wallId) {
+        return false;
+      }
+      const wall = await ctx.db.get(wallId);
+      if (!wall) return false;
+      return wall.userId === identity.subject;
+    } catch {
+      return false;
+    }
   },
 });
+
+
+// export const archiveWall = mutation({
+//   args: { id: v.string() },
+//   handler: async (ctx, args) => {
+//     const identity = await ctx.auth.getUserIdentity();
+//     if (!identity) {
+//       throw new Error("Not authenticated");
+//     }
+
+//     const wall = await ctx.db.get(args.id as Id<"walls">);
+//     if (!wall) {
+//       throw new Error("Wall not found");
+//     }
+
+//     if (wall.userId !== identity.subject) {
+//       throw new Error("Not authorized");
+//     }
+
+//     await ctx.db.update("walls", wall.id, {
+//       isArchived: true,
+//       updatedAt: Date.now(),
+//     });
+//   },
+// });
