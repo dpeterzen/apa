@@ -51,37 +51,37 @@ const MOCK_TILES: Tile[] = [
     content: 'Large Video Content'
   }
 ];
+
+// xs (<640px): Full width (12 cols)
+// sm (≥640px): Various widths
+// md (≥768px): More columns
+// lg (≥1024px): Most columns
 const sizeClasses = {
   small: {
-    note: 'col-span-2 row-span-2',
-    video: 'col-span-2 row-span-1',
-    image: 'col-span-1 row-span-1'
+    note: 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 row-span-2',
+    video: 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 row-span-1',
+    image: 'col-span-12 sm:col-span-6 md:col-span-3 lg:col-span-2 row-span-1'
   },
   medium: {
-    note: 'col-span-3 row-span-3',
-    video: 'col-span-3 row-span-2',
-    image: 'col-span-2 row-span-2'
+    note: 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 row-span-3',
+    video: 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 row-span-2',
+    image: 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 row-span-2'
   },
   large: {
-    note: 'col-span-4 row-span-4',
-    video: 'col-span-4 row-span-2',
-    image: 'col-span-3 row-span-3'
+    note: 'col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-6 lg:row-span-7',
+    video: 'col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 sm:row-span-3 md:row-span-4 lg:row-span-4 2xl:row-span-5',
+    image: 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 row-span-3'
   }
 };
 
-const aspectClasses = {
-  note: 'aspect-[4/3]',
-  video: 'aspect-video',
-  image: 'aspect-square'
-};
+
 
 function ContentTile({ tile }: { tile: Tile }) {
   return (
     <div
       className={cn(
         'rounded-xl bg-muted/50',
-        sizeClasses[tile.size][tile.type],
-        aspectClasses[tile.type]
+        sizeClasses[tile.size][tile.type]
       )}
     >
       {tile.content}
