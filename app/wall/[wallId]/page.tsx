@@ -60,7 +60,8 @@ const sizeClasses = {
   small: {
     note: 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 row-span-2',
     video: 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 row-span-1',
-    image: 'col-span-12 sm:col-span-6 md:col-span-3 lg:col-span-2 row-span-1'
+    // image: 'col-span-12 sm:col-span-6 md:col-span-3 lg:col-span-2 row-span-1'
+    image: 'sm:col-span-5 md:col-span-4 lg:col-span-2 col-span-6 row-span-2 '
   },
   medium: {
     note: 'col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 row-span-3',
