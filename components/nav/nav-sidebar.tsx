@@ -3,12 +3,13 @@
 import * as React from "react";
 import {
   Search,
-  Square,
-  SquareDot,
+
   Image as ImageIcon,
   SquareChartGantt,
   ArrowRight,
 } from "lucide-react";
+import Square from "@/components/icons/square";
+import SquareDot from "@/components/icons/square-dot";
 import {
   Collapsible,
   CollapsibleContent,

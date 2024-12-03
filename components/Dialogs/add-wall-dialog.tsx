@@ -44,10 +44,10 @@ export function AddWallDialog({
             />
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button className="h-[37px] w-16" type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit">Add</Button>
+            <Button className="h-9 w-16" type="submit">Add</Button>
           </DialogFooter>
         </form>
       </DialogContent>

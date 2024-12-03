@@ -72,7 +72,7 @@ const WallTitle = () => {
 
   // Set document title dynamically *** 
   useEffect(() => {
-    document.title = `${title} - TidyRecall`;
+    document.title = `${title} - TileRecall`;
   }, [title]);
 
   return (

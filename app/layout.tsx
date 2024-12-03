@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "TidyRecall",
+  title: "TileRecall",
   description: "An Open Source AI-Powered Productivity Tool",
   icons: {
     icon: [

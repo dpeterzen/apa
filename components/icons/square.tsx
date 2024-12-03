@@ -12,7 +12,7 @@ export default function Square({ className }: { className?: string }) {
       strokeLinejoin="round"
       className={className}
     >
-      <rect width="18" height="18" x="3" y="3" rx="3" ry="3" />
+      <rect width="18" height="18" x="3" y="3" rx="4" ry="4" />
     </svg>
   );
 }

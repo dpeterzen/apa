@@ -1,4 +1,4 @@
-export default function PanelLeft({ className }: { className?: string }) {
+export default function SquareDot({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,8 +12,8 @@ export default function PanelLeft({ className }: { className?: string }) {
       strokeLinejoin="round"
       className={className}
     >
-      <rect width="18" height="18" x="3" y="3"  rx="4" ry="4" />
-      <path d="M9 3v18" />
+      <rect width="18" height="18" x="3" y="3" rx="4" ry="4" />
+      <circle cx="12" cy="12" r="1" />
     </svg>
   );
 }

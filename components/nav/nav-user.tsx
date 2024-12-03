@@ -71,7 +71,7 @@ export function NavUser() {
               <ChevronDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full min-w-[278px] md:min-w-[246px] rounded-2xl drop-shadow-lg">
+          <DropdownMenuContent className="w-full min-w-[288px] md:min-w-[256px] rounded-2xl drop-shadow-lg">
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-xs leading-none text-muted-foreground mb-2">
