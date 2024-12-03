@@ -132,7 +132,7 @@ export default function WallIdPage({
         ))}
         <div className="sm:col-span-4 md:col-span-5 lg:col-span-3 2xl:col-span-2 col-span-6 row-span-2 rounded-md border-2 border-dashed h-full text-sm ">
           <div className="flex h-full items-center justify-center">
-            <span>Add Tile</span>
+            <span>Shortcut Tile</span>
           </div>
         </div>
       </div>
