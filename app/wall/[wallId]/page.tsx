@@ -125,12 +125,12 @@ export default function WallIdPage({
 
   // User has access, render wall content
   return (
-    <main className="flex flex-1 flex-col gap-3 p-3 pt-1">
-      <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
+    <main className="flex flex-1 flex-col gap-2 p-2 pt-0">
+      <div className="grid grid-cols-12 auto-rows-[100px] gap-2">
         {tiles.map((tile) => (
           <ContentTile key={tile.id} tile={tile} />
         ))}
-        <div className="sm:col-span-4 md:col-span-5 lg:col-span-3 2xl:col-span-2 col-span-6 row-span-2 rounded-md border-2 border-dashed h-full text-sm ">
+        <div className="sm:col-span-4 md:col-span-5 lg:col-span-3 2xl:col-span-2 col-span-6 row-span-2 rounded-xl border-2 border-dashed h-full text-sm ">
           <div className="flex h-full items-center justify-center">
             <span>Shortcut Tile</span>
           </div>

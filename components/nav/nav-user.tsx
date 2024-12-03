@@ -145,7 +145,7 @@ export function NavUser() {
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Language</span>
                   <Select defaultValue="en">
-                    <SelectTrigger className="w-[100px]">
+                    <SelectTrigger className="w-[100px] h-8">
                       <SelectValue placeholder="Select language" />
                     </SelectTrigger>
                     <SelectContent>

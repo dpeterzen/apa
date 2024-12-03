@@ -18,6 +18,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import Square from "../icons/square";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -269,6 +270,7 @@ const SidebarTrigger = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
   const { toggleSidebar } = useSidebar()
+  const [isHovered, setIsHovered] = React.useState(false)
 
   return (
     <Button
@@ -281,9 +283,18 @@ const SidebarTrigger = React.forwardRef<
         onClick?.(event)
         toggleSidebar()
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       {...props}
     >
-      <PanelLeft />
+      <div className="relative">
+        <div className={`transition-opacity duration-200 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
+          <Square />
+        </div>
+        <div className={`absolute inset-0 transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+          <PanelLeft />
+        </div>
+      </div>
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )
