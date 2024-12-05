@@ -77,47 +77,51 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
         <SidebarGroup>
           <SidebarGroupLabel>My Walls</SidebarGroupLabel>
-          <SidebarMenu>
-  {walls?.map((wall) => {
-    const isCurrentWall = wall._id === currentWallId;
-    return (
-      <Collapsible
-        key={wall._id}
-        asChild
-        defaultOpen={false}
-        className="group/collapsible"
-      >
-        <SidebarMenuItem className="group/menuitem hover:bg-accent rounded-md">
-          <CollapsibleTrigger asChild>
-            <SidebarMenuButton
-              className={`px-2 ${
-                isCurrentWall
-                  ? "bg-zinc-300/80 hover:bg-zinc-300/80 dark:!bg-zinc-950/80 dark:hover:bg-zinc-950/80"
-                  : "group-hover/menuitem:bg-transparent"
-              }`}
-              tooltip={wall.title}
-            >
-              <Square className="group-data-[state=open]/collapsible:hidden" />
-              <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
-              <span className={`${isCurrentWall ? "text-blue-500 dark:text-blue-400" : ""}`}>
-                {wall.title}
-              </span>
-            </SidebarMenuButton>
-          </CollapsibleTrigger>
-          {!isCurrentWall && (
-            <SidebarMenuAction
-              className="opacity-0 group-hover/menuitem:opacity-100 [&>svg]:size-5"
-              onClick={() => handleRedirect(wall._id)}
-            >
-              <ArrowRight />
-              <span className="sr-only">Toggle</span>
-            </SidebarMenuAction>
-          )}
-        </SidebarMenuItem>
-      </Collapsible>
-    );
-  })}
-</SidebarMenu>
+          <SidebarMenu className=" gap-0">
+            {walls?.map((wall) => {
+              const isCurrentWall = wall._id === currentWallId;
+              return (
+                <Collapsible
+                  key={wall._id}
+                  asChild
+                  defaultOpen={false}
+                  className="group/collapsible"
+                >
+                  <SidebarMenuItem
+                    className={`group/menuitem ${isCurrentWall
+                        ? ""
+                        : "hover:bg-accent"
+                      } rounded-md`}
+                  >
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuButton
+                        className={`px-2 ${isCurrentWall
+                          ? "bg-blue-300/30 hover:bg-blue-300/30 dark:!bg-zinc-950/80 dark:hover:bg-zinc-950/80"
+                          : "group-hover/menuitem:bg-transparent"
+                          }`}
+                        tooltip={wall.title}
+                      >
+                        <Square className="group-data-[state=open]/collapsible:hidden" />
+                        <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
+                        <span className={`${isCurrentWall ? "text-blue-500 dark:text-blue-400" : ""}`}>
+                          {wall.title}
+                        </span>
+                      </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                    {!isCurrentWall && (
+                      <SidebarMenuAction
+                        className="opacity-0 group-hover/menuitem:opacity-100 [&>svg]:size-5"
+                        onClick={() => handleRedirect(wall._id)}
+                      >
+                        <ArrowRight />
+                        <span className="sr-only">Toggle</span>
+                      </SidebarMenuAction>
+                    )}
+                  </SidebarMenuItem>
+                </Collapsible>
+              );
+            })}
+          </SidebarMenu>
 
           {/* <SidebarMenu>
 
