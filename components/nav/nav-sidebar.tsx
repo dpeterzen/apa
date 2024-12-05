@@ -38,10 +38,17 @@ import { NavTitle } from "./nav-title";
 import { AddWallDialog } from "../Dialogs/add-wall-dialog";
 import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const walls = useQuery(api.walls.getUserWalls)
+  const router = useRouter();
+
+  const handleRedirect = (wallId: string) => {
+    router.push(`/wall/${wallId}`);
+  };
+
   return (
     <Sidebar {...props}>
       <SidebarHeader className="pb-1 pt-[6px]">
@@ -70,25 +77,33 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             My Walls
           </SidebarGroupLabel>
           <SidebarMenu>
-          {walls?.map((wall) => (
-            <Collapsible
-              key={wall._id}
-              asChild
-              defaultOpen={false}
-              className="group/collapsible"
-            >
-              <SidebarMenuItem>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton className="px-2" tooltip={wall.title}>
-                    <Square className="group-data-[state=open]/collapsible:hidden" />
-                    <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
-                    {wall.title}
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-              </SidebarMenuItem>
-            </Collapsible>
-          ))}
-        </SidebarMenu>
+            {walls?.map((wall) => (
+              <Collapsible
+                key={wall._id}
+                asChild
+                defaultOpen={false}
+                className="group/collapsible"
+              >
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton className="px-2" tooltip={wall.title}>
+                      <Square className="group-data-[state=open]/collapsible:hidden" />
+                      <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
+                      {wall.title}
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <SidebarMenuAction
+                    className="opacity-0 group-hover/menu-item:opacity-100 [&>svg]:size-5"
+                    onClick={() => handleRedirect(wall._id)}
+                  >
+                    <ArrowRight />
+                    <span className="sr-only">Toggle</span>
+                  </SidebarMenuAction>
+                </SidebarMenuItem>
+              </Collapsible>
+            ))}
+          </SidebarMenu>
+
           {/* <SidebarMenu>
 
             <Collapsible
@@ -167,13 +182,13 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-          <Button 
-            className="w-full rounded-lg mb-1 px-4 py-2 font-bold text-[15px] dark:bg-zinc-900 dark:hover:bg-zinc-800" 
-            variant={"outline"}
-            onClick={() => setDialogOpen(true)}
-          >
-            New Wall
-          </Button>
+            <Button
+              className="w-full rounded-lg mb-1 px-4 py-2 font-bold text-[15px] dark:bg-zinc-900 dark:hover:bg-zinc-800"
+              variant={"outline"}
+              onClick={() => setDialogOpen(true)}
+            >
+              New Wall
+            </Button>
           </SidebarMenuItem>
           <AddWallDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </SidebarMenu>
@@ -182,6 +197,6 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-    
+
   );
 }
