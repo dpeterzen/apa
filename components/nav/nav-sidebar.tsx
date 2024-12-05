@@ -38,16 +38,20 @@ import { NavTitle } from "./nav-title";
 import { AddWallDialog } from "../Dialogs/add-wall-dialog";
 import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const walls = useQuery(api.walls.getUserWalls)
   const router = useRouter();
 
+  const pathname = usePathname();
+
   const handleRedirect = (wallId: string) => {
     router.push(`/wall/${wallId}`);
   };
+
+  const currentWallId = pathname.split("/").pop();
 
   return (
     <Sidebar {...props}>
@@ -59,7 +63,6 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup className="pt-0">
           <SidebarGroupContent>
             <SidebarMenu>
-
               <SidebarMenuItem>
                 <SidebarMenuButton>
                   <span className="flex items-center">
@@ -73,36 +76,48 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>
-            My Walls
-          </SidebarGroupLabel>
+          <SidebarGroupLabel>My Walls</SidebarGroupLabel>
           <SidebarMenu>
-            {walls?.map((wall) => (
-              <Collapsible
-                key={wall._id}
-                asChild
-                defaultOpen={false}
-                className="group/collapsible"
-              >
-                <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton className="px-2" tooltip={wall.title}>
-                      <Square className="group-data-[state=open]/collapsible:hidden" />
-                      <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
-                      {wall.title}
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
-                  <SidebarMenuAction
-                    className="opacity-0 group-hover/menu-item:opacity-100 [&>svg]:size-5"
-                    onClick={() => handleRedirect(wall._id)}
-                  >
-                    <ArrowRight />
-                    <span className="sr-only">Toggle</span>
-                  </SidebarMenuAction>
-                </SidebarMenuItem>
-              </Collapsible>
-            ))}
-          </SidebarMenu>
+  {walls?.map((wall) => {
+    const isCurrentWall = wall._id === currentWallId;
+    return (
+      <Collapsible
+        key={wall._id}
+        asChild
+        defaultOpen={false}
+        className="group/collapsible"
+      >
+        <SidebarMenuItem className="group/menuitem hover:bg-accent rounded-md">
+          <CollapsibleTrigger asChild>
+            <SidebarMenuButton
+              className={`px-2 ${
+                isCurrentWall
+                  ? "bg-zinc-300/80 hover:bg-zinc-300/80 dark:!bg-zinc-950/80 dark:hover:bg-zinc-950/80"
+                  : "group-hover/menuitem:bg-transparent"
+              }`}
+              tooltip={wall.title}
+            >
+              <Square className="group-data-[state=open]/collapsible:hidden" />
+              <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
+              <span className={`${isCurrentWall ? "text-blue-500 dark:text-blue-400" : ""}`}>
+                {wall.title}
+              </span>
+            </SidebarMenuButton>
+          </CollapsibleTrigger>
+          {!isCurrentWall && (
+            <SidebarMenuAction
+              className="opacity-0 group-hover/menuitem:opacity-100 [&>svg]:size-5"
+              onClick={() => handleRedirect(wall._id)}
+            >
+              <ArrowRight />
+              <span className="sr-only">Toggle</span>
+            </SidebarMenuAction>
+          )}
+        </SidebarMenuItem>
+      </Collapsible>
+    );
+  })}
+</SidebarMenu>
 
           {/* <SidebarMenu>
 
