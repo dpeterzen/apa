@@ -31,7 +31,7 @@ export const create = mutation({
     // Get user document via email
     const user = await ctx.db
     .query("users")
-    .filter(q => q.eq(q.field("email"), "dmpeterson317@gmail.com"))
+    .filter(q => q.eq(q.field("_id"), identity.subject))
     .first();
 
     if (!user) {
@@ -63,15 +63,11 @@ export const create = mutation({
     // Handle specific tile types
     switch (args.type) {
       case "note":
-        // Validate note-specific fields
-        if (!args.title) {
-          throw new Error("Title is required for note tiles");
-        }
 
         // Create note tile
         const noteTile = await ctx.db.insert("noteTiles", {
           tileId: baseTile,
-          title: args.title,
+          title: args.title || "",
           content: args.content || "",
         });
 
