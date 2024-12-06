@@ -1,8 +1,8 @@
 import { Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server"
 import { v } from "convex/values"
-import { GenericId } from "convex/values";
 import { isValidConvexId } from "./utils";
+
 export const create = mutation({
   args: { title: v.string() },
   handler: async (ctx, args) => {
@@ -24,6 +24,26 @@ export const create = mutation({
   }
 });
 
+export const list = query({
+  async handler(ctx) {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+    
+    const userId = identity.subject;
+
+    const walls = await ctx.db
+      .query("walls")
+      .filter(q => q.eq(q.field("userId"), userId))
+      .order("desc")
+      .collect()
+      .then(walls => walls.sort((a, b) => b.updatedAt - a.updatedAt));
+
+    return walls;
+  },
+});
+
 export const getUserWalls = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -38,7 +58,6 @@ export const getUserWalls = query({
       .filter((q) => q.eq(q.field("isArchived"), false))
       .order("desc")
       .collect()
-    console.log("walls: ", walls);
     return walls;
   }
 })

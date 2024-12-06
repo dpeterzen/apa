@@ -9,12 +9,19 @@ import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
 export function NavHeader() {
   const { state, isMobile } = useSidebar();
   const pathname = usePathname();
-  const currentWallId = pathname.split("/").pop() || "";
-  const currentWall = useQuery(api.walls.getUserWall, { id: currentWallId });
+  const pathWallId = pathname.split("/").pop() || "";
+  
+  // Only query if the ID looks valid
+  const isValidId = pathWallId.length > 10; // Convex IDs are longer than this
+  const currentWall = useQuery(
+    api.walls.getUserWall, 
+    isValidId ? { id: pathWallId as Id<"walls"> } : "skip"
+  );
 
   return (
     <header className="sticky top-0 z-50 bg-background flex h-14 shrink-0 items-center pl-2 pr-[10px]">
