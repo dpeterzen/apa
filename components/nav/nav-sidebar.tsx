@@ -110,7 +110,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </CollapsibleTrigger>
                     {!isCurrentWall && (
                       <SidebarMenuAction
-                        className="opacity-0 group-hover/menuitem:opacity-100 [&>svg]:size-5"
+                        className="opacity-0 group-hover/menuitem:opacity-100 [&>svg]:size-[18px] !top-[7px]"
                         onClick={() => handleRedirect(wall._id)}
                       >
                         <ArrowRight />

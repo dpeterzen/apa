@@ -80,7 +80,9 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
     isArchived: v.boolean(),
-    isPublic: v.optional(v.boolean()) // For future sharing capabilities
+    isPublic: v.optional(v.boolean()),
+    tileCount: v.optional(v.number()), // Track total tiles
+    maxTiles: v.optional(v.number()) // Optional limit per wall
   })
   .index("byUser", ["userId"])
   .index("byUserAndUpdated", ["userId", "updatedAt"])

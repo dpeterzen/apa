@@ -17,7 +17,8 @@ export const create = mutation({
       title: args.title,
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      isArchived: false
+      isArchived: false,
+      tileCount: 0,
     })
 
     return wall;

@@ -28,7 +28,7 @@ export const create = mutation({
     }
     // Debug log
     console.log("Auth identity:", identity);
-    // Get user document via email
+    // Get user document via subject id
     const user = await ctx.db
     .query("users")
     .filter(q => q.eq(q.field("_id"), identity.subject))
@@ -43,9 +43,14 @@ export const create = mutation({
     if (!wall) {
       throw new Error("Wall not found");
     }
-    
+
     if (wall.userId !== user._id) {
       throw new Error("Not authorized to add tiles to this wall");
+    }
+
+    // Check tile limit if set
+    if (wall.maxTiles && (wall.tileCount ?? 0) >= wall.maxTiles) {
+      throw new Error("Wall tile limit reached");
     }
 
     // Create base tile with correct user ID
@@ -53,11 +58,15 @@ export const create = mutation({
       userId: user._id,
       wallId: args.wallId,
       type: args.type as TileType,
-      // size: args.size as TileSize,
       position: args.position,
       createdAt: Date.now(),
       updatedAt: Date.now(),
       isArchived: false
+    });
+
+    // Increment wall tile count
+    await ctx.db.patch(args.wallId, {
+      tileCount: (wall.tileCount ?? 0) + 1 // tileCount currently optional, can make required
     });
 
     // Handle specific tile types
@@ -90,24 +99,7 @@ export const getWallTiles = query({
       .query("baseTiles")
       .filter((q) => q.eq(q.field("wallId"), args.wallId))
       .collect();
-      console.log("Base tiles found:", baseTiles);
-
-    const tiles = await Promise.all(
-      baseTiles.map(async (baseTile) => {
-        switch (baseTile.type) {
-          case "note":
-            const noteContent = await ctx.db
-              .query("noteTiles")
-              .filter((q) => q.eq(q.field("tileId"), baseTile._id))
-              .unique();
-            return { ...baseTile, ...noteContent };
-          default:
-            return baseTile;
-        }
-      })
-    );
-
-    console.log("tiles found:", tiles);
-    return tiles;
-  },
+    
+    return baseTiles;
+  }
 });
