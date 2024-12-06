@@ -36,7 +36,7 @@ import { NavUser } from "./nav-user";
 import { Button } from "../ui/button";
 import { NavTitle } from "./nav-title";
 import { AddWallDialog } from "../Dialogs/add-wall-dialog";
-import { useQuery } from "convex/react"
+import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter, usePathname } from "next/navigation";
 

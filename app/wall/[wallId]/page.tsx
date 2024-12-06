@@ -96,7 +96,7 @@ export default function WallIdPage({
   const resolvedParams = React.use(params);
   const { isAuthenticated, isLoading } = useConvexAuth();
 
-  const [tiles, setTiles] = React.useState<Tile[]>(MOCK_TILES);
+  // const [tiles, setTiles] = React.useState<Tile[]>(MOCK_TILES);
 
   // Not authenticated, redirect immediately
   if (!isLoading && !isAuthenticated) {
@@ -109,6 +109,10 @@ export default function WallIdPage({
     isAuthenticated ? { wallId: resolvedParams.wallId } : "skip"
   );
 
+  // User has access, render wall content
+  const tiles = useQuery(api.tiles.getWallTiles, { wallId: resolvedParams.wallId });
+  // console.log("resolvedParams", resolvedParams.wallId);
+  console.log(tiles);
   // Show loading state
   if (isLoading || (isAuthenticated && hasAccess === undefined)) {
     return (
@@ -123,10 +127,20 @@ export default function WallIdPage({
     redirect("/wall"); // Redirect to wall list
   }
 
-  // User has access, render wall content
+
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pt-0">
-      <div className="grid grid-cols-12 auto-rows-[100px] gap-2">
+    {tiles?.map((tile) => (
+      <div key={tile._id} className="p-4 border-b last:border-b-0">
+        <div className="font-medium text-white">
+          {tile.type === 'note' && tile.title}
+        </div>
+        <div className="text-sm text-muted-foreground">
+          Created: {new Date(tile.createdAt).toLocaleDateString()}
+        </div>
+      </div>
+    ))}
+      {/* <div className="grid grid-cols-12 auto-rows-[100px] gap-2">
         {tiles.map((tile) => (
           <ContentTile key={tile.id} tile={tile} />
         ))}
@@ -135,7 +149,7 @@ export default function WallIdPage({
             <span>Shortcut Tile</span>
           </div>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }

@@ -84,24 +84,30 @@ export const create = mutation({
 
 
 export const getWallTiles = query({
-  args: { wallId: v.id("walls") },
+  args: { wallId: v.string() },
   async handler(ctx, args) {
     const baseTiles = await ctx.db
       .query("baseTiles")
       .filter((q) => q.eq(q.field("wallId"), args.wallId))
-      .filter((q) => q.eq(q.field("type"), "note"))
       .collect();
+      console.log("Base tiles found:", baseTiles);
 
-    const noteTiles = await Promise.all(
+    const tiles = await Promise.all(
       baseTiles.map(async (baseTile) => {
-        const noteContent = await ctx.db
-          .query("noteTiles")
-          .filter((q) => q.eq(q.field("tileId"), baseTile._id))
-          .unique();
-        return { ...baseTile, ...noteContent };
+        switch (baseTile.type) {
+          case "note":
+            const noteContent = await ctx.db
+              .query("noteTiles")
+              .filter((q) => q.eq(q.field("tileId"), baseTile._id))
+              .unique();
+            return { ...baseTile, ...noteContent };
+          default:
+            return baseTile;
+        }
       })
     );
 
-    return noteTiles;
+    console.log("tiles found:", tiles);
+    return tiles;
   },
 });
