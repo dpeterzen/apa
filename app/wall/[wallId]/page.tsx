@@ -32,7 +32,7 @@ export default function WallIdPage({
   if (isLoading || (isAuthenticated && hasAccess === undefined)) {
     return (
       <main className="flex flex-1 flex-col items-center justify-center">
-        <h1>Loading...</h1>
+        <h1>One moment please...</h1>
       </main>
     );
   }

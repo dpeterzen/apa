@@ -80,3 +80,19 @@ function ContentTile({ tile }: { tile: Tile }) {
     </div>
   );
 }
+
+{
+  /* <main className="flex flex-1 flex-col gap-3 p-3 pt-1">
+<div className="grid grid-flow-dense grid-cols-6 grid-rows-4 gap-3 h-[900px] ">
+  <div className="row-span-3 col-span-6 sm:col-span-3 rounded-xl bg-muted/50">
+    Default Large Note Tile
+  </div>
+  <div className="aspect-video col-span-6 sm:col-span-3 rounded-xl bg-muted/50">
+    Default Large Video Tile
+  </div>
+  <div className="aspect-square col-span-1 rounded-xl bg-muted/50">
+    Default Large Video Tile
+  </div>
+</div>
+</main> */
+}
