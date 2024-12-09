@@ -42,7 +42,6 @@ export default function WallIdPage({
     redirect("/wall"); // Redirect to wall list
   }
 
-
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pt-0">
       {tiles?.map((tile) => (
