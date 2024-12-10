@@ -46,7 +46,7 @@ export function NavTitle() {
             <LayoutDashboardIcon className={`size-7`} />
           </div>
           <h1 className="font-semibold text-[16px]">TileRecall</h1>
-          <div className={`ml-auto transition-opacity duration-200 text-muted-foreground ${!isHovered ? 'opacity-0' : 'opacity-100'}`}>
+          <div className={`ml-auto mr-1 transition-opacity italic duration-200 text-muted-foreground ${!isHovered ? 'opacity-0' : 'opacity-100'}`}>
             close
           </div>
           <div className="[&_svg]:size-5">
