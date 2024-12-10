@@ -44,22 +44,14 @@ export default function WallIdPage({
 
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pt-0">
-      {tiles?.map((tile) => (
-        <div key={tile._id} className="p-4 border-b last:border-b-0">
-          <div className="font-medium text-white">
-            Wall ID: {tile.wallId}
-          </div>
-          <div className="text-sm text-muted-foreground">
-            User ID: {tile.userId}
-          </div>
-          <div className="text-sm text-muted-foreground">
-            Type: {tile.type}
-          </div>
-          <div className="text-sm text-muted-foreground">
-            Created: {new Date(tile.createdAt).toLocaleDateString()}
+      <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
+
+        <div className="sm:col-span-4 md:col-span-5 lg:col-span-3 2xl:col-span-2 col-span-6 row-span-2 rounded-md border-2 border-dashed h-full text-sm ">
+          <div className="flex h-full items-center justify-center">
+            <span>Add Tile</span>
           </div>
         </div>
-      ))}
+      </div>
     </main>
   );
 }

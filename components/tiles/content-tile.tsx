@@ -68,7 +68,7 @@ const sizeClasses = {
   },
 };
 
-function ContentTile({ tile }: { tile: Tile }) {
+export default function ContentTile({ tile }: { tile: Tile }) {
   return (
     <div
       className={cn(
@@ -81,7 +81,7 @@ function ContentTile({ tile }: { tile: Tile }) {
   );
 }
 
-{
+{ // v1
   /* <main className="flex flex-1 flex-col gap-3 p-3 pt-1">
 <div className="grid grid-flow-dense grid-cols-6 grid-rows-4 gap-3 h-[900px] ">
   <div className="row-span-3 col-span-6 sm:col-span-3 rounded-xl bg-muted/50">
@@ -96,3 +96,23 @@ function ContentTile({ tile }: { tile: Tile }) {
 </div>
 </main> */
 }
+
+{ // v2
+  /* <main className="flex flex-1 flex-col gap-2 p-2 pt-0">
+{tiles?.map((tile) => (
+  <div key={tile._id} className="p-4 border-b last:border-b-0">
+    <div className="font-medium text-white">
+      Wall ID: {tile.wallId}
+    </div>
+    <div className="text-sm text-muted-foreground">
+      User ID: {tile.userId}
+    </div>
+    <div className="text-sm text-muted-foreground">
+      Type: {tile.type}
+    </div>
+    <div className="text-sm text-muted-foreground">
+      Created: {new Date(tile.createdAt).toLocaleDateString()}
+    </div>
+  </div>
+))}
+</main> */}
