@@ -34,8 +34,7 @@ export function NavTitle() {
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton
-          size={"lg"}
-          className="group gap-1"
+          className="group gap-1 py-0"
           onClick={() => {
             toggleSidebar()
           }}
@@ -54,7 +53,7 @@ export function NavTitle() {
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>
-      <SidebarMenuItem className="mt-[6px]">
+      <SidebarMenuItem className="mt-[7px]">
         <TileCreationDialog onCreateTile={handleCreateTile} />
       </SidebarMenuItem>
     </SidebarMenu>

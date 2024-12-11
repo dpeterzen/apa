@@ -24,14 +24,14 @@ export function NavHeader() {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-background flex h-14 shrink-0 items-center pl-2 pr-[10px]">
+    <header className="sticky top-0 z-50 bg-background flex h-[48px] shrink-0 items-center pl-2 pr-[10px]">
       {(state === "collapsed" || isMobile) &&
         <>
           <SidebarTrigger className="-ml-0 mr-[2px]" />
         </>
       }
       <div className="flex-1 flex">
-        <Button variant="ghost" size="sm" className="font-semibold">
+        <Button variant="ghost" size="sm" className="font-semibold h-[25px]">
           {currentWall?.title}
         </Button>
       </div>
