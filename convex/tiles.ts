@@ -58,6 +58,7 @@ export const create = mutation({
       userId: user._id,
       wallId: args.wallId,
       type: args.type as TileType,
+      size: args.size as TileSize, 
       position: args.position,
       createdAt: Date.now(),
       updatedAt: Date.now(),

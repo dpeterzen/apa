@@ -8,6 +8,7 @@ import { SquarePlusIcon } from "@/components/icons/square-plus"
 import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
+
 type TileType = "note"
 
 interface TileCreationDialogProps {
