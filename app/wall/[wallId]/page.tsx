@@ -4,8 +4,10 @@ import { api } from "@/convex/_generated/api";
 import { redirect } from "next/navigation";
 import { useConvexAuth } from "convex/react";
 import React from "react";
-import { Plus } from "lucide-react";
+import { AddTilePlus } from "@/components/icons/add-tile-plus";
+import { AddTileSquarePlus } from "@/components/icons/add-tile-square-plus";
 import ContentTile from "@/components/tiles/content-tile";
+import { Button } from "@/components/ui/button";
 
 type TileSize = "small" | "medium" | "large";
 type TileType = "note" | "video" | "image";
@@ -56,9 +58,9 @@ export default function WallIdPage({
   }
 
   return (
-    <main className="flex flex-1 flex-col gap-2 p-2 pt-0">
+    <main className="flex flex-1 flex-col gap-2 p-2 pt-0 pb-[84px]">
       <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
-      {tiles?.map((baseTile) => (
+        {tiles?.map((baseTile) => (
           <ContentTile
             key={baseTile._id}
             tile={{
@@ -74,12 +76,12 @@ export default function WallIdPage({
             }}
           />
         ))}
-        <div className="sm:col-span-4 md:col-span-5 lg:col-span-3 2xl:col-span-2 col-span-6 row-span-2 rounded-md border-2 border-dashed border-zinc-500 h-full text-sm">
-            <div className="flex h-full items-center justify-center">
-            <Plus strokeWidth={2} size={22} className="text-blue-500 mr-2 -ml-2" /><span className="text-muted-foreground">Add tile</span>
-            </div>
-        </div>
       </div>
+      <Button className="pl-[6px] group justify-start hover:bg-transparent border-t-[1px] border-transparent hover:border-inherit transition-[border-color] duration-200 ease-in-out rounded-none -mt-[7px] [&_svg]:size-[21px]" variant="ghost">
+        <AddTilePlus className="mb-[5px] mr-[7px] ml-[-1px] group-hover:hidden" />
+        <AddTileSquarePlus className="mb-[5px] mr-[6px] hidden group-hover:block" />
+        <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600">Add tile</span>
+      </Button>
     </main>
   );
 }
