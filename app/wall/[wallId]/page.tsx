@@ -8,7 +8,8 @@ import { AddTilePlus } from "@/components/icons/add-tile-plus";
 import { AddTileSquarePlus } from "@/components/icons/add-tile-square-plus";
 import ContentTile from "@/components/tiles/content-tile";
 import { Button } from "@/components/ui/button";
-
+import { useMutation } from "convex/react";
+import { Id } from "@/convex/_generated/dataModel"
 type TileSize = "small" | "medium" | "large";
 type TileType = "note" | "video" | "image";
 
@@ -19,6 +20,9 @@ interface Tile {
   content: string;
 }
 
+export function toWallId(id: string): Id<"walls"> {
+  return id as unknown as Id<"walls">;
+}
 
 export default function WallIdPage({
   params,
@@ -27,6 +31,8 @@ export default function WallIdPage({
 }) {
   const resolvedParams = React.use(params);
   const { isAuthenticated, isLoading } = useConvexAuth();
+  const createTile = useMutation(api.tiles.create)
+
 
   // Not authenticated, redirect immediately
   if (!isLoading && !isAuthenticated) {
@@ -57,6 +63,16 @@ export default function WallIdPage({
     redirect("/wall"); // Redirect to wall list
   }
 
+  const handleCreateTile = async (wallId: Id<"walls">) => {
+    await createTile({
+      wallId,
+      type: "note",
+      size: "medium", // Default size
+      position: { x: 0, y: 0 }, // Default position
+      title: "", // Default title
+    });
+  };
+
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 h-screen">
       <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
@@ -77,7 +93,11 @@ export default function WallIdPage({
           />
         ))}
       </div>
-      <Button className=" pb-[84px] pl-[6px] flex-grow group justify-start items-start hover:bg-transparent border-t-[1px] border-transparent hover:border-inherit transition-[border-color] duration-200 ease-out rounded-none -mt-[7px] [&_svg]:size-[20px]" variant="ghost">
+      <Button
+        className="pb-[84px] pl-[6px] flex-grow group justify-start items-start hover:bg-transparent border-t-[1px] border-transparent hover:border-inherit transition-[border-color] duration-200 ease-out rounded-none  [&_svg]:size-[20px]"
+        variant="ghost"
+        onClick={() => handleCreateTile(toWallId(resolvedParams.wallId))}
+      >
         <AddTilePlus className="mb-[4px] mr-[5px] ml-[-2px] group-hover:hidden" />
         <AddTileSquarePlus className="mb-[4px] mr-[4px] ml-[-1px] hidden group-hover:block" />
         <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600">Add tile</span>
