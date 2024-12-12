@@ -58,7 +58,7 @@ export default function WallIdPage({
   }
 
   return (
-    <main className="flex flex-1 flex-col gap-2 p-2 pb-[84px]">
+    <main className="flex flex-1 flex-col gap-2 p-2 h-screen">
       <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
         {tiles?.map((baseTile) => (
           <ContentTile
@@ -77,7 +77,7 @@ export default function WallIdPage({
           />
         ))}
       </div>
-      <Button className="pl-[6px] group justify-start hover:bg-transparent border-t-[1px] border-transparent hover:border-inherit transition-[border-color] duration-200 ease-out rounded-none -mt-[7px] [&_svg]:size-[20px]" variant="ghost">
+      <Button className=" pb-[84px] pl-[6px] flex-grow group justify-start items-start hover:bg-transparent border-t-[1px] border-transparent hover:border-inherit transition-[border-color] duration-200 ease-out rounded-none -mt-[7px] [&_svg]:size-[20px]" variant="ghost">
         <AddTilePlus className="mb-[4px] mr-[5px] ml-[-2px] group-hover:hidden" />
         <AddTileSquarePlus className="mb-[4px] mr-[4px] ml-[-1px] hidden group-hover:block" />
         <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600">Add tile</span>
