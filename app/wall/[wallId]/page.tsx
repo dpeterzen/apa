@@ -74,7 +74,7 @@ export default function WallIdPage({
   };
 
   return (
-    <main className="flex flex-1 flex-col gap-2 p-2 h-screen">
+    <main className="flex flex-1 flex-col gap-2 p-2 pb-[84px]">
       <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
         {tiles?.map((baseTile) => (
           <ContentTile
@@ -94,7 +94,7 @@ export default function WallIdPage({
         ))}
       </div>
       <Button
-        className="pb-[84px] pl-[6px] flex-grow group justify-start items-start hover:bg-transparent border-t-[1px] border-transparent hover:border-inherit transition-[border-color] duration-200 ease-out rounded-none  [&_svg]:size-[20px]"
+        className="pl-[6px] group justify-start items-start hover:bg-transparent border-t-[1px] border-transparent hover:border-inherit transition-[border-color] duration-200 ease-out rounded-none  [&_svg]:size-[20px]"
         variant="ghost"
         onClick={() => handleCreateTile(toWallId(resolvedParams.wallId))}
       >
