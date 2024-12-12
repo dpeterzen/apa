@@ -94,14 +94,18 @@ export default function WallIdPage({
         ))}
       </div>
       <Button
-        className="pl-[6px] group justify-start items-start hover:bg-transparent border-t-[1px] border-transparent hover:border-inherit transition-[border-color] duration-200 ease-out rounded-none  [&_svg]:size-[20px]"
-        variant="ghost"
-        onClick={() => handleCreateTile(toWallId(resolvedParams.wallId))}
-      >
-        <AddTilePlus className="mb-[4px] mr-[5px] ml-[-2px] group-hover:hidden" />
-        <AddTileSquarePlus className="mb-[4px] mr-[4px] ml-[-1px] hidden group-hover:block" />
-        <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600">Add tile</span>
-      </Button>
+  className="pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
+  variant="ghost"
+  onClick={() => handleCreateTile(toWallId(resolvedParams.wallId))}
+>
+  <span className="flex items-center">
+    <span className="relative flex items-center justify-center mb-[3px] mr-[3px]">
+      <AddTilePlus className="group-hover:hidden" />
+      <AddTileSquarePlus className="hidden group-hover:block" />
+    </span>
+    <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600 ml-2">Add tile</span>
+  </span>
+</Button>
     </main>
   );
 }
