@@ -76,22 +76,21 @@ export default function WallIdPage({
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pb-[84px]">
       <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
-        {tiles?.map((baseTile) => (
-          <ContentTile
-            key={baseTile._id}
-            tile={{
-              id: baseTile._id,
-              type: baseTile.type as TileType,
-              size: baseTile.size as TileSize,
-              content: `
-                Wall ID: ${baseTile.wallId}
-                User ID: ${baseTile.userId}
-                Type: ${baseTile.type}
-                Created: ${new Date(baseTile.createdAt).toLocaleDateString()}
-              `
-            }}
-          />
-        ))}
+      {tiles?.map((baseTile) => (
+        <ContentTile
+          key={baseTile._id}
+          tile={{
+            id: baseTile._id,
+            type: baseTile.type as TileType,
+            size: baseTile.size as TileSize,
+            content: baseTile.type === "note" ? "" : `
+              Wall ID: ${baseTile.wallId}
+              User ID: ${baseTile.userId}
+              Created: ${new Date(baseTile.createdAt).toLocaleDateString()}
+            `
+          }}
+        />
+      ))}
       </div>
       <Button
         className="pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"

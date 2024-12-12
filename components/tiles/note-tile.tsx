@@ -6,20 +6,19 @@ import { Textarea } from "@/components/ui/textarea"
 import { Id } from "@/convex/_generated/dataModel"
 
 interface NoteTileProps {
-  wallId: Id<"walls">
-  position: { x: number; y: number }
+  tileId: Id<"baseTiles">
+  initialTitle?: string
+  initialContent?: string
 }
 
-export function NoteTile({ wallId, position }: NoteTileProps) {
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
-  
-
+export function NoteTile({ tileId, initialTitle = "", initialContent = "" }: NoteTileProps) {
+  const [title, setTitle] = useState(initialTitle)
+  const [content, setContent] = useState(initialContent)
 
   return (
-    <div className="p-4 border rounded-lg bg-white shadow-sm">
+    <div className="p-4 h-full flex flex-col">
       <Input
-        placeholder="Title"
+        placeholder="Note Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         className="mb-2 font-semibold"
@@ -28,7 +27,7 @@ export function NoteTile({ wallId, position }: NoteTileProps) {
         placeholder="Start typing..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        rows={4}
+        className="flex-1 resize-none"
       />
     </div>
   )

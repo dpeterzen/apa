@@ -1,3 +1,7 @@
+import cn from "classnames";
+import { NoteTile } from "./note-tile";
+import { Id } from "@/convex/_generated/dataModel";
+
 type TileSize = "small" | "medium" | "large";
 type TileType = "note" | "video" | "image";
 
@@ -7,42 +11,6 @@ interface Tile {
   size: TileSize;
   content: string;
 }
-
-// components/ContentTile.tsx
-import cn from "classnames";
-
-const MOCK_TILES: Tile[] = [
-  {
-    id: "1",
-    type: "note",
-    size: "large",
-    content: "Large Note Content",
-  },
-  {
-    id: "2",
-    type: "video",
-    size: "medium",
-    content: "Medium Video Content",
-  },
-  {
-    id: "3",
-    type: "image",
-    size: "small",
-    content: "Small Image Content",
-  },
-  {
-    id: "4",
-    type: "note",
-    size: "medium",
-    content: "Medium Note Content",
-  },
-  {
-    id: "5",
-    type: "video",
-    size: "large",
-    content: "Large Video Content",
-  },
-];
 
 // xs (<640px): Full width (12 cols)
 // sm (≥640px): Various widths
@@ -69,6 +37,15 @@ const sizeClasses = {
 };
 
 export default function ContentTile({ tile }: { tile: Tile }) {
+  const renderContent = () => {
+    switch (tile.type) {
+      case "note":
+        return <NoteTile tileId={tile.id as Id<"baseTiles">} />
+      default:
+        return <div className="p-4">{tile.content}</div>
+    }
+  }
+
   return (
     <div
       className={cn(
@@ -76,27 +53,7 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         sizeClasses[tile.size][tile.type]
       )}
     >
-      {tile.content}
+      {renderContent()}
     </div>
   );
 }
-
-{ // v2
-  /* <main className="flex flex-1 flex-col gap-2 p-2 pt-0">
-{tiles?.map((tile) => (
-  <div key={tile._id} className="p-4 border-b last:border-b-0">
-    <div className="font-medium text-white">
-      Wall ID: {tile.wallId}
-    </div>
-    <div className="text-sm text-muted-foreground">
-      User ID: {tile.userId}
-    </div>
-    <div className="text-sm text-muted-foreground">
-      Type: {tile.type}
-    </div>
-    <div className="text-sm text-muted-foreground">
-      Created: {new Date(tile.createdAt).toLocaleDateString()}
-    </div>
-  </div>
-))}
-</main> */}
