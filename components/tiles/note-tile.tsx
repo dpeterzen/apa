@@ -13,48 +13,54 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 interface NoteTileProps {
-  tileId: Id<"baseTiles">
-  initialTitle?: string
-  initialContent?: string
-  wallId: Id<"walls">
+  tileId: Id<"baseTiles">;
+  initialTitle?: string;
+  initialContent?: string;
+  wallId: Id<"walls">;
   size: "small" | "medium" | "large";
 }
 
-export function NoteTile({ tileId, wallId, initialTitle = "", initialContent = "", size }: NoteTileProps) {
-  const [title, setTitle] = useState(initialTitle)
-  const [content, setContent] = useState(initialContent)
+export function NoteTile({
+  tileId,
+  wallId,
+  initialTitle = "",
+  initialContent = "",
+  size,
+}: NoteTileProps) {
+  const [title, setTitle] = useState(initialTitle);
+  const [content, setContent] = useState(initialContent);
   const deleteTile = useMutation(api.tiles.deleteTile);
 
   const handleDelete = async () => {
     await deleteTile({
       tileId,
-      wallId
+      wallId,
     });
   };
 
   const updateTileSize = useMutation(api.tiles.updateTileSize);
 
   const SIZES = ["small", "medium", "large"] as const;
-  type TileSize = typeof SIZES[number];
-  
-  const handleSizeChange = async (direction: 'increase' | 'decrease') => {
+  type TileSize = (typeof SIZES)[number];
+
+  const handleSizeChange = async (direction: "increase" | "decrease") => {
     const currentIndex = SIZES.indexOf(size as TileSize);
     let newIndex;
-  
-    if (direction === 'increase') {
-      newIndex = currentIndex < SIZES.length - 1 ? currentIndex + 1 : currentIndex;
+
+    if (direction === "increase") {
+      newIndex =
+        currentIndex < SIZES.length - 1 ? currentIndex + 1 : currentIndex;
     } else {
       newIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
     }
-  
+
     if (newIndex !== currentIndex) {
       await updateTileSize({
         tileId,
-        size: SIZES[newIndex]
+        size: SIZES[newIndex],
       });
     }
   };
-
 
   return (
     <div className="h-full flex flex-col pr-[12px] relative">
@@ -82,14 +88,14 @@ export function NoteTile({ tileId, wallId, initialTitle = "", initialContent = "
       <Button
         variant="ghost"
         className="z-100 rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
-        onClick={() => handleSizeChange('increase')}
+        onClick={() => handleSizeChange("increase")}
       >
         <Plus className="" />
       </Button>
       <Button
         variant="ghost"
         className="z-100 rounded-full absolute bottom-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
-        onClick={() => handleSizeChange('decrease')}
+        onClick={() => handleSizeChange("decrease")}
       >
         <Minus className="" />
       </Button>
@@ -107,5 +113,5 @@ export function NoteTile({ tileId, wallId, initialTitle = "", initialContent = "
         className="flex-1 resize-none border-transparent rounded-xl"
       />
     </div>
-  )
+  );
 }
