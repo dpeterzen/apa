@@ -43,7 +43,8 @@ export default function ContentTile({ tile }: { tile: Tile }) {
       case "note":
         return <NoteTile 
           tileId={tile.id as Id<"baseTiles">}
-          wallId={tile.wallId} // Pass wallId to NoteTile
+          wallId={tile.wallId}
+          size={tile.size}
         />;
       default:
         return <div className="p-4">{tile.content}</div>

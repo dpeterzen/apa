@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Id } from "@/convex/_generated/dataModel";
@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { MoreHorizontal, Trash } from "lucide-react";
+import { Minus, MoreHorizontal, Plus, Trash } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
@@ -17,30 +17,55 @@ interface NoteTileProps {
   initialTitle?: string
   initialContent?: string
   wallId: Id<"walls">
+  size: "small" | "medium" | "large";
 }
 
-export function NoteTile({ tileId, wallId, initialTitle = "", initialContent = "" }: NoteTileProps) {
+export function NoteTile({ tileId, wallId, initialTitle = "", initialContent = "", size }: NoteTileProps) {
   const [title, setTitle] = useState(initialTitle)
   const [content, setContent] = useState(initialContent)
   const deleteTile = useMutation(api.tiles.deleteTile);
-  
+
   const handleDelete = async () => {
-    await deleteTile({ 
-      tileId, 
-      wallId 
+    await deleteTile({
+      tileId,
+      wallId
     });
+  };
+
+  const updateTileSize = useMutation(api.tiles.updateTileSize);
+
+  const SIZES = ["small", "medium", "large"] as const;
+  type TileSize = typeof SIZES[number];
+  
+  const handleSizeChange = async (direction: 'increase' | 'decrease') => {
+    const currentIndex = SIZES.indexOf(size as TileSize);
+    let newIndex;
+  
+    if (direction === 'increase') {
+      newIndex = currentIndex < SIZES.length - 1 ? currentIndex + 1 : currentIndex;
+    } else {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
+    }
+  
+    if (newIndex !== currentIndex) {
+      await updateTileSize({
+        tileId,
+        size: SIZES[newIndex]
+      });
+    }
   };
 
 
   return (
     <div className="h-full flex flex-col pr-[12px] relative">
+      {/* side tile actions start */}
       <Popover>
         <PopoverTrigger asChild>
-          <Button 
-            variant="ghost" 
-            className="z-100 rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0"
+          <Button
+            variant="ghost"
+            className="z-100 rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
           >
-            <MoreHorizontal className="h-6 w-6" />
+            <MoreHorizontal className="" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-40 p-1 rounded-xl" align="end">
@@ -54,6 +79,22 @@ export function NoteTile({ tileId, wallId, initialTitle = "", initialContent = "
           </div>
         </PopoverContent>
       </Popover>
+      <Button
+        variant="ghost"
+        className="z-100 rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
+        onClick={() => handleSizeChange('increase')}
+      >
+        <Plus className="" />
+      </Button>
+      <Button
+        variant="ghost"
+        className="z-100 rounded-full absolute bottom-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
+        onClick={() => handleSizeChange('decrease')}
+      >
+        <Minus className="" />
+      </Button>
+      {/* side tile actions end */}
+
       <Input
         placeholder="Start typing..."
         value={title}

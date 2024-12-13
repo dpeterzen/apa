@@ -128,6 +128,16 @@ export const deleteTile = mutation({
   }
 });
 
+export const updateTileSize = mutation({
+  args: { 
+    tileId: v.id("baseTiles"),
+    size: v.union(v.literal("small"), v.literal("medium"), v.literal("large"))
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.tileId, { size: args.size });
+  },
+});
+
 export const getWallTiles = query({
   args: { wallId: v.string() },
   async handler(ctx, args) {
