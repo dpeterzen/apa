@@ -1,17 +1,7 @@
 import cn from "classnames";
 import { NoteTile } from "./note-tile";
 import { Id } from "@/convex/_generated/dataModel";
-
-type TileSize = "small" | "medium" | "large";
-type TileType = "note" | "video" | "image";
-
-interface Tile {
-  id: string;
-  type: TileType;
-  size: TileSize;
-  content: string;
-  wallId: Id<"walls">; // Add wallId to interface
-}
+import { Tile } from "@/types";
 
 // xs (<640px): Full width (12 cols)
 // sm (≥640px): Various widths

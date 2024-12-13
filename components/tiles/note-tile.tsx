@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Id } from "@/convex/_generated/dataModel";
@@ -9,13 +9,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Minus, MoreHorizontal, Plus, Trash } from "lucide-react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { debounce } from "lodash"; 
+import { TileSize, SIZES } from "@/types";
 
 interface NoteTileProps {
   tileId: Id<"baseTiles">;
-  initialTitle?: string;
-  initialContent?: string;
   wallId: Id<"walls">;
   size: "small" | "medium" | "large";
 }
@@ -23,13 +23,46 @@ interface NoteTileProps {
 export function NoteTile({
   tileId,
   wallId,
-  initialTitle = "",
-  initialContent = "",
   size,
 }: NoteTileProps) {
-  const [title, setTitle] = useState(initialTitle);
-  const [content, setContent] = useState(initialContent);
+  // group hooks at the top
+  const noteData = useQuery(api.tiles.getNoteContent, { tileId });
+  const updateNote = useMutation(api.tiles.updateNoteContent);
   const deleteTile = useMutation(api.tiles.deleteTile);
+  const updateTileSize = useMutation(api.tiles.updateTileSize);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  // sync state with query data - effects after hooks
+  useEffect(() => {
+    if (noteData) {
+      setTitle(noteData.title);
+      setContent(noteData.content);
+    }
+  }, [noteData]);
+
+  // callbacks after effects
+  const debouncedUpdate = useCallback(
+    debounce((newTitle: string, newContent: string) => {
+      updateNote({
+        tileId,
+        title: newTitle,
+        content: newContent,
+      });
+    }, 500),
+    [tileId]
+  );
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+    debouncedUpdate(newTitle, content);
+  };
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newContent = e.target.value;
+    setContent(newContent);
+    debouncedUpdate(title, newContent);
+  };
 
   const handleDelete = async () => {
     await deleteTile({
@@ -38,10 +71,10 @@ export function NoteTile({
     });
   };
 
-  const updateTileSize = useMutation(api.tiles.updateTileSize);
-
-  const SIZES = ["small", "medium", "large"] as const;
-  type TileSize = (typeof SIZES)[number];
+  // loading check after all hooks
+  if (!noteData) {
+    return <div>Loading...</div>;
+  }
 
   const handleSizeChange = async (direction: "increase" | "decrease") => {
     const currentIndex = SIZES.indexOf(size as TileSize);
@@ -104,12 +137,12 @@ export function NoteTile({
       <Input
         placeholder="Start typing..."
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={handleTitleChange}
         className="font-semibold border-transparent rounded-xl"
       />
       <Textarea
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={handleContentChange}
         className="flex-1 resize-none border-transparent rounded-xl"
       />
     </div>

@@ -10,15 +10,7 @@ import ContentTile from "@/components/tiles/content-tile";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { Id } from "@/convex/_generated/dataModel"
-type TileSize = "small" | "medium" | "large";
-type TileType = "note" | "video" | "image";
-
-interface Tile {
-  id: string;
-  type: TileType;
-  size: TileSize;
-  content: string;
-}
+import { TileSize, TileType } from "@/types";
 
 export function toWallId(id: string): Id<"walls"> {
   return id as unknown as Id<"walls">;
