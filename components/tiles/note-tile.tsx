@@ -4,11 +4,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Id } from "@/convex/_generated/dataModel";
 import { Button } from "../ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { MoreHorizontal, Trash } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -35,25 +34,26 @@ export function NoteTile({ tileId, wallId, initialTitle = "", initialContent = "
 
   return (
     <div className="h-full flex flex-col pr-[12px] relative">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-        <Button 
-        variant="ghost" 
-        className="z-100 rounded-tr-xl rounded-tl-none rounded-br-none absolute top-[-1px] right-[-1px] h-6 w-6 p-0 data-[state=open]:bg-accent"
-      >
-        <MoreHorizontal className="h-6 w-6" />
-      </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem 
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button 
+            variant="ghost" 
+            className="z-100 rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0"
+          >
+            <MoreHorizontal className="h-6 w-6" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-40 p-1 rounded-xl" align="end">
+          <div
+            role="button"
             onClick={handleDelete}
-            className="text-red-600 focus:text-red-600 focus:bg-red-100"
+            className="flex items-center px-2 py-1.5 text-sm text-red-600 rounded-md cursor-pointer hover:bg-accent"
           >
             <Trash className="mr-2 h-4 w-4" />
             Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          </div>
+        </PopoverContent>
+      </Popover>
       <Input
         placeholder="Start typing..."
         value={title}

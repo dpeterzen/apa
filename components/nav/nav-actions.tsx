@@ -46,56 +46,6 @@ const data = [
       icon: FileText,
     },
   ],
-  [
-    {
-      label: "Copy Link",
-      icon: Link,
-    },
-    {
-      label: "Duplicate",
-      icon: Copy,
-    },
-    {
-      label: "Move to",
-      icon: CornerUpRight,
-    },
-    {
-      label: "Move to Trash",
-      icon: Trash2,
-    },
-  ],
-  [
-    {
-      label: "Undo",
-      icon: CornerUpLeft,
-    },
-    {
-      label: "View analytics",
-      icon: LineChart,
-    },
-    {
-      label: "Version History",
-      icon: GalleryVerticalEnd,
-    },
-    {
-      label: "Show delete pages",
-      icon: Trash,
-    },
-    {
-      label: "Notifications",
-      icon: Bell,
-    },
-  ],
-  [
-    {
-      label: "Import",
-      icon: ArrowUp,
-    },
-    {
-      label: "Export",
-      icon: ArrowDown,
-    },
-  ],
 ]
 
 export function NavActions() {
@@ -114,13 +64,13 @@ export function NavActions() {
           <Button
             variant="ghost"
             size="sm"
-            className="data-[state=open]:bg-accent [&_svg]:size-6 px-[3px] h-[28px]"
+            className="[&_svg]:size-6 px-[3px] h-[28px]"
           >
             <MoreHorizontal />
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-56 overflow-hidden rounded-lg p-0"
+          className="w-56 overflow-hidden rounded-xl p-0 mt-1"
           align="end"
         >
           <Sidebar collapsible="none" className="bg-transparent">

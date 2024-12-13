@@ -24,7 +24,7 @@ export function NavHeader() {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-background flex h-[48px] shrink-0 items-center pl-2 pr-[10px]">
+    <header className="sticky top-0 z-50 bg-background flex h-[48px] shrink-0 items-center px-[14px]">
       {(state === "collapsed" || isMobile) &&
         <>
           <SidebarTrigger className="-ml-0 mr-[2px]" />

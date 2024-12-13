@@ -74,7 +74,7 @@ export default function WallIdPage({
   };
 
   return (
-    <main className="flex flex-1 flex-col gap-2 p-2 pb-[84px]">
+    <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px] pb-[84px]">
       <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
       {tiles?.map((baseTile) => (
         <ContentTile
