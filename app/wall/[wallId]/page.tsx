@@ -83,6 +83,7 @@ export default function WallIdPage({
             id: baseTile._id,
             type: baseTile.type as TileType,
             size: baseTile.size as TileSize,
+            wallId: resolvedParams.wallId as Id<"walls">, 
             content: baseTile.type === "note" ? "" : `
               Wall ID: ${baseTile.wallId}
               User ID: ${baseTile.userId}

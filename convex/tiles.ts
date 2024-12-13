@@ -92,6 +92,41 @@ export const create = mutation({
   }
 });
 
+export const deleteTile = mutation({
+  args: { 
+    tileId: v.id("baseTiles"),
+    wallId: v.id("walls")
+  },
+  async handler(ctx, args) {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthenticated");
+
+    // Get the baseTile to verify ownership
+    const baseTile = await ctx.db.get(args.tileId);
+    if (!baseTile) throw new Error("Tile not found");
+    if (baseTile.userId !== identity.subject) throw new Error("Unauthorized");
+
+    // Delete the noteTile first (if it exists)
+    const noteTile = await ctx.db
+      .query("noteTiles")
+      .filter(q => q.eq(q.field("tileId"), args.tileId))
+      .unique();
+    if (noteTile) {
+      await ctx.db.delete(noteTile._id);
+    }
+
+    // Delete the baseTile
+    await ctx.db.delete(args.tileId);
+
+    // Decrement wall tile count
+    const wall = await ctx.db.get(args.wallId);
+    if (wall) {
+      await ctx.db.patch(args.wallId, {
+        tileCount: (wall.tileCount ?? 1) - 1
+      });
+    }
+  }
+});
 
 export const getWallTiles = query({
   args: { wallId: v.string() },

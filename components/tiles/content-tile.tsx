@@ -10,6 +10,7 @@ interface Tile {
   type: TileType;
   size: TileSize;
   content: string;
+  wallId: Id<"walls">; // Add wallId to interface
 }
 
 // xs (<640px): Full width (12 cols)
@@ -40,7 +41,10 @@ export default function ContentTile({ tile }: { tile: Tile }) {
   const renderContent = () => {
     switch (tile.type) {
       case "note":
-        return <NoteTile tileId={tile.id as Id<"baseTiles">} />
+        return <NoteTile 
+          tileId={tile.id as Id<"baseTiles">}
+          wallId={tile.wallId} // Pass wallId to NoteTile
+        />;
       default:
         return <div className="p-4">{tile.content}</div>
     }
