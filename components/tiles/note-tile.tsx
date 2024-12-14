@@ -137,6 +137,7 @@ export function NoteTile({
       <Input
         placeholder="Start typing..."
         value={title}
+        title={title}
         onChange={handleTitleChange}
         className="font-semibold border-transparent rounded-xl"
       />
