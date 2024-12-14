@@ -1,4 +1,5 @@
 "use client";
+import { useState } from 'react';
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { redirect } from "next/navigation";
@@ -11,6 +12,73 @@ import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { Id } from "@/convex/_generated/dataModel"
 import { TileSize, TileType } from "@/types";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import { Calendar, SendHorizontal, Smile, X } from 'lucide-react';
+
+const BlankTile = ({
+  onSelect,
+  setShowBlankTile
+}: {
+  onSelect: (type: TileType) => void,
+  setShowBlankTile: (show: boolean) => void
+}) => {
+  return (
+    <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 flex items-center justify-center">
+      <Command className=" rounded-xl border">
+        <div className="flex items-center px-3 w-full">
+          <div className="flex-1 min-w-0">
+            <CommandInput
+              placeholder="Start typing or choose a tile..."
+              className="w-full"
+            />
+          </div>
+          <div className="flex gap-2 ml-2 flex-shrink-0">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowBlankTile(false)}
+              className=""
+            >
+              <X className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onSelect("note")}
+              className=""
+            >
+              <SendHorizontal className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Suggestions">
+            <CommandItem onClick={() => onSelect("note")}>
+              <Calendar />
+              <span>Note</span>
+            </CommandItem>
+            <CommandItem onClick={() => onSelect("image")}>
+              <Smile />
+              <span>Image</span>
+            </CommandItem>
+            <CommandItem disabled>
+              <Smile />
+              <span>File Upload</span>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    </div>
+  );
+};
 
 export function toWallId(id: string): Id<"walls"> {
   return id as unknown as Id<"walls">;
@@ -24,7 +92,7 @@ export default function WallIdPage({
   const resolvedParams = React.use(params);
   const { isAuthenticated, isLoading } = useConvexAuth();
   const createTile = useMutation(api.tiles.create)
-
+  const [showBlankTile, setShowBlankTile] = useState(false);
 
   // Not authenticated, redirect immediately
   if (!isLoading && !isAuthenticated) {
@@ -55,40 +123,54 @@ export default function WallIdPage({
     redirect("/wall"); // Redirect to wall list
   }
 
-  const handleCreateTile = async (wallId: Id<"walls">) => {
-    await createTile({
-      wallId,
-      type: "note",
-      size: "medium", // Default size
-      position: { x: 0, y: 0 }, // Default position
-      title: "", // Default title
-    });
-  };
+  const handleTileSelect = (type: TileType) => {
+    const newTile = {
+      type,
+      size: "medium" as TileSize,
+      wallId: resolvedParams.wallId as Id<"walls">,
+      position: {
+        x: 0,
+        y: 0
+      }
+    };
 
+    // Call your mutation to create tile in DB
+    createTile(newTile);
+    setShowBlankTile(false);
+  };
+  const handleCreateTile = () => {
+    setShowBlankTile(true);
+  };
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px] pb-[84px]">
       <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
-      {tiles?.map((baseTile) => (
-        <ContentTile
-          key={baseTile._id}
-          tile={{
-            id: baseTile._id,
-            type: baseTile.type as TileType,
-            size: baseTile.size as TileSize,
-            wallId: resolvedParams.wallId as Id<"walls">, 
-            content: baseTile.type === "note" ? "" : `
+        {tiles?.map((baseTile) => (
+          <ContentTile
+            key={baseTile._id}
+            tile={{
+              id: baseTile._id,
+              type: baseTile.type as TileType,
+              size: baseTile.size as TileSize,
+              wallId: resolvedParams.wallId as Id<"walls">,
+              content: baseTile.type === "note" ? "" : `
               Wall ID: ${baseTile.wallId}
               User ID: ${baseTile.userId}
               Created: ${new Date(baseTile.createdAt).toLocaleDateString()}
             `
-          }}
-        />
-      ))}
+            }}
+          />
+        ))}
+        {showBlankTile && (
+          <BlankTile
+            onSelect={handleTileSelect}
+            setShowBlankTile={setShowBlankTile}
+          />
+        )}
       </div>
       <Button
         className="pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
         variant="ghost"
-        onClick={() => handleCreateTile(toWallId(resolvedParams.wallId))}
+        onClick={() => handleCreateTile()}
       >
         <span className="flex items-center">
           <span className="relative flex items-center justify-center mb-[3px] mr-[3px]">

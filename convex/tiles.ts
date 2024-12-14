@@ -9,8 +9,16 @@ export type TileSize = "small" | "medium" | "large";
 export const create = mutation({
   args: {
     wallId: v.id("walls"),
-    type: v.string(),
-    size: v.string(),
+    type: v.union(
+      v.literal("note"),
+      v.literal("video"),
+      v.literal("image")
+    ),
+    size: v.union(
+      v.literal("small"),
+      v.literal("medium"),
+      v.literal("large")
+    ),
     position: v.object({
       x: v.number(),
       y: v.number()

@@ -66,7 +66,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuItem>
                 <SidebarMenuButton>
                   <span className="flex items-center">
-                    <Search className="mr-[5px] text-zinc-400" />
+                    <Search className="mr-[5px] opacity-50" />
                     Search
                   </span>
                 </SidebarMenuButton>
