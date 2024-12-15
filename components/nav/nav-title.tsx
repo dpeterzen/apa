@@ -42,7 +42,7 @@ export function NavTitle() {
           onMouseLeave={() => setIsHovered(false)}
         >
           <div>
-            <LayoutDashboardIcon className={`size-7`} />
+            <LayoutDashboardIcon className={`size-6`} />
           </div>
           <h1 className="font-semibold text-[16px]">TileRecall</h1>
           <div className={`ml-auto mr-[2px] transition-opacity duration-200 text-muted-foreground text-xs ${!isHovered ? 'opacity-0' : 'opacity-100'}`}>

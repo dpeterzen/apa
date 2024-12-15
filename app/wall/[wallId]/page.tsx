@@ -177,6 +177,7 @@ export default function WallIdPage({
                 baseTile.type === "note"
                   ? ""
                   : `
+              Type: ${baseTile.type}
               Wall ID: ${baseTile.wallId}
               User ID: ${baseTile.userId}
               Created: ${new Date(baseTile.createdAt).toLocaleDateString()}
