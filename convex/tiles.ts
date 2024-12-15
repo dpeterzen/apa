@@ -93,7 +93,17 @@ export const create = mutation({
           ...baseTile as object,
           tileData: noteTile
         };
-
+        case "image":
+          // Create image tile
+          const imageUrlTile = await ctx.db.insert("imageUrlTiles", {
+            tileId: baseTile,
+            imageUrl: args.imageUrl || "",
+          });
+  
+          return {
+            ...baseTile as object,
+            tileData: imageUrlTile
+          };
       default:
         throw new Error(`Unsupported tile type: ${args.type}`);
     }

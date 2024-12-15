@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { redirect } from "next/navigation";
@@ -29,12 +29,19 @@ const BlankTile = ({
   onSelect: (type: TileType) => void;
   setShowBlankTile: (show: boolean) => void;
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 flex items-center justify-center">
       <Command className=" rounded-xl border">
         <div className="flex items-center px-3 w-full">
           <div className="flex-1 min-w-0">
             <CommandInput
+              ref={inputRef}
               placeholder="Start typing or choose a tile..."
               className="w-full"
             />
@@ -61,11 +68,13 @@ const BlankTile = ({
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Suggestions">
-            <CommandItem onClick={() => onSelect("note")}>
+            <CommandItem
+              onSelect={() => {onSelect("note")}}
+            >
               <Calendar />
               <span>Note</span>
             </CommandItem>
-            <CommandItem onClick={() => onSelect("image")}>
+            <CommandItem onSelect={() => onSelect("image")}>
               <Smile />
               <span>Image</span>
             </CommandItem>
@@ -110,7 +119,7 @@ export default function WallIdPage({
     wallId: resolvedParams.wallId,
   });
   // console.log("resolvedParams", resolvedParams.wallId);
-  console.log(tiles);
+  // console.log(tiles);
   // Show loading state
   if (isLoading || (isAuthenticated && hasAccess === undefined)) {
     return (
@@ -125,21 +134,31 @@ export default function WallIdPage({
     redirect("/wall"); // Redirect to wall list
   }
 
-  const handleTileSelect = (type: TileType) => {
-    const newTile = {
-      type,
-      size: "medium" as TileSize,
-      wallId: resolvedParams.wallId as Id<"walls">,
-      position: {
-        x: 0,
-        y: 0,
-      },
-    };
+  const handleTileSelect = async (type: TileType) => {
+    try {
+      console.log("handleTileSelect called with type:", type);
 
-    // Call your mutation to create tile in DB
-    createTile(newTile);
-    setShowBlankTile(false);
+      const newTile = {
+        type,
+        size: "medium" as TileSize,
+        wallId: resolvedParams.wallId as Id<"walls">,
+        position: {
+          x: 0,
+          y: 0,
+        },
+        title: "",
+        content: "",
+      };
+
+      console.log("Creating tile with data:", newTile);
+      await createTile(newTile);
+      console.log("Tile created successfully");
+      setShowBlankTile(false);
+    } catch (error) {
+      console.error("Error creating tile:", error);
+    }
   };
+
   const handleCreateTile = () => {
     setShowBlankTile(true);
   };

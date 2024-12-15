@@ -114,11 +114,11 @@ export default defineSchema({
     .index("byTileId", ["tileId"]),
 
 
-  imageTiles: defineTable({
+  imageUrlTiles: defineTable({
     tileId: v.id("baseTiles"),
-    url: v.string(),
+    imageUrl: v.string(),
     caption: v.optional(v.string()),
-    altText: v.string()
+    altText: v.optional(v.string())
   })
     .index("byTileId", ["tileId"]),
 
