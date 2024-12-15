@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { redirect } from "next/navigation";
@@ -10,7 +10,7 @@ import { AddTileSquarePlus } from "@/components/icons/add-tile-square-plus";
 import ContentTile from "@/components/tiles/content-tile";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
-import { Id } from "@/convex/_generated/dataModel"
+import { Id } from "@/convex/_generated/dataModel";
 import { TileSize, TileType } from "@/types";
 import {
   Command,
@@ -19,15 +19,15 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command"
-import { Calendar, SendHorizontal, Smile, X } from 'lucide-react';
+} from "@/components/ui/command";
+import { Calendar, SendHorizontal, Smile, X } from "lucide-react";
 
 const BlankTile = ({
   onSelect,
-  setShowBlankTile
+  setShowBlankTile,
 }: {
-  onSelect: (type: TileType) => void,
-  setShowBlankTile: (show: boolean) => void
+  onSelect: (type: TileType) => void;
+  setShowBlankTile: (show: boolean) => void;
 }) => {
   return (
     <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 flex items-center justify-center">
@@ -91,7 +91,7 @@ export default function WallIdPage({
 }) {
   const resolvedParams = React.use(params);
   const { isAuthenticated, isLoading } = useConvexAuth();
-  const createTile = useMutation(api.tiles.create)
+  const createTile = useMutation(api.tiles.create);
   const [showBlankTile, setShowBlankTile] = useState(false);
 
   // Not authenticated, redirect immediately
@@ -106,7 +106,9 @@ export default function WallIdPage({
   );
 
   // User has access, render wall content
-  const tiles = useQuery(api.tiles.getWallTiles, { wallId: resolvedParams.wallId });
+  const tiles = useQuery(api.tiles.getWallTiles, {
+    wallId: resolvedParams.wallId,
+  });
   // console.log("resolvedParams", resolvedParams.wallId);
   console.log(tiles);
   // Show loading state
@@ -130,8 +132,8 @@ export default function WallIdPage({
       wallId: resolvedParams.wallId as Id<"walls">,
       position: {
         x: 0,
-        y: 0
-      }
+        y: 0,
+      },
     };
 
     // Call your mutation to create tile in DB
@@ -152,11 +154,14 @@ export default function WallIdPage({
               type: baseTile.type as TileType,
               size: baseTile.size as TileSize,
               wallId: resolvedParams.wallId as Id<"walls">,
-              content: baseTile.type === "note" ? "" : `
+              content:
+                baseTile.type === "note"
+                  ? ""
+                  : `
               Wall ID: ${baseTile.wallId}
               User ID: ${baseTile.userId}
               Created: ${new Date(baseTile.createdAt).toLocaleDateString()}
-            `
+            `,
             }}
           />
         ))}
@@ -177,7 +182,9 @@ export default function WallIdPage({
             <AddTilePlus className="group-hover:hidden" />
             <AddTileSquarePlus className="hidden group-hover:block" />
           </span>
-          <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600 ml-2">Add tile</span>
+          <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600 ml-2">
+            Add tile
+          </span>
         </span>
       </Button>
     </main>
