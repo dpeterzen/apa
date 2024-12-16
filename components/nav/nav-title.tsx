@@ -46,7 +46,7 @@ export function NavTitle() {
           </div>
           <h1 className="font-semibold text-[16px]">TileRecall</h1>
           <div className={`ml-auto mr-[2px] transition-opacity duration-200 text-muted-foreground text-xs ${!isHovered ? 'opacity-0' : 'opacity-100'}`}>
-            close
+            hide
           </div>
           <div className="[&_svg]:size-5">
             <PanelLeft />

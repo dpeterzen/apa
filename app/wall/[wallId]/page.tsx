@@ -37,12 +37,12 @@ const BlankTile = ({
 
   return (
     <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 flex items-center justify-center">
-      <Command className=" rounded-xl border">
+      <Command className="rounded-xl border">
         <div className="flex items-center px-3 w-full">
           <div className="flex-1 min-w-0">
             <CommandInput
               ref={inputRef}
-              placeholder="Start typing or choose a tile..."
+              placeholder="Start typing, paste urls or choose a tile..."
               className="w-full"
             />
           </div>
@@ -88,10 +88,6 @@ const BlankTile = ({
     </div>
   );
 };
-
-export function toWallId(id: string): Id<"walls"> {
-  return id as unknown as Id<"walls">;
-}
 
 export default function WallIdPage({
   params,
@@ -192,6 +188,7 @@ export default function WallIdPage({
           />
         )}
       </div>
+      {!showBlankTile && (
       <Button
         className="pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
         variant="ghost"
@@ -207,6 +204,7 @@ export default function WallIdPage({
           </span>
         </span>
       </Button>
+    )}
     </main>
   );
 }
