@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { WallSelector } from "./wall-selector"
-import { TileTypeSelector } from "./tile-type-selector"
+import { WallSelector } from "../tiles/wall-selector"
+import { TileTypeSelector } from "../tiles/tile-type-selector"
 import { Id } from "@/convex/_generated/dataModel"
 import { SquarePlusIcon } from "@/components/icons/square-plus"
 import {

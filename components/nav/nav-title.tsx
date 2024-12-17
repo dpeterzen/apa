@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sidebar"
 import { LayoutDashboardIcon } from "../icons/layout-dashboard"
 import PanelLeft from "../icons/panel-left"
-import { TileCreationDialog } from "@/components/tiles/tile-creation-dialog"
+import { TileCreationDialog } from "@/components/dialogs/tile-creation-dialog"
 
 export function NavTitle() {
   const { toggleSidebar } = useSidebar()
