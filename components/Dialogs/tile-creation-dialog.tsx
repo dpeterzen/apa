@@ -41,7 +41,7 @@ export function TileCreationDialog({ onCreateTile }: TileCreationDialogProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create New Tile</DialogTitle>
+          <DialogTitle>Add Tile</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <WallSelector 
