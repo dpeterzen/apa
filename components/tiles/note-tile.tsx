@@ -72,9 +72,9 @@ export function NoteTile({
   };
 
   // loading check after all hooks
-  if (!noteData) {
-    return <div>Loading...</div>;
-  }
+  // if (!noteData) {
+  //   return <div className="px-3 py-2">Loading...</div>;
+  // }
 
   const handleSizeChange = async (direction: "increase" | "decrease") => {
     const currentIndex = SIZES.indexOf(size as TileSize);
@@ -135,7 +135,7 @@ export function NoteTile({
       {/* side tile actions end */}
 
       <Input
-        placeholder="Start typing..."
+        placeholder="Add title..."
         value={title}
         title={title}
         onChange={handleTitleChange}

@@ -1,6 +1,4 @@
 import { mutation, query } from "./_generated/server"
-
-import { Id } from "./_generated/dataModel";
 import { v } from "convex/values"
 
 export type TileType = "note" | "video" | "image";

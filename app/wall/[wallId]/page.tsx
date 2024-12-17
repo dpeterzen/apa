@@ -56,10 +56,8 @@ export default function WallIdPage({
     redirect("/wall"); // Redirect to wall list
   }
 
-  const handleTileSelect = async (type: TileType) => {
+  const handleTileSelect = async (type: TileType, options?: { title?: string }) => {
     try {
-      console.log("handleTileSelect called with type:", type);
-
       const newTile = {
         type,
         size: "medium" as TileSize,
@@ -68,13 +66,11 @@ export default function WallIdPage({
           x: 0,
           y: 0,
         },
-        title: "",
+        title: options?.title || "",
         content: "",
       };
-
-      console.log("Creating tile with data:", newTile);
+  
       await createTile(newTile);
-      console.log("Tile created successfully");
       setShowBlankTile(false);
     } catch (error) {
       console.error("Error creating tile:", error);
@@ -95,6 +91,7 @@ export default function WallIdPage({
               type: baseTile.type as TileType,
               size: baseTile.size as TileSize,
               wallId: resolvedParams.wallId as Id<"walls">,
+              title: "",
               content:
                 baseTile.type === "note"
                   ? ""
