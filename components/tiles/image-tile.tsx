@@ -1,9 +1,10 @@
 import { Id } from "@/convex/_generated/dataModel";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { MoreHorizontal, Trash } from "lucide-react";
+import { Minus, MoreHorizontal, Plus, Trash } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { TileSize, SIZES } from "@/types";
 
 interface ImageTileProps {
   tileId: Id<"baseTiles">;
@@ -13,12 +14,32 @@ interface ImageTileProps {
 
 export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   const deleteTile = useMutation(api.tiles.deleteTile);
+  const updateTileSize = useMutation(api.tiles.updateTileSize);
 
   const handleDelete = async () => {
     await deleteTile({
       tileId,
       wallId,
     });
+  };
+
+  const handleSizeChange = async (direction: "increase" | "decrease") => {
+    const currentIndex = SIZES.indexOf(size as TileSize);
+    let newIndex;
+
+    if (direction === "increase") {
+      newIndex =
+        currentIndex < SIZES.length - 1 ? currentIndex + 1 : currentIndex;
+    } else {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
+    }
+
+    if (newIndex !== currentIndex) {
+      await updateTileSize({
+        tileId,
+        size: SIZES[newIndex],
+      });
+    }
   };
 
   return (
@@ -43,7 +64,21 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           </div>
         </PopoverContent>
       </Popover>
-      
+      <Button
+        variant="ghost"
+        className="z-100 rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
+        onClick={() => handleSizeChange("increase")}
+      >
+        <Plus className="" />
+      </Button>
+      <Button
+        variant="ghost"
+        className="z-100 rounded-full absolute bottom-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
+        onClick={() => handleSizeChange("decrease")}
+      >
+        <Minus className="" />
+      </Button>
+
       <div className="flex-1 flex items-center justify-center">
         <div className="w-20 h-20 bg-muted rounded-lg flex items-center justify-center text-muted-foreground">
           Image
