@@ -135,7 +135,7 @@ export function NoteTile({
       {/* side tile actions end */}
 
       <Input
-        placeholder="Add title..."
+        placeholder=""
         value={title}
         title={title}
         onChange={handleTitleChange}

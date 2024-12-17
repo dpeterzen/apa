@@ -1,5 +1,6 @@
 import cn from "classnames";
 import { NoteTile } from "./note-tile";
+import { ImageTile } from "./image-tile";
 import { Id } from "@/convex/_generated/dataModel";
 import { Tile } from "@/types";
 
@@ -36,6 +37,12 @@ export default function ContentTile({ tile }: { tile: Tile }) {
           wallId={tile.wallId}
           size={tile.size}
         />;
+        case "image":
+          return <ImageTile
+            tileId={tile.id as Id<"baseTiles">}
+            wallId={tile.wallId}
+            size={tile.size}
+          />;
       default:
         return <div className="p-4">{tile.content}</div>
     }

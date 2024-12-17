@@ -117,24 +117,33 @@ export const deleteTile = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Unauthenticated");
 
-    // Get the baseTile to verify ownership
     const baseTile = await ctx.db.get(args.tileId);
     if (!baseTile) throw new Error("Tile not found");
     if (baseTile.userId !== identity.subject) throw new Error("Unauthorized");
 
-    // Delete the noteTile first (if it exists)
-    const noteTile = await ctx.db
-      .query("noteTiles")
-      .filter(q => q.eq(q.field("tileId"), args.tileId))
-      .unique();
-    if (noteTile) {
-      await ctx.db.delete(noteTile._id);
+    // Delete associated type-specific content based on tile type
+    if (baseTile.type === "note") {
+      const noteTile = await ctx.db
+        .query("noteTiles")
+        .filter(q => q.eq(q.field("tileId"), args.tileId))
+        .unique();
+      if (noteTile) {
+        await ctx.db.delete(noteTile._id);
+      }
+    } else if (baseTile.type === "image") {
+      const imageUrlTile = await ctx.db
+        .query("imageUrlTiles")
+        .filter(q => q.eq(q.field("tileId"), args.tileId))
+        .unique();
+      if (imageUrlTile) {
+        await ctx.db.delete(imageUrlTile._id);
+      }
     }
 
     // Delete the baseTile
     await ctx.db.delete(args.tileId);
 
-    // Decrement wall tile count
+    // Update wall tile count
     const wall = await ctx.db.get(args.wallId);
     if (wall) {
       await ctx.db.patch(args.wallId, {

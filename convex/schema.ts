@@ -123,7 +123,7 @@ export default defineSchema({
     .index("byTileId", ["tileId"]),
 
   // For uploaded images
-  uploadedImageTiles: defineTable({
+  imageUploadTiles: defineTable({
     tileId: v.id("baseTiles"),
     storageId: v.string(), // Reference to storage system (e.g. S3, Cloudinary)
     fileName: v.string(),
