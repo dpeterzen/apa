@@ -44,19 +44,19 @@ export function TileActions({
 
       {onPositionChange && (
         <>
+        <Button
+          variant="ghost"
+          className="z-100 rounded-full absolute bottom-[86px] right-[-1px] h-6 w-6 p-0 text-muted"
+          onClick={() => onPositionChange("increase")}
+        >
+          <ChevronRight />
+        </Button>
           <Button
             variant="ghost"
             className="z-100 rounded-full absolute bottom-[57px] right-[-1px] h-6 w-6 p-0 text-muted"
             onClick={() => onPositionChange("decrease")}
           >
             <ChevronLeft />
-          </Button>
-          <Button
-            variant="ghost"
-            className="z-100 rounded-full absolute bottom-[86px] right-[-1px] h-6 w-6 p-0 text-muted"
-            onClick={() => onPositionChange("increase")}
-          >
-            <ChevronRight />
           </Button>
         </>
       )}
