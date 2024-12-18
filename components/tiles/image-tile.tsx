@@ -137,20 +137,22 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           <Skeleton className="absolute inset-0 w-full h-full rounded-md" />
         )}
         {imageUrl && (
-          <div className="relative w-full h-full">
-            <Image 
+          <>
+            <img 
               src={imageUrl}
-              alt="Tile image"
-              fill
+              className="hidden"
+              onLoad={handleImageLoad}
+              alt="preload"
+            />
+            <div 
               className={`
-                object-contain transition-opacity duration-300
+                bg-contain bg-center bg-no-repeat w-full h-full
+                transition-opacity duration-300
                 ${isImageLoading ? 'opacity-0' : 'opacity-100'}
               `}
-              onLoadingComplete={handleImageLoad}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority={false}
+              style={{ backgroundImage: `url(${imageUrl})` }}
             />
-          </div>
+          </>
         )}
       </div>
     </div>
