@@ -10,6 +10,7 @@ export interface Tile {
   type: TileType;
   size: TileSize;
   title: string;
-  content: string;
+  content?: string;
   wallId: Id<"walls">;
+  position: number;
 }

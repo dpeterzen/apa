@@ -94,10 +94,7 @@ export default defineSchema({
     userId: v.id("users"),
     type: v.string(), // "note", "image", "youtube", etc.
     size: v.string(), // Add this line for "small" | "medium" | "large"
-    position: v.object({
-      x: v.number(),
-      y: v.number()
-    }),
+    position: v.number(),
     createdAt: v.number(),
     updatedAt: v.number(),
     isArchived: v.boolean()

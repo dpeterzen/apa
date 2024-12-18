@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { redirect } from 'next/navigation';
 
 export function NavHeader() {
   const { state, isMobile } = useSidebar();
@@ -22,6 +23,10 @@ export function NavHeader() {
     api.walls.getUserWall, 
     isValidId ? { id: pathWallId as Id<"walls"> } : "skip"
   );
+  if (isValidId && currentWall === null) {
+    // Wall doesn't exist, redirect to walls list
+    redirect('/wall');
+}
 
   return (
     <header className="sticky top-0 z-50 bg-background flex h-[48px] shrink-0 items-center px-[14px]">

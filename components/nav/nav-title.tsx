@@ -25,7 +25,7 @@ export function NavTitle() {
       wallId,
       type,
       size: "medium", // Default size
-      position: { x: 0, y: 0 }, // Default position
+      position: 0, // Default position
       title: "", // Default title
     })
   }

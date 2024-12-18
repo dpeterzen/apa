@@ -24,7 +24,9 @@ export default function WallIdPage({
   const { isAuthenticated, isLoading } = useConvexAuth();
   const createTile = useMutation(api.tiles.create);
   const [showBlankTile, setShowBlankTile] = useState(false);
-
+  const wall = useQuery(api.walls.getWall, { 
+    id: resolvedParams.wallId 
+  });
   // Not authenticated, redirect immediately
   if (!isLoading && !isAuthenticated) {
     redirect("/");
@@ -58,16 +60,15 @@ export default function WallIdPage({
 
   const handleTileSelect = async (type: TileType, options?: { title?: string }) => {
     try {
+      const currentPosition = wall?.tileCount ?? 0;
+    
       const newTile = {
         type,
         size: "medium" as TileSize,
         wallId: resolvedParams.wallId as Id<"walls">,
-        position: {
-          x: 0,
-          y: 0,
-        },
         title: options?.title || "",
         content: "",
+        position: currentPosition
       };
   
       await createTile(newTile);
@@ -92,15 +93,7 @@ export default function WallIdPage({
               size: baseTile.size as TileSize,
               wallId: resolvedParams.wallId as Id<"walls">,
               title: "",
-              content:
-                baseTile.type === "note"
-                  ? ""
-                  : `
-              Type: ${baseTile.type}
-              Wall ID: ${baseTile.wallId}
-              User ID: ${baseTile.userId}
-              Created: ${new Date(baseTile.createdAt).toLocaleDateString()}
-            `,
+              position: baseTile.position,
             }}
           />
         ))}

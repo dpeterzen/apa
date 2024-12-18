@@ -17,10 +17,7 @@ export const create = mutation({
       v.literal("medium"),
       v.literal("large")
     ),
-    position: v.object({
-      x: v.number(),
-      y: v.number()
-    }),
+    position: v.number(),
     title: v.optional(v.string()),
     content: v.optional(v.string()),
     videoUrl: v.optional(v.string()),
@@ -59,13 +56,16 @@ export const create = mutation({
       throw new Error("Wall tile limit reached");
     }
 
+    // Use tileCount for position
+    const currentPosition = wall.tileCount ?? 0;
+
     // Create base tile with correct user ID
     const baseTile = await ctx.db.insert("baseTiles", {
       userId: user._id,
       wallId: args.wallId,
       type: args.type as TileType,
       size: args.size as TileSize, 
-      position: args.position,
+      position: currentPosition,
       createdAt: Date.now(),
       updatedAt: Date.now(),
       isArchived: false

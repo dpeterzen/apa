@@ -83,6 +83,13 @@ export const getFirstWall = query({
   }
 });
 
+export const getWall = query({
+  args: { id: v.string() },
+  async handler(ctx, args) {
+    return await ctx.db.get(args.id as Id<"walls">);
+  }
+});
+
 export const getUserWall = query({
   args: { id: v.string() },
   handler: async (ctx, args) => {
@@ -95,7 +102,8 @@ export const getUserWall = query({
     // Get the wall document
     const wall = await ctx.db.get(args.id as Id<"walls">);
     if (!wall) {
-      throw new Error("Wall not found");
+      // Return null instead of throwing when wall not found
+      return null;
     }
 
     // Check ownership

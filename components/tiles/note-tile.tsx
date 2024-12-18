@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Minus, MoreHorizontal, Plus, Trash } from "lucide-react";
+import { ChevronLeft, ChevronRight, Minus, MoreHorizontal, Plus, Trash } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { debounce } from "lodash"; 
@@ -118,6 +118,20 @@ export function NoteTile({
           </div>
         </PopoverContent>
       </Popover>
+      <Button
+        variant="ghost"
+        className="z-100 rounded-full absolute bottom-[86px] right-[-1px] h-6 w-6 p-0 text-muted"
+        // onClick={() => handlePositionChange("increase")}
+      >
+        <ChevronRight className="" />
+      </Button>
+      <Button
+        variant="ghost"
+        className="z-100 rounded-full absolute bottom-[57px] right-[-1px] h-6 w-6 p-0 text-muted"
+        // onClick={() => handlePositionChange("decrease")}
+      >
+        <ChevronLeft className="" />
+      </Button>
       <Button
         variant="ghost"
         className="z-100 rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
