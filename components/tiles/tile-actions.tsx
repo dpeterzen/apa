@@ -1,6 +1,16 @@
 import { Button } from "../ui/button";
-import { ChevronLeft, ChevronRight, Minus, MoreHorizontal, Plus } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Minus,
+  MoreHorizontal,
+  Plus,
+} from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { TileSize } from "@/types";
 import { ReactNode } from "react";
 
@@ -11,9 +21,9 @@ interface TileActionsProps {
   size: TileSize;
 }
 
-export function TileActions({ 
-  onSizeChange, 
-  onPositionChange, 
+export function TileActions({
+  onSizeChange,
+  onPositionChange,
   children,
 }: TileActionsProps) {
   return (

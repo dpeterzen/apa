@@ -6,8 +6,8 @@ import { Trash } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { debounce } from "lodash";
-import { useTileActions } from '@/hooks/use-tile-actions';
-import { TileActions } from './tile-actions';
+import { useTileActions } from "@/hooks/use-tile-actions";
+import { TileActions } from "./tile-actions";
 
 interface NoteTileProps {
   tileId: Id<"baseTiles">;
@@ -15,13 +15,13 @@ interface NoteTileProps {
   size: "small" | "medium" | "large";
 }
 
-export function NoteTile({
-  tileId,
-  wallId,
-  size,
-}: NoteTileProps) {
+export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
   // group hooks at the top
-  const { handleSizeChange, handlePositionChange } = useTileActions({ tileId, wallId, size });
+  const { handleSizeChange, handlePositionChange } = useTileActions({
+    tileId,
+    wallId,
+    size,
+  });
   const noteData = useQuery(api.tiles.getNoteContent, { tileId });
   const updateNote = useMutation(api.tiles.updateNoteContent);
   const deleteTile = useMutation(api.tiles.deleteTile);
@@ -73,7 +73,7 @@ export function NoteTile({
 
   return (
     <div className="h-full flex flex-col pr-[22px] relative">
-      <TileActions 
+      <TileActions
         onSizeChange={handleSizeChange}
         onPositionChange={handlePositionChange}
         size={size}
