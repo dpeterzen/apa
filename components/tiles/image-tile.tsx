@@ -1,10 +1,15 @@
 import { Id } from "@/convex/_generated/dataModel";
 import { Button } from "../ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Minus, MoreHorizontal, Plus, Trash } from "lucide-react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { TileSize, SIZES } from "@/types";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Input } from "@/components/ui/input";
+import { Link } from "lucide-react";
+import { useEffect, useState } from "react";
+import Image from 'next/image';
 
 interface ImageTileProps {
   tileId: Id<"baseTiles">;
@@ -13,9 +18,32 @@ interface ImageTileProps {
 }
 
 export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
-  const deleteTile = useMutation(api.tiles.deleteTile);
   const updateTileSize = useMutation(api.tiles.updateTileSize);
+  const deleteTile = useMutation(api.tiles.deleteTile);
+  const updateImageUrl = useMutation(api.tiles.updateImageUrl)
+  const imageData = useQuery(api.tiles.getImageUrl, { tileId });
+  const [showUrlPopover, setShowUrlPopover] = useState(false)
+  const [imageUrl, setImageUrl] = useState("")
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  
+  const handleImageLoad = () => {
+    setIsImageLoading(false);
+  };
 
+  useEffect(() => {
+    if (imageData) {
+      setImageUrl(imageData);
+    }
+  }, [imageData]);
+
+  const handleImageUrlUpdate = async () => {
+    await updateImageUrl({
+      tileId,
+      imageUrl
+    })
+    setShowUrlPopover(false)
+  }
+  
   const handleDelete = async () => {
     await deleteTile({
       tileId,
@@ -44,26 +72,51 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
 
   return (
     <div className="h-full flex flex-col relative">
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="ghost"
-            className="z-100 rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
-          >
-            <MoreHorizontal />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-40 p-1 rounded-xl" align="end">
-          <div
-            role="button"
-            onClick={handleDelete}
-            className="flex items-center px-2 py-1.5 text-sm text-red-600 rounded-md cursor-pointer hover:bg-accent"
-          >
-            <Trash className="mr-2 h-4 w-4" />
-            Delete
-          </div>
-        </PopoverContent>
-      </Popover>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant="ghost"
+          className="z-50 rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
+        >
+          <MoreHorizontal />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-40 p-1 rounded-xl" align="end">
+        <Popover open={showUrlPopover} onOpenChange={setShowUrlPopover}>
+          <PopoverTrigger asChild>
+            <div
+              role="button"
+              className="flex items-center px-2 py-1.5 text-sm rounded-md cursor-pointer hover:bg-accent"
+            >
+              <Link className="mr-2 h-4 w-4" />
+              Image link
+            </div>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 rounded-xl" align="center">
+            <div className="flex flex-col gap-2">
+              <Input
+                placeholder="Enter image URL..."
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleImageUrlUpdate()
+                  }
+                }}
+              />
+            </div>
+          </PopoverContent>
+        </Popover>
+        <div
+          role="button"
+          onClick={handleDelete}
+          className="flex items-center px-2 py-1.5 text-sm text-red-600 rounded-md cursor-pointer hover:bg-accent"
+        >
+          <Trash className="mr-2 h-4 w-4" />
+          Delete
+        </div>
+      </PopoverContent>
+    </Popover>
       <Button
         variant="ghost"
         className="z-100 rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
@@ -79,10 +132,26 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         <Minus className="" />
       </Button>
 
-      <div className="flex-1 flex items-center justify-center">
-        <div className="w-20 h-20 bg-muted rounded-lg flex items-center justify-center text-muted-foreground">
-          Image
-        </div>
+      <div className="flex-1 flex items-center justify-center relative">
+        {(!imageData || !imageUrl || isImageLoading) && (
+          <Skeleton className="absolute inset-0 w-full h-full rounded-md" />
+        )}
+        {imageUrl && (
+          <div className="relative w-full h-full">
+            <Image 
+              src={imageUrl}
+              alt="Tile image"
+              fill
+              className={`
+                object-contain transition-opacity duration-300
+                ${isImageLoading ? 'opacity-0' : 'opacity-100'}
+              `}
+              onLoadingComplete={handleImageLoad}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority={false}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

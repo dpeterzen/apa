@@ -208,6 +208,43 @@ export const updateNoteContent = mutation({
   }
 });
 
+export const updateImageUrl = mutation({
+  args: {
+    tileId: v.id("baseTiles"),
+    imageUrl: v.string(),
+  },
+  async handler(ctx, args) {
+    const imageUrlTile = await ctx.db
+      .query("imageUrlTiles")
+      .filter(q => q.eq(q.field("tileId"), args.tileId))
+      .unique();
+    
+    if (!imageUrlTile) {
+      throw new Error("Image tile not found");
+    }
+
+    await ctx.db.patch(imageUrlTile._id, {
+      imageUrl: args.imageUrl,
+    });
+
+    await ctx.db.patch(args.tileId, {
+      updatedAt: Date.now(),
+    });
+  }
+});
+
+export const getImageUrl = query({
+  args: { tileId: v.id("baseTiles") },
+  async handler(ctx, args) {
+    const imageUrlTile = await ctx.db
+      .query("imageUrlTiles")
+      .filter(q => q.eq(q.field("tileId"), args.tileId))
+      .unique();
+    
+    return imageUrlTile ? imageUrlTile.imageUrl : null;
+  }
+});
+
 export const getWallTiles = query({
   args: { wallId: v.string() },
   async handler(ctx, args) {
