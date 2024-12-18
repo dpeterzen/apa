@@ -15,7 +15,7 @@ const sizeClasses = {
     image: "sm:col-span-4 md:col-span-4 lg:col-span-2 col-span-6 row-span-2 ",
   },
   medium: {
-    note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3",
+    note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-4 xl:row-span-4",
     video:
       "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 row-span-3 sm:row-span-2 md:row-span-2 lg:row-span-2 2xl:row-span-3",
     image: "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 xl:row-span-4 row-span-3",
@@ -24,7 +24,7 @@ const sizeClasses = {
     note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-9 2xl:row-span-10",
     video:
       "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 sm:row-span-3 md:row-span-4 lg:row-span-4 2xl:row-span-5",
-    image: "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 row-span-3",
+    image: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-7 2xl:row-span-7",
   },
 };
 
