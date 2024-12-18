@@ -143,6 +143,22 @@ export const deleteTile = mutation({
     // Delete the baseTile
     await ctx.db.delete(args.tileId);
 
+    // Get all remaining tiles on this wall and reorder them
+    const remainingTiles = await ctx.db
+      .query("baseTiles")
+      .filter(q => q.eq(q.field("wallId"), args.wallId))
+      .collect();
+
+    // Sort tiles by current position
+    const sortedTiles = remainingTiles.sort((a, b) => a.position - b.position);
+
+    // Update positions sequentially
+    for (let i = 0; i < sortedTiles.length; i++) {
+      await ctx.db.patch(sortedTiles[i]._id, {
+        position: i
+      });
+    }
+
     // Update wall tile count
     const wall = await ctx.db.get(args.wallId);
     if (wall) {

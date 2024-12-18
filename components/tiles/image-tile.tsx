@@ -135,6 +135,9 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
 
         {imageUrl && isDomainAllowed(imageUrl) && (
           <>
+          <div className="absolute top-0 left-0 z-10 bg-black/50 p-1 text-xs text-white rounded-xl">
+            Tile image
+          </div>
             <Image
               src={imageUrl}
               alt="Tile image"

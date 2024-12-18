@@ -9,20 +9,33 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
-import { Calendar, SendHorizontal, Smile, X } from "lucide-react";
+import { Image as ImageIcon, SendHorizontal, Smile, SquarePen, X } from "lucide-react";
 
-const BlankTile = ({
-  onSelect,
-  setShowBlankTile,
-}: {
-  onSelect: (type: TileType) => void;
+interface BlankTileProps {
+  onSelect: (type: TileType, options?: { title?: string }) => void;
   setShowBlankTile: (show: boolean) => void;
-}) => {
+}
+
+const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
 
   const isURL = (text: string) => {
-    const urlPattern = /^(https?:\/\/)?[\w-]+(\.[\w-]+)+[/#?]?.*$/i;
+    if (!text) return false;
+
+    // More comprehensive URL pattern
+    const urlPattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "localhost|" + // localhost
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$", // fragment locator
+      "i"
+    );
+
+    // console.log("URL Check:", text, urlPattern.test(text));
     return urlPattern.test(text);
   };
 
@@ -34,7 +47,7 @@ const BlankTile = ({
     <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 flex items-center justify-center">
       <Command className="rounded-xl border">
         <div className="flex items-center px-3 w-full">
-        <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0">
             <CommandInput
               ref={inputRef}
               value={inputValue}
@@ -63,25 +76,33 @@ const BlankTile = ({
           </div>
         </div>
         <CommandList>
-          <CommandEmpty>
-            {inputValue && !isURL(inputValue) ? (
-              <CommandItem onSelect={() => onSelect("note")} className="px-2">
-                <Calendar className="mr-2 h-4 w-4" />
-                <span>Create a note with this text</span>
-              </CommandItem>
-            ) : (
-              "No results found."
+          <CommandEmpty className="p-1">
+            {inputValue && !isURL(inputValue) && (
+              <>
+                <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground text-start">
+                  Suggestions
+                </div>
+                <button
+                  onClick={() => onSelect("note", { title: inputValue })}
+                  className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground w-full"
+                >
+                  <SquarePen className="mr-2 h-4 w-4" />
+                  <span>Add note titled &quot;{inputValue}&quot;</span>
+                </button>
+              </>
             )}
           </CommandEmpty>
           <CommandGroup heading="Suggestions">
             <CommandItem
-              onSelect={() => {onSelect("note")}}
+              onSelect={() => {
+                onSelect("note");
+              }}
             >
-              <Calendar />
+              <SquarePen />
               <span>Note</span>
             </CommandItem>
             <CommandItem onSelect={() => onSelect("image")}>
-              <Smile />
+              <ImageIcon />
               <span>Image</span>
             </CommandItem>
             <CommandItem disabled>

@@ -92,7 +92,7 @@ export default defineSchema({
   baseTiles: defineTable({
     wallId: v.id("walls"),
     userId: v.id("users"),
-    type: v.string(), // "note", "image", "youtube", etc.
+    type: v.string(), // "note", "image", "video", etc.
     size: v.string(), // small" | "medium" | "large"
     position: v.number(),
     createdAt: v.number(),
@@ -109,7 +109,6 @@ export default defineSchema({
     content: v.string()
   })
     .index("byTileId", ["tileId"]),
-
 
   imageUrlTiles: defineTable({
     tileId: v.id("baseTiles"),
@@ -133,10 +132,13 @@ export default defineSchema({
     .index("byTileId", ["tileId"])
     .index("byStorageId", ["storageId"]),
 
-  // For YouTube videos
-  youtubeTiles: defineTable({
+  // For videos
+  videoTiles: defineTable({
     tileId: v.id("baseTiles"),
-    videoId: v.string(),
+    url: v.string(),
+    type: v.optional(v.string()), // "youtube", "vimeo", "custom"
+    videoId: v.optional(v.string()),
+    title: v.optional(v.string()),
     startTime: v.optional(v.number()),
     endTime: v.optional(v.number())
   })
