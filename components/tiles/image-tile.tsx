@@ -115,7 +115,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
 
       <div className="flex-1 flex items-center justify-center relative">
         {!imageUrl && (
-          <div className="flex items-center justify-center mr-[-33px]">
+          <div className="flex items-center justify-center mr-[-25px]">
             <ImageIcon className="size-10 text-muted-foreground/30" />
           </div>
         )}
