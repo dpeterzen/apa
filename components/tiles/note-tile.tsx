@@ -30,6 +30,8 @@ export function NoteTile({
   const updateNote = useMutation(api.tiles.updateNoteContent);
   const deleteTile = useMutation(api.tiles.deleteTile);
   const updateTileSize = useMutation(api.tiles.updateTileSize);
+  const swapTilePositions = useMutation(api.tiles.swapTilePositions);
+  const currentTiles = useQuery(api.tiles.getWallTiles, { wallId });
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -95,6 +97,36 @@ export function NoteTile({
     }
   };
 
+  const handlePositionChange = async (direction: "increase" | "decrease") => {
+    const allTiles = currentTiles ?? [];
+    const currentTile = allTiles.find(t => t._id === tileId);
+    if (!currentTile) return;
+  
+    const currentPosition = currentTile.position ?? 0;
+    const maxPosition = allTiles.length - 1;
+    
+    // Find neighboring tile
+    const targetTile = allTiles.find(t => 
+      direction === "increase" 
+        ? t.position === currentPosition + 1
+        : t.position === currentPosition - 1
+    );
+  
+    // Check boundaries and target tile existence
+    if (
+      !targetTile ||
+      (direction === "increase" && currentPosition >= maxPosition) ||
+      (direction === "decrease" && currentPosition <= 0)
+    ) {
+      return;
+    }
+  
+    await swapTilePositions({
+      tileId1: tileId,
+      tileId2: targetTile._id
+    });
+  };
+
   return (
     <div className="h-full flex flex-col pr-[12px] relative">
       {/* side tile actions start */}
@@ -120,17 +152,17 @@ export function NoteTile({
       </Popover>
       <Button
         variant="ghost"
-        className="z-100 rounded-full absolute bottom-[86px] right-[-1px] h-6 w-6 p-0 text-muted"
-        // onClick={() => handlePositionChange("increase")}
+        className="z-100 rounded-full absolute bottom-[57px] right-[-1px] h-6 w-6 p-0 text-muted"
+        onClick={() => handlePositionChange("decrease")}
       >
-        <ChevronRight className="" />
+        <ChevronLeft className="" />
       </Button>
       <Button
         variant="ghost"
-        className="z-100 rounded-full absolute bottom-[57px] right-[-1px] h-6 w-6 p-0 text-muted"
-        // onClick={() => handlePositionChange("decrease")}
+        className="z-100 rounded-full absolute bottom-[86px] right-[-1px] h-6 w-6 p-0 text-muted"
+        onClick={() => handlePositionChange("increase")}
       >
-        <ChevronLeft className="" />
+        <ChevronRight className="" />
       </Button>
       <Button
         variant="ghost"

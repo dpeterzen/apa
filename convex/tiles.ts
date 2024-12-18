@@ -163,6 +163,43 @@ export const updateTileSize = mutation({
   },
 });
 
+export const updateTilePosition = mutation({
+  args: { 
+    tileId: v.id("baseTiles"),
+    position: v.number()
+  },
+  async handler(ctx, args) {
+    await ctx.db.patch(args.tileId, {
+      position: args.position,
+      updatedAt: Date.now()
+    });
+  }
+});
+
+export const swapTilePositions = mutation({
+  args: { 
+    tileId1: v.id("baseTiles"),
+    tileId2: v.id("baseTiles")
+  },
+  async handler(ctx, args) {
+    const tile1 = await ctx.db.get(args.tileId1);
+    const tile2 = await ctx.db.get(args.tileId2);
+    
+    if (!tile1 || !tile2) throw new Error("Tiles not found");
+    
+    // Swap positions
+    await ctx.db.patch(args.tileId1, {
+      position: tile2.position,
+      updatedAt: Date.now()
+    });
+    
+    await ctx.db.patch(args.tileId2, {
+      position: tile1.position,
+      updatedAt: Date.now()
+    });
+  }
+});
+
 export const getNoteContent = query({
   args: { tileId: v.id("baseTiles") },
   async handler(ctx, args) {
@@ -253,6 +290,12 @@ export const getWallTiles = query({
       .filter((q) => q.eq(q.field("wallId"), args.wallId))
       .collect();
     
-    return baseTiles;
+    // Sort in memory since Convex doesn't support complex sorting
+    return baseTiles.sort((a, b) => {
+      if (a.position === b.position) {
+        return a._creationTime - b._creationTime;
+      }
+      return a.position - b.position;
+    });
   }
 });

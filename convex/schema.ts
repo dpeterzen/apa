@@ -93,14 +93,14 @@ export default defineSchema({
     wallId: v.id("walls"),
     userId: v.id("users"),
     type: v.string(), // "note", "image", "youtube", etc.
-    size: v.string(), // Add this line for "small" | "medium" | "large"
+    size: v.string(), // small" | "medium" | "large"
     position: v.number(),
     createdAt: v.number(),
     updatedAt: v.number(),
     isArchived: v.boolean()
   })
     .index("byWall", ["wallId"])
-    .index("byType", ["type"]),
+    .index("byType", ["type"]).index("by_wall_and_position", ["wallId", "position"]),
 
   // Type-specific content tables
   noteTiles: defineTable({
