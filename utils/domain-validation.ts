@@ -9,6 +9,7 @@ export const DOMAIN_WHITELIST = [
   '*.cloudinary.com',
   '*.amazonaws.com', 
   '*.googleusercontent.com',
+  '*.giphy.com',
   
   // Complex matching patterns
   '^.*\\.cdn\\.([a-z]+)\\.com$',

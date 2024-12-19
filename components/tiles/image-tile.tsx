@@ -24,6 +24,10 @@ interface ImageTileProps {
   size: "small" | "medium" | "large";
 }
 
+const isGifUrl = (url: string) => {
+  return url.toLowerCase().endsWith('.gif');
+};
+
 export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   const { handleSizeChange, handlePositionChange } = useTileActions({
     tileId,
@@ -133,7 +137,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         </div>
       </TileActions>
 
-      <div className="flex-1 flex items-center justify-center relative">
+      <div className="flex-1 flex items-center justify-center relative bg-zinc-100 dark:bg-zinc-900/20 rounded-xl">
         {!imageUrl && (
           <div className="flex items-center justify-center mr-[-25px]">
             <ImageIcon className="size-10 text-muted-foreground/30" />
@@ -167,7 +171,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
                 >
                   <div className="h-[18px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                     <span className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? '' : 'text-muted  group-hover:text-current'}`}>
-                      {currentAltText || "image name"}
+                      {currentAltText || "name"}
                     </span>
                   </div>
                 </Button>
@@ -205,8 +209,9 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               src={imageUrl}
               alt={currentAltText || "Tile image"}
               fill
+              unoptimized={isGifUrl(imageUrl)}
               className={`
-                object-contain transition-opacity duration-300 rounded-xl
+                object-contain transition-opacity duration-300
                 ${isImageLoading || hasError ? "opacity-0" : "opacity-100"}
               `}
               onLoad={handleImageLoad}
