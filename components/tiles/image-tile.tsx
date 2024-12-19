@@ -114,7 +114,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           <PopoverContent className="w-80 rounded-xl p-1" align="center">
             <div className="flex flex-col gap-2">
               <Input
-                className="h-8 border-0"
+                className="h-7 border-0 p-[2px]"
                 placeholder="Enter image URL..."
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
@@ -180,11 +180,11 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
                 className="w-80 rounded-xl p-1"
                 align="center"
                 side="top"
-                sideOffset={-59}
+                sideOffset={-56}
               >
                 <div className="flex flex-col gap-2">
                   <Input
-                    className="h-8 border-0"
+                    className="h-7 border-0 p-[2px] overflow-hidden text-ellipsis whitespace-nowrap"
                     placeholder="Enter image name..."
                     maxLength={MAX_ALT_TEXT_LENGTH}
                     value={currentAltText}

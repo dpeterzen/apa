@@ -1,122 +1,84 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { useMutation } from "convex/react";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import { useTitle } from "@/hooks/useTitle";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { useSidebar } from "@/components/ui/sidebar";
 
-const WallTitle = () => {
-  const [title, setTitle]  = useState("TEST WALL NAME");
-  const [tempTitle, setTempTitle] = useState(title);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [tooltipMessage, setTooltipMessage] = useState("");
-  const [isFaded, setIsFaded] = useState(false);
+interface WallTitleProps {
+  wallId: Id<"walls">;
+  title: string;
+}
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      if (tempTitle.trim() === "") {
-        setTempTitle(title);
-      } else {
-        setTitle(tempTitle.trim());
-      }
-      setIsEditing(false);
-      setIsHovered(false); // Reset hover state
-    } else if (e.key === "Escape") {
-      setTempTitle(title);
-      setIsEditing(false);
-      setIsHovered(false); // Reset hover state
-    }
-  };
-
-  const handleBlur = () => {
-    if (tempTitle.trim() === "") {
-      setTempTitle(title);
-    } else {
-      setTitle(tempTitle.trim());
-    }
-    setIsEditing(false);
-    setIsHovered(false); // Reset hover state
-    setShowTooltip(false); // Hide tooltip on blur
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    if (newValue.length <= 120) {
-      setTempTitle(newValue);
-      if (newValue.length >= 110) {
-        setShowTooltip(true);
-        setTooltipMessage(`Character limit: ${newValue.length}/120`);
-      } else {
-        setShowTooltip(false);
-      }
-    }
-  };
-
-  const handleFocus = () => {
-    if (tempTitle.length >= 110) {
-      setShowTooltip(true); // Show tooltip on focus if character count is 110 or more
-    }
-  };
+export function WallTitle({ wallId, title }: WallTitleProps) {
+  const [showTitlePopover, setShowTitlePopover] = useState(false);
+  const [editableTitle, setEditableTitle] = useState(title);
+  const updateTitle = useMutation(api.walls.updateTitle);
+  const { state, isMobile } = useSidebar();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsFaded(window.scrollY > 15);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  // Set document title dynamically *** 
-  useEffect(() => {
-    document.title = `${title} - TileRecall`;
+    setEditableTitle(title);
   }, [title]);
 
-  return (
-    <div className={`flex relative px-3 transition-opacity duration-300 ${isFaded ? 'opacity-0' : 'opacity-100'}`}>
-      {isEditing ? (
-        <div className="relative w-full">
-          <Input
-            type="text"
-            value={tempTitle}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            onFocus={handleFocus}
-            onKeyDown={handleKeyDown}
-            autoFocus
-            className="dark:text-zinc-300 w-full flex-grow min-h-[45px] py-1 px-[2px] !text-[26px] !leading-[35px] font-bold focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-zinc-700 overflow-hidden text-ellipsis whitespace-nowrap"
-          />
-          {showTooltip && (
-            <div className="absolute top-full right-0 m-1 mr-0 z-[1001] overflow-hidden rounded-md border bg-white dark:bg-zinc-700 px-1.5 pb-0.5 pt-[0.1rem] text-[15px] text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95">
-              {tooltipMessage}
-            </div>
-          )}
-        </div>
-      ) : (
-        <h1
-          className={`text-zinc-600 w-full flex-grow min-h-[45px] py-1 px-[2px] border rounded-md text-[26px] leading-[35px] font-bold cursor-default overflow-hidden ${
-            isHovered ? "border-zinc-300 dark:border-zinc-900" : "border-zinc-50 dark:border-zinc-950"
-          }`}
-          style={{ whiteSpace: "normal", wordBreak: "break-word" }}
-        >
-          <span
-            onClick={() => {
-              setTempTitle(title);
-              setIsEditing(true);
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="pointer-events-auto cursor-text"
-          >
-            {title}
-          </span>
-        </h1>
-      )}
-    </div>
-  );
-};
+  const handleTitleUpdate = async () => {
+    if (!editableTitle.trim()) return;
 
-export default WallTitle;
+    try {
+      await updateTitle({
+        wallId,
+        title: editableTitle
+      });
+      setShowTitlePopover(false);
+    } catch (error) {
+      console.error("Failed to update title:", error);
+    }
+  };
+
+  const getMaxWidth = () => {
+    if (isMobile || state === "collapsed") {
+      return "calc(100vw - 80px)"; // Collapsed sidebar width
+    }
+    return "calc(100vw - 350px)"; // Expanded sidebar width
+  };
+
+  return (
+      <Popover open={showTitlePopover} onOpenChange={setShowTitlePopover}>
+        <PopoverTrigger asChild>
+          <Button style={{ maxWidth: getMaxWidth() }}
+            variant="ghost"
+            size="sm"
+            title={title}
+            className="overflow-hidden font-semibold h-[28px] !text-[18px] !leading-[27px] rounded-md"
+          >
+            <span className="truncate block w-full text-left">
+              {title}
+            </span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-80 rounded-xl p-1" align="start">
+          <div className="flex flex-col gap-2">
+            <Input
+              className="dark:text-zinc-300 w-full flex-grow min-h-[33px] py-1 px-[2px] !text-[18px] !leading-[27px] font-bold overflow-hidden text-ellipsis whitespace-nowrap border-0"
+              placeholder="Enter wall title..."
+              maxLength={100}
+              value={editableTitle}
+              onChange={(e) => setEditableTitle(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleTitleUpdate();
+                }
+              }}
+            />
+          </div>
+        </PopoverContent>
+      </Popover>
+  );
+}

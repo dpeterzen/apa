@@ -2,6 +2,7 @@ import { Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server"
 import { v } from "convex/values"
 import { isValidConvexId } from "./utils";
+import { z } from "zod";
 
 export const create = mutation({
   args: { title: v.string() },
@@ -142,6 +143,43 @@ export const checkWallAccess = query({
   },
 });
 
+const wallTitleSchema = z.object({
+  title: z.string()
+    .min(1, "Title cannot be empty")
+    .max(100, "Title cannot exceed 100 characters")
+    .refine(
+      (text) => !text.includes("<script>"),
+      "Invalid characters in title"
+    )
+});
+
+export const updateTitle = mutation({
+  args: { 
+    wallId: v.id("walls"),
+    title: v.string()
+  },
+  async handler(ctx, args) {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Validate input
+    const validatedData = wallTitleSchema.parse({
+      title: args.title
+    });
+
+    const wall = await ctx.db.get(args.wallId);
+    if (!wall || wall.userId !== identity.subject) {
+      throw new Error("Not authorized");
+    }
+
+    await ctx.db.patch(args.wallId, {
+      title: validatedData.title,
+      updatedAt: Date.now()
+    });
+  }
+});
 
 // export const archiveWall = mutation({
 //   args: { id: v.string() },

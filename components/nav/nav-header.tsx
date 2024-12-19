@@ -11,6 +11,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { redirect } from 'next/navigation';
+import { WallTitle } from "@/components/walls/wall-title";
 
 export function NavHeader() {
   const { state, isMobile } = useSidebar();
@@ -30,15 +31,16 @@ export function NavHeader() {
 
   return (
     <header className="sticky top-0 z-50 bg-background flex h-[48px] shrink-0 items-center px-[14px]">
-      {(state === "collapsed" || isMobile) &&
-        <>
-          <SidebarTrigger className="-ml-0 mr-[2px]" />
-        </>
-      }
+      {(state === "collapsed" || isMobile) && (
+        <SidebarTrigger className="-ml-0 mr-[2px]" />
+      )}
       <div className="flex-1 flex">
-        <Button variant="ghost" size="sm" className="font-semibold h-[25px] text-[16px] rounded-md">
-          {currentWall?.title}
-        </Button>
+        {currentWall && (
+          <WallTitle 
+            wallId={currentWall._id} 
+            title={currentWall.title} 
+          />
+        )}
       </div>
       <div className="ml-auto">
         <NavActions />
