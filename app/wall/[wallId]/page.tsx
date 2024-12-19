@@ -106,7 +106,7 @@ export default function WallIdPage({
       </div>
       {!showBlankTile && (
       <Button
-        className="pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
+        className="mt-1 pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
         variant="ghost"
         onClick={() => handleCreateTile()}
       >
