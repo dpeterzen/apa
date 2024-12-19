@@ -261,6 +261,7 @@ export const updateNoteContent = mutation({
   }
 });
 
+// image logic starts here
 export const updateImageUrl = mutation({
   args: {
     tileId: v.id("baseTiles"),
@@ -297,6 +298,40 @@ export const getImageUrl = query({
     return imageUrlTile ? imageUrlTile.imageUrl : null;
   }
 });
+
+export const getAltText = query({
+  args: { tileId: v.id("baseTiles") },
+  async handler(ctx, args) {
+    const imageUrlTile = await ctx.db
+      .query("imageUrlTiles")
+      .filter(q => q.eq(q.field("tileId"), args.tileId))
+      .unique();
+    
+    return imageUrlTile?.altText || null;
+  }
+});
+
+export const updateAltText = mutation({
+  args: {
+    tileId: v.id("baseTiles"),
+    altText: v.string(),
+  },
+  async handler(ctx, args) {
+    const imageUrlTile = await ctx.db
+      .query("imageUrlTiles")
+      .filter(q => q.eq(q.field("tileId"), args.tileId))
+      .unique();
+    
+    if (!imageUrlTile) {
+      throw new Error("Image tile not found");
+    }
+
+    await ctx.db.patch(imageUrlTile._id, {
+      altText: args.altText,
+    });
+  }
+});
+// image logic ends here
 
 export const getWallTiles = query({
   args: { wallId: v.string() },

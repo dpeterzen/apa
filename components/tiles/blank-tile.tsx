@@ -44,7 +44,7 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
   }, []);
 
   return (
-    <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 flex items-center justify-center">
+    <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-5 row-span-3 flex items-center justify-center">
       <Command className="rounded-xl border">
         <div className="flex items-center px-3 w-full">
           <div className="flex-1 min-w-0">

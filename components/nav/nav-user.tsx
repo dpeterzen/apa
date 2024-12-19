@@ -57,14 +57,13 @@ export function NavUser() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-              className="h-[40px] data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="h-[38px] data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
                 </div>
                 <div className="flex flex-col">
                   <span className="text-sm">{firstName}</span>
-                  <span className="text-xs text-muted-foreground">Free</span>
                 </div>
               </div>
               <ChevronDown className="ml-auto size-4" />
@@ -77,11 +76,11 @@ export function NavUser() {
                   {email}
                 </p>
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
                   </div>
                   <div className="flex flex-col">
                     <span className="text-sm">{firstName}</span>
-                    <span className="text-xs text-muted-foreground">Free</span>
+                    <span className="text-xs text-muted-foreground">Free plan</span>
                   </div>
                 </div>
               </div>
@@ -140,19 +139,6 @@ export function NavUser() {
                       <Moon className="h-4 w-4" />
                     </Button>
                   </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">Language</span>
-                  <Select defaultValue="en">
-                    <SelectTrigger className="w-[100px] h-8">
-                      <SelectValue placeholder="Select language" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="es">Spanish</SelectItem>
-                      <SelectItem value="fr">French</SelectItem>
-                    </SelectContent>
-                  </Select>
                 </div>
               </div>
             </DropdownMenuGroup>

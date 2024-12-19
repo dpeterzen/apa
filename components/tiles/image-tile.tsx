@@ -30,11 +30,15 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   });
   const deleteTile = useMutation(api.tiles.deleteTile);
   const updateImageUrl = useMutation(api.tiles.updateImageUrl);
+  const updateAltText = useMutation(api.tiles.updateAltText);
+  const altText = useQuery(api.tiles.getAltText, { tileId });
   const imageData = useQuery(api.tiles.getImageUrl, { tileId });
   const [showUrlPopover, setShowUrlPopover] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [showAltTextPopover, setShowAltTextPopover] = useState(false);
+  const [currentAltText, setCurrentAltText] = useState("");
 
   const handleImageError = () => {
     setHasError(true);
@@ -50,7 +54,10 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
     if (imageData) {
       setImageUrl(imageData);
     }
-  }, [imageData]);
+    if (altText !== undefined) {
+      setCurrentAltText(altText || "");
+    }
+  }, [imageData, altText]);
 
   const handleImageUrlUpdate = async () => {
     if (!isDomainAllowed(imageUrl)) {
@@ -62,6 +69,14 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
       imageUrl,
     });
     setShowUrlPopover(false);
+  };
+
+  const handleAltTextUpdate = async () => {
+    await updateAltText({
+      tileId,
+      altText: currentAltText,
+    });
+    setShowAltTextPopover(false);
   };
 
   const handleDelete = async () => {
@@ -136,12 +151,45 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
 
         {imageUrl && isDomainAllowed(imageUrl) && (
           <>
-          <Button variant="ghost" size="sm"  className="absolute top-[-15px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md">
-            Tile image
-          </Button>
+            <Popover
+              open={showAltTextPopover}
+              onOpenChange={setShowAltTextPopover}
+            >
+              <PopoverTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="absolute top-[-15px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
+                >
+                  {currentAltText || "no image name"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 rounded-xl p-1" align="center">
+                <div className="flex flex-col gap-2">
+                  <Input
+                    placeholder="Enter image name..."
+                    className="h-8"
+                    value={currentAltText}
+                    onChange={(e) => setCurrentAltText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleAltTextUpdate();
+                      }
+                    }}
+                  />
+                </div>
+              </PopoverContent>
+            </Popover>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="absolute bottom-[-15px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
+            >
+              no caption
+            </Button>
             <Image
               src={imageUrl}
-              alt="Tile image"
+              alt={currentAltText || "Tile image"}
               fill
               className={`
                 object-contain transition-opacity duration-300 rounded-xl
