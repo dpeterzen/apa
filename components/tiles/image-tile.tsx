@@ -16,6 +16,8 @@ import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
 import { Button } from "../ui/button";
 
+const MAX_ALT_TEXT_LENGTH = 125;
+
 interface ImageTileProps {
   tileId: Id<"baseTiles">;
   wallId: Id<"walls">;
@@ -30,7 +32,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   });
   const deleteTile = useMutation(api.tiles.deleteTile);
   const updateImageUrl = useMutation(api.tiles.updateImageUrl);
-  const updateAltText = useMutation(api.tiles.updateAltText);
+  const updateAltText = useMutation(api.tiles.updateImageTileAltText);
   const altText = useQuery(api.tiles.getAltText, { tileId });
   const imageData = useQuery(api.tiles.getImageUrl, { tileId });
   const [showUrlPopover, setShowUrlPopover] = useState(false);
@@ -72,10 +74,12 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   };
 
   const handleAltTextUpdate = async () => {
+    const trimmedText = currentAltText.slice(0, MAX_ALT_TEXT_LENGTH);
     await updateAltText({
       tileId,
-      altText: currentAltText,
+      altText: trimmedText,
     });
+    setCurrentAltText(trimmedText);
     setShowAltTextPopover(false);
   };
 
@@ -157,18 +161,21 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             >
               <PopoverTrigger asChild>
                 <Button
+                  title={currentAltText}
                   variant="ghost"
                   size="sm"
-                  className="absolute top-[-15px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
+                  className="absolute top-[-15px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md max-w-[calc(100%-8px)] truncate"
                 >
-                  {currentAltText || "no image name"}
+                  <span className="truncate block w-full text-left">
+                    {currentAltText || "no image name"}
+                  </span>
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-80 rounded-xl p-1" align="center">
                 <div className="flex flex-col gap-2">
                   <Input
                     placeholder="Enter image name..."
-                    className="h-8"
+                    maxLength={MAX_ALT_TEXT_LENGTH}
                     value={currentAltText}
                     onChange={(e) => setCurrentAltText(e.target.value)}
                     onKeyDown={(e) => {
