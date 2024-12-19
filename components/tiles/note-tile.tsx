@@ -22,8 +22,8 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
     wallId,
     size,
   });
-  const noteData = useQuery(api.tiles.getNoteContent, { tileId });
-  const updateNote = useMutation(api.tiles.updateNoteContent);
+  const noteData = useQuery(api.noteTiles.getNoteContent, { tileId });
+  const updateNote = useMutation(api.noteTiles.updateNoteContent);
   const deleteTile = useMutation(api.tiles.deleteTile);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");

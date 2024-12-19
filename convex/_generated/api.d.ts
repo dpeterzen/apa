@@ -16,6 +16,8 @@ import type {
 import type * as auth from "../auth.js";
 import type * as authAdapter from "../authAdapter.js";
 import type * as http from "../http.js";
+import type * as imageTiles from "../imageTiles.js";
+import type * as noteTiles from "../noteTiles.js";
 import type * as tiles from "../tiles.js";
 import type * as utils from "../utils.js";
 import type * as walls from "../walls.js";
@@ -32,6 +34,8 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   authAdapter: typeof authAdapter;
   http: typeof http;
+  imageTiles: typeof imageTiles;
+  noteTiles: typeof noteTiles;
   tiles: typeof tiles;
   utils: typeof utils;
   walls: typeof walls;

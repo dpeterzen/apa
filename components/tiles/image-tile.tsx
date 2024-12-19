@@ -35,10 +35,10 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
     size,
   });
   const deleteTile = useMutation(api.tiles.deleteTile);
-  const updateImageUrl = useMutation(api.tiles.updateImageUrl);
-  const updateAltText = useMutation(api.tiles.updateImageTileAltText);
-  const altText = useQuery(api.tiles.getAltText, { tileId });
-  const imageData = useQuery(api.tiles.getImageUrl, { tileId });
+  const updateImageUrl = useMutation(api.imageTiles.updateImageUrl);
+  const updateAltText = useMutation(api.imageTiles.updateImageTileAltText);
+  const altText = useQuery(api.imageTiles.getAltText, { tileId });
+  const imageData = useQuery(api.imageTiles.getImageUrl, { tileId });
   const [showUrlPopover, setShowUrlPopover] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [isImageLoading, setIsImageLoading] = useState(true);
