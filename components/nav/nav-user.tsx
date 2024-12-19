@@ -19,14 +19,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   // useSidebar,
-} from "@/components/ui/sidebar"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/sidebar";
 import { signOutAction } from "@/actions/auth-action";
 import { useRouter } from "next/navigation";
 

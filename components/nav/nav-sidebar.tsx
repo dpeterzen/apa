@@ -1,20 +1,10 @@
 "use client";
 
 import * as React from "react";
-import {
-  Search,
-
-  Image as ImageIcon,
-  SquareChartGantt,
-  ArrowRight,
-} from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import Square from "@/components/icons/square";
 import SquareDot from "@/components/icons/square-dot";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
@@ -23,9 +13,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarFooter,
   SidebarRail,
   SidebarGroupLabel,
@@ -41,8 +28,8 @@ import { api } from "@/convex/_generated/api";
 import { useRouter, usePathname } from "next/navigation";
 
 export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const [dialogOpen, setDialogOpen] = React.useState(false)
-  const walls = useQuery(api.walls.getUserWalls)
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const walls = useQuery(api.walls.getUserWalls);
   const router = useRouter();
 
   const pathname = usePathname();
@@ -88,22 +75,24 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   className="group/collapsible"
                 >
                   <SidebarMenuItem
-                    className={`group/menuitem ${isCurrentWall
-                        ? ""
-                        : "hover:bg-accent"
-                      } rounded-md`}
+                    className={`group/menuitem ${
+                      isCurrentWall ? "" : "hover:bg-accent"
+                    } rounded-md`}
                   >
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
-                        className={`px-2 ${isCurrentWall
-                          ? "bg-blue-300/30 hover:bg-blue-300/30 dark:!bg-zinc-950/80 dark:hover:bg-zinc-950/80"
-                          : "group-hover/menuitem:bg-transparent"
-                          }`}
+                        className={`px-2 ${
+                          isCurrentWall
+                            ? "bg-blue-300/30 hover:bg-blue-300/30 dark:!bg-zinc-950/80 dark:hover:bg-zinc-950/80"
+                            : "group-hover/menuitem:bg-transparent"
+                        }`}
                         tooltip={wall.title}
                       >
                         <Square className="group-data-[state=open]/collapsible:hidden" />
                         <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
-                        <span className={`${isCurrentWall ? "text-blue-500 dark:text-blue-400" : ""}`}>
+                        <span
+                          className={`${isCurrentWall ? "text-blue-500 dark:text-blue-400" : ""}`}
+                        >
                           {wall.title}
                         </span>
                       </SidebarMenuButton>
@@ -212,10 +201,8 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <AddWallDialog open={dialogOpen} onOpenChange={setDialogOpen} />
         </SidebarMenu>
         <NavUser />
-
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-
   );
 }
