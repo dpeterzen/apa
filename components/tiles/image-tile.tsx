@@ -14,6 +14,7 @@ import Image from "next/image";
 import { isDomainAllowed } from "@/utils/domain-validation";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
+import { Button } from "../ui/button";
 
 interface ImageTileProps {
   tileId: Id<"baseTiles">;
@@ -71,7 +72,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   };
 
   return (
-    <div className="h-full flex flex-col pr-[22px] relative">
+    <div className="h-full flex flex-col pr-[22px] py-[15px] relative">
       <TileActions
         onSizeChange={handleSizeChange}
         onPositionChange={handlePositionChange}
@@ -135,15 +136,15 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
 
         {imageUrl && isDomainAllowed(imageUrl) && (
           <>
-          <div className="absolute top-0 left-0 z-10 bg-black/50 p-1 text-xs text-white rounded-xl">
+          <Button variant="ghost" size="sm"  className="absolute top-[-15px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md">
             Tile image
-          </div>
+          </Button>
             <Image
               src={imageUrl}
               alt="Tile image"
               fill
               className={`
-                object-contain transition-opacity duration-300
+                object-contain transition-opacity duration-300 rounded-xl
                 ${isImageLoading || hasError ? "opacity-0" : "opacity-100"}
               `}
               onLoad={handleImageLoad}

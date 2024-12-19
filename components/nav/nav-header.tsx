@@ -36,7 +36,7 @@ export function NavHeader() {
         </>
       }
       <div className="flex-1 flex">
-        <Button variant="ghost" size="sm" className="font-semibold h-[25px] rounded-md">
+        <Button variant="ghost" size="sm" className="font-semibold h-[25px] text-[16px] rounded-md">
           {currentWall?.title}
         </Button>
       </div>
