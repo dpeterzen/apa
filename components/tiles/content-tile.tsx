@@ -5,7 +5,6 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Tile } from "@/types";
 import * as motion from "motion/react-client";
 
-
 // xs (<640px): Full width (12 cols)
 // sm (≥640px): Various widths
 // md (≥768px): More columns
@@ -20,13 +19,15 @@ const sizeClasses = {
     note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-4 xl:row-span-4",
     video:
       "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 row-span-3 sm:row-span-2 md:row-span-2 lg:row-span-2 2xl:row-span-3",
-    image: "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 xl:row-span-4 row-span-3",
+    image:
+      "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 xl:row-span-4 row-span-3",
   },
   large: {
     note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-9 2xl:row-span-10",
     video:
       "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 sm:row-span-3 md:row-span-4 lg:row-span-4 2xl:row-span-5",
-    image: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-7 2xl:row-span-7",
+    image:
+      "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-7 2xl:row-span-7",
   },
 };
 
@@ -34,21 +35,25 @@ export default function ContentTile({ tile }: { tile: Tile }) {
   const renderContent = () => {
     switch (tile.type) {
       case "note":
-        return <NoteTile 
-          tileId={tile.id as Id<"baseTiles">}
-          wallId={tile.wallId}
-          size={tile.size}
-        />;
-        case "image":
-          return <ImageTile
+        return (
+          <NoteTile
             tileId={tile.id as Id<"baseTiles">}
             wallId={tile.wallId}
             size={tile.size}
-          />;
+          />
+        );
+      case "image":
+        return (
+          <ImageTile
+            tileId={tile.id as Id<"baseTiles">}
+            wallId={tile.wallId}
+            size={tile.size}
+          />
+        );
       default:
-        return <div className="p-4">{tile.content}</div>
+        return <div className="p-4">{tile.content}</div>;
     }
-  }
+  };
 
   return (
     <motion.div
@@ -57,20 +62,17 @@ export default function ContentTile({ tile }: { tile: Tile }) {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
-      transition={{ 
-        layout: { 
+      transition={{
+        layout: {
           duration: 0.3,
           type: "spring",
           stiffness: 200,
-          damping: 25
+          damping: 25,
         },
         opacity: { duration: 0.2 },
-        scale: { duration: 0.2 }
+        scale: { duration: 0.2 },
       }}
-      className={cn(
-        "rounded-xl border",
-        sizeClasses[tile.size][tile.type]
-      )}
+      className={cn("rounded-xl border", sizeClasses[tile.size][tile.type])}
     >
       {renderContent()}
     </motion.div>
