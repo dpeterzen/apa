@@ -24,6 +24,7 @@ interface WallGridProps {
   showBlankTile: boolean;
   onTileSelect: (type: TileType) => void;
   setShowBlankTile: (show: boolean) => void;
+  onExitComplete: () => void;
 }
 
 export function WallGrid({ 
@@ -31,11 +32,12 @@ export function WallGrid({
   wallId, 
   showBlankTile, 
   onTileSelect, 
-  setShowBlankTile 
+  setShowBlankTile,
+  onExitComplete
 }: WallGridProps) {
   return (
     <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="popLayout" onExitComplete={onExitComplete}>
         {tiles?.map((baseTile) => (
           <ContentTile
             key={baseTile._id}

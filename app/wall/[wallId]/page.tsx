@@ -1,17 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { redirect } from "next/navigation";
 import { useConvexAuth } from "convex/react";
 import React from "react";
-import { AddTilePlus } from "@/components/icons/add-tile-plus";
-import { AddTileSquarePlus } from "@/components/icons/add-tile-square-plus";
-import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { Id } from "@/convex/_generated/dataModel";
 import { TileSize, TileType } from "@/types";
 import { WallGrid } from "@/components/walls/wall-grid";
+import { AddTileButton } from "@/components/buttons/add-tile-button";
 
 export default function WallIdPage({
   params,
@@ -22,9 +20,24 @@ export default function WallIdPage({
   const { isAuthenticated, isLoading } = useConvexAuth();
   const createTile = useMutation(api.tiles.create);
   const [showBlankTile, setShowBlankTile] = useState(false);
+  const [isExitComplete, setIsExitComplete] = useState(true);
+  const [delayedExit, setDelayedExit] = useState(true);
   const wall = useQuery(api.walls.getWall, { 
     id: resolvedParams.wallId 
   });
+
+
+  useEffect(() => {
+    if (isExitComplete) {
+      const timer = setTimeout(() => {
+        setDelayedExit(true);
+      }, 1);
+      return () => clearTimeout(timer);
+    } else {
+      setDelayedExit(false);
+    }
+  }, [isExitComplete]);
+
   // Not authenticated, redirect immediately
   if (!isLoading && !isAuthenticated) {
     redirect("/");
@@ -78,7 +91,10 @@ export default function WallIdPage({
 
   const handleCreateTile = () => {
     setShowBlankTile(true);
+    setIsExitComplete(false);
+    setDelayedExit(false);
   };
+
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px] pb-[84px]">
       <WallGrid
@@ -87,24 +103,11 @@ export default function WallIdPage({
         showBlankTile={showBlankTile}
         onTileSelect={handleTileSelect}
         setShowBlankTile={setShowBlankTile}
+        onExitComplete={() => setIsExitComplete(true)}
       />
       
-      {!showBlankTile && (
-        <Button
-          className="mt-1 pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
-          variant="ghost"
-          onClick={() => handleCreateTile()}
-        >
-          <span className="flex items-center">
-            <span className="relative flex items-center justify-center mb-[3px] mr-[3px]">
-              <AddTilePlus className="group-hover:hidden" />
-              <AddTileSquarePlus className="hidden group-hover:block" />
-            </span>
-            <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600 ml-2">
-              Add tile
-            </span>
-          </span>
-        </Button>
+      {!showBlankTile && delayedExit && (
+        <AddTileButton onClick={() => handleCreateTile()} />
       )}
     </main>
   );

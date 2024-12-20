@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { Image as ImageIcon, SendHorizontal, Smile, SquarePen, X } from "lucide-react";
+import * as motion from "motion/react-client";
 
 interface BlankTileProps {
   onSelect: (type: TileType, options?: { title?: string }) => void;
@@ -44,7 +45,23 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
   }, []);
 
   return (
-    <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-5 row-span-3 flex items-center justify-center">
+    <motion.div
+      layoutId="blank-tile"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{
+        layout: {
+          duration: 0.3,
+          type: "spring",
+          stiffness: 200,
+          damping: 25
+        },
+        opacity: { duration: 0.2 },
+        scale: { duration: 0.2 }
+      }}
+      className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-5 row-span-3 flex items-center justify-center"
+    >
       <Command className="rounded-xl border">
         <div className="flex items-center px-3 w-full">
           <div className="flex-1 min-w-0">
@@ -112,7 +129,8 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
           </CommandGroup>
         </CommandList>
       </Command>
-    </div>
+    </motion.div>
+
   );
 };
 
