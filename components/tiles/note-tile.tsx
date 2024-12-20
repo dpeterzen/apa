@@ -8,6 +8,7 @@ import { api } from "@/convex/_generated/api";
 import { debounce } from "lodash";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
+import { BlockNoteEditor } from "@/components/ui/block-note-editor";
 
 interface NoteTileProps {
   tileId: Id<"baseTiles">;
@@ -32,7 +33,11 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
   useEffect(() => {
     if (noteData) {
       setTitle(noteData.title);
-      setContent(noteData.content);
+      // Initialize with empty block if no content
+      setContent(noteData.content || JSON.stringify([{
+        type: "paragraph",
+        content: ""
+      }]));
     }
   }, [noteData]);
 
@@ -53,11 +58,16 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
     debouncedUpdate(newTitle, content);
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newContent = e.target.value;
+  const handleContentChange = (newContent: string) => {
     setContent(newContent);
-    debouncedUpdate(title, newContent);
+    // Direct update without debounce for debugging
+    updateNote({
+      tileId,
+      title,
+      content: newContent,
+    });
   };
+
 
   const handleDelete = async () => {
     await deleteTile({
@@ -95,10 +105,10 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
         onChange={handleTitleChange}
         className="font-semibold border-transparent rounded-xl"
       />
-      <Textarea
-        value={content}
+      <BlockNoteEditor
+        content={content}
         onChange={handleContentChange}
-        className="flex-1 resize-none border-transparent rounded-xl"
+        className="flex-1 rounded-xl"
       />
     </div>
   );
