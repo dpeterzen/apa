@@ -7,13 +7,11 @@ import { useConvexAuth } from "convex/react";
 import React from "react";
 import { AddTilePlus } from "@/components/icons/add-tile-plus";
 import { AddTileSquarePlus } from "@/components/icons/add-tile-square-plus";
-import ContentTile from "@/components/tiles/content-tile";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { Id } from "@/convex/_generated/dataModel";
 import { TileSize, TileType } from "@/types";
-import BlankTile from "@/components/tiles/blank-tile";
-
+import { WallGrid } from "@/components/walls/wall-grid";
 
 export default function WallIdPage({
   params,
@@ -83,44 +81,31 @@ export default function WallIdPage({
   };
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px] pb-[84px]">
-      <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
-        {tiles?.map((baseTile) => (
-          <ContentTile
-            key={baseTile._id}
-            tile={{
-              id: baseTile._id,
-              type: baseTile.type as TileType,
-              size: baseTile.size as TileSize,
-              wallId: resolvedParams.wallId as Id<"walls">,
-              title: "",
-              position: baseTile.position,
-            }}
-          />
-        ))}
-        {showBlankTile && (
-          <BlankTile
-            onSelect={handleTileSelect}
-            setShowBlankTile={setShowBlankTile}
-          />
-        )}
-      </div>
+      <WallGrid
+        tiles={tiles}
+        wallId={resolvedParams.wallId as Id<"walls">}
+        showBlankTile={showBlankTile}
+        onTileSelect={handleTileSelect}
+        setShowBlankTile={setShowBlankTile}
+      />
+      
       {!showBlankTile && (
-      <Button
-        className="mt-1 pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
-        variant="ghost"
-        onClick={() => handleCreateTile()}
-      >
-        <span className="flex items-center">
-          <span className="relative flex items-center justify-center mb-[3px] mr-[3px]">
-            <AddTilePlus className="group-hover:hidden" />
-            <AddTileSquarePlus className="hidden group-hover:block" />
+        <Button
+          className="mt-1 pl-[6px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
+          variant="ghost"
+          onClick={() => handleCreateTile()}
+        >
+          <span className="flex items-center">
+            <span className="relative flex items-center justify-center mb-[3px] mr-[3px]">
+              <AddTilePlus className="group-hover:hidden" />
+              <AddTileSquarePlus className="hidden group-hover:block" />
+            </span>
+            <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600 ml-2">
+              Add tile
+            </span>
           </span>
-          <span className="text-zinc-400 dark:text-zinc-600 group-hover:text-blue-600 ml-2">
-            Add tile
-          </span>
-        </span>
-      </Button>
-    )}
+        </Button>
+      )}
     </main>
   );
 }
