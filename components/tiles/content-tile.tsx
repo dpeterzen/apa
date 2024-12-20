@@ -3,6 +3,8 @@ import { NoteTile } from "./note-tile";
 import { ImageTile } from "./image-tile";
 import { Id } from "@/convex/_generated/dataModel";
 import { Tile } from "@/types";
+import * as motion from "motion/react-client";
+
 
 // xs (<640px): Full width (12 cols)
 // sm (≥640px): Various widths
@@ -49,13 +51,28 @@ export default function ContentTile({ tile }: { tile: Tile }) {
   }
 
   return (
-    <div
+    <motion.div
+      layout
+      layoutId={tile.id}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ 
+        layout: { 
+          duration: 0.3,
+          type: "spring",
+          stiffness: 200,
+          damping: 25
+        },
+        opacity: { duration: 0.2 },
+        scale: { duration: 0.2 }
+      }}
       className={cn(
         "rounded-xl border",
         sizeClasses[tile.size][tile.type]
       )}
     >
       {renderContent()}
-    </div>
+    </motion.div>
   );
 }

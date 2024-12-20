@@ -5,6 +5,7 @@ import {
   Minus,
   MoreHorizontal,
   Plus,
+  Trash,
 } from "lucide-react";
 import {
   Popover,
@@ -17,6 +18,7 @@ import { ReactNode } from "react";
 interface TileActionsProps {
   onSizeChange: (direction: "increase" | "decrease") => void;
   onPositionChange?: (direction: "increase" | "decrease") => void;
+  onDelete: () => void;
   children?: ReactNode; // For popover content
   size: TileSize;
 }
@@ -24,6 +26,7 @@ interface TileActionsProps {
 export function TileActions({
   onSizeChange,
   onPositionChange,
+  onDelete,
   children,
 }: TileActionsProps) {
   return (
@@ -39,6 +42,14 @@ export function TileActions({
         </PopoverTrigger>
         <PopoverContent className="w-40 p-1 rounded-xl" align="end">
           {children}
+          <div
+            role="button"
+            onClick={onDelete}
+            className="flex items-center px-2 py-1.5 text-sm text-red-600 rounded-md cursor-pointer hover:bg-accent"
+          >
+            <Trash className="mr-2 h-4 w-4" />
+            Delete
+          </div>
         </PopoverContent>
       </Popover>
 

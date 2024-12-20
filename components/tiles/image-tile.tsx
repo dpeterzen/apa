@@ -1,5 +1,5 @@
 import { Id } from "@/convex/_generated/dataModel";
-import { Image as ImageIcon, Loader2, Trash } from "lucide-react";
+import { Image as ImageIcon, Loader2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
@@ -29,12 +29,11 @@ const isGifUrl = (url: string) => {
 };
 
 export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
-  const { handleSizeChange, handlePositionChange } = useTileActions({
+  const { handleSizeChange, handlePositionChange, handleDelete } = useTileActions({
     tileId,
     wallId,
     size,
   });
-  const deleteTile = useMutation(api.tiles.deleteTile);
   const updateImageUrl = useMutation(api.imageTiles.updateImageUrl);
   const updateAltText = useMutation(api.imageTiles.updateImageTileAltText);
   const altText = useQuery(api.imageTiles.getAltText, { tileId });
@@ -87,18 +86,12 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
     setShowAltTextPopover(false);
   };
 
-  const handleDelete = async () => {
-    await deleteTile({
-      tileId,
-      wallId,
-    });
-  };
-
   return (
     <div className="h-full flex flex-col pr-[22px] pt-[22px] pb-[19px] relative">
       <TileActions
         onSizeChange={handleSizeChange}
         onPositionChange={handlePositionChange}
+        onDelete={handleDelete}
         size={size}
       >
         <Popover open={showUrlPopover} onOpenChange={setShowUrlPopover}>
@@ -127,14 +120,6 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             </div>
           </PopoverContent>
         </Popover>
-        <div
-          role="button"
-          onClick={handleDelete}
-          className="flex items-center px-2 py-1.5 text-sm text-red-600 rounded-md cursor-pointer hover:bg-accent"
-        >
-          <Trash className="mr-2 h-4 w-4" />
-          Delete
-        </div>
       </TileActions>
 
       <div className="flex-1 flex items-center justify-center relative bg-zinc-100 dark:bg-zinc-900/20 rounded-xl">

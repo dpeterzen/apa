@@ -2,12 +2,12 @@ import { useState, useCallback, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Id } from "@/convex/_generated/dataModel";
-import { Trash } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { debounce } from "lodash";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
+import { NoteEditor } from '../editor/note-editor';
 
 interface NoteTileProps {
   tileId: Id<"baseTiles">;
@@ -16,15 +16,13 @@ interface NoteTileProps {
 }
 
 export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
-  // group hooks at the top
-  const { handleSizeChange, handlePositionChange } = useTileActions({
+  const { handleSizeChange, handlePositionChange, handleDelete } = useTileActions({
     tileId,
     wallId,
     size,
   });
   const noteData = useQuery(api.noteTiles.getNoteContent, { tileId });
   const updateNote = useMutation(api.noteTiles.updateNoteContent);
-  const deleteTile = useMutation(api.tiles.deleteTile);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -59,13 +57,6 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
     debouncedUpdate(title, newContent);
   };
 
-  const handleDelete = async () => {
-    await deleteTile({
-      tileId,
-      wallId,
-    });
-  };
-
   // loading check after all hooks
   // if (!noteData) {
   //   return <div className="px-3 py-2">Loading...</div>;
@@ -76,18 +67,11 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
       <TileActions
         onSizeChange={handleSizeChange}
         onPositionChange={handlePositionChange}
+        onDelete={handleDelete}
         size={size}
       >
-        <div
-          role="button"
-          onClick={handleDelete}
-          className="flex items-center px-2 py-1.5 text-sm text-red-600 rounded-md cursor-pointer hover:bg-accent"
-        >
-          <Trash className="mr-2 h-4 w-4" />
-          Delete
-        </div>
       </TileActions>
-
+  
       <Input
         placeholder=""
         value={title}
@@ -95,6 +79,13 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
         onChange={handleTitleChange}
         className="font-semibold border-transparent rounded-xl"
       />
+      {/* <NoteEditor
+        content={content}
+        onChange={(newContent) => {
+          setContent(newContent);
+          debouncedUpdate(title, newContent);
+        }}
+      /> */}
       <Textarea
         value={content}
         onChange={handleContentChange}

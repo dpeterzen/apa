@@ -12,7 +12,15 @@ interface UseTileActionsProps {
 export function useTileActions({ tileId, wallId, size }: UseTileActionsProps) {
   const updateTileSize = useMutation(api.tiles.updateTileSize);
   const swapTilePositions = useMutation(api.tiles.swapTilePositions);
+  const deleteTile = useMutation(api.tiles.deleteTile);
   const currentTiles = useQuery(api.tiles.getWallTiles, { wallId });
+
+  const handleDelete = async () => {
+    await deleteTile({
+      tileId,
+      wallId,
+    });
+  };
 
   const handleSizeChange = async (direction: "increase" | "decrease") => {
     const currentIndex = SIZES.indexOf(size as TileSize);
@@ -64,5 +72,6 @@ export function useTileActions({ tileId, wallId, size }: UseTileActionsProps) {
   return {
     handleSizeChange,
     handlePositionChange,
+    handleDelete,
   };
 }
