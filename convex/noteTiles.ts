@@ -1,6 +1,5 @@
 import { mutation, query } from "./_generated/server"
 import { v } from "convex/values"
-import { z } from "zod";
 
 export const getNoteContent = query({
   args: { tileId: v.id("baseTiles") },
