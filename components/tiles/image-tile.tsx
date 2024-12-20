@@ -122,7 +122,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         </Popover>
       </TileActions>
 
-      <div className="flex-1 flex items-center justify-center relative bg-zinc-100 dark:bg-zinc-900/20 rounded-xl">
+      <div className="flex-1 flex items-center justify-center relative bg-zinc-200/50 dark:bg-zinc-900/30 rounded-xl">
         {!imageUrl && (
           <div className="flex items-center justify-center mr-[-25px]">
             <ImageIcon className="size-10 text-muted-foreground/30" />
@@ -169,7 +169,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               >
                 <div className="flex flex-col gap-2">
                   <Input
-                    className="h-7 border-0 p-[2px] overflow-hidden text-ellipsis whitespace-nowrap"
+                    className="h-7 border-0 p-[2px] overflow-hidden whitespace-nowrap"
                     placeholder="Enter image name..."
                     maxLength={MAX_ALT_TEXT_LENGTH}
                     value={currentAltText}

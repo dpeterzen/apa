@@ -66,7 +66,7 @@ export function WallTitle({ wallId, title }: WallTitleProps) {
         <PopoverContent className="w-80 rounded-xl p-1" align="start">
           <div className="flex flex-col gap-2">
             <Input
-              className="dark:text-zinc-300 w-full flex-grow min-h-[33px] py-1 px-[2px] !text-[18px] !leading-[27px] font-bold overflow-hidden text-ellipsis whitespace-nowrap border-0"
+              className="dark:text-zinc-300 w-full flex-grow min-h-[33px] py-1 px-[2px] !text-[18px] !leading-[27px] font-bold overflow-hidden whitespace-nowrap border-0"
               placeholder="Enter wall title..."
               maxLength={100}
               value={editableTitle}
