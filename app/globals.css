@@ -9,7 +9,7 @@ body {
 @layer base {
   :root {
     --background: 0 0% 99%;
-    --foreground: 240 5.3% 15%;
+    --foreground: 240 5.3% 10%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -44,7 +44,7 @@ body {
   }
   .dark {
     --background: 240 10% 3.9%;
-    --foreground: 0 0% 75%;
+    --foreground: 0 0% 89%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;

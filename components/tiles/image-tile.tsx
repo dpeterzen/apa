@@ -125,14 +125,14 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
 
       <div className="flex-1 flex items-center justify-center relative bg-zinc-200/50 dark:bg-zinc-900/30 rounded-xl">
         {!imageUrl && (
-          <div className="flex items-center justify-center mr-[-25px]">
+          <div className="flex items-center justify-center">
             <ImageIcon className="size-10 text-muted-foreground/30" />
           </div>
         )}
 
         {(!imageData || !imageUrl || isImageLoading) &&
           isDomainAllowed(imageUrl) && (
-            <div className="flex items-center justify-center mr-[-25px]">
+            <div className="flex items-center justify-center">
               <Loader2 className="animate-spin size-10" />
             </div>
           )}
