@@ -151,7 +151,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             >
               <div className="h-[18px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span
-                  className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? "font-semibold" : "text-muted group-hover:text-current"}`}
+                  className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? "font-medium" : "text-muted group-hover:text-current"}`}
                 >
                   {currentAltText || "name"}
                 </span>
@@ -185,7 +185,8 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           size="sm"
           className="absolute bottom-[0px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
         >
-          caption      </Button>
+          caption{" "}
+        </Button>
         {imageUrl && isDomainAllowed(imageUrl) && (
           <>
             <Image
