@@ -2,21 +2,9 @@
 
 import * as React from "react"
 import {
-  ArrowDown,
-  ArrowUp,
-  Bell,
-  Copy,
-  CornerUpLeft,
-  CornerUpRight,
   FileText,
-  GalleryVerticalEnd,
-  LineChart,
-  Link,
-  MoreHorizontal,
+  MoreVertical,
   Settings2,
-  Star,
-  Trash,
-  Trash2,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -64,9 +52,9 @@ export function NavActions() {
           <Button
             variant="ghost"
             size="sm"
-            className="[&_svg]:size-6 px-[3px] h-[28px]"
+            className="[&_svg]:size-6 px-[3px] h-[28px] mr-[-3px]"
           >
-            <MoreHorizontal />
+            <MoreVertical />
           </Button>
         </PopoverTrigger>
         <PopoverContent

@@ -23,7 +23,7 @@ const sizeClasses = {
       "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 xl:row-span-4 row-span-3",
   },
   large: {
-    note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-9 2xl:row-span-10",
+    note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-8 2xl:row-span-9",
     video:
       "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 sm:row-span-3 md:row-span-4 lg:row-span-4 2xl:row-span-5",
     image:
@@ -72,7 +72,7 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         opacity: { duration: 0.2 },
         scale: { duration: 0.2 },
       }}
-      className={cn("rounded-xl border", sizeClasses[tile.size][tile.type])}
+      className={cn("rounded-xl border border-zinc-200 dark:border-zinc-900 shadow-md", sizeClasses[tile.size][tile.type])}
     >
       {renderContent()}
     </motion.div>

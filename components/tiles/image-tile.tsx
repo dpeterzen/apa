@@ -87,7 +87,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   };
 
   return (
-    <div className="h-full flex flex-col pr-[22px] pt-[22px] pb-[19px] relative">
+    <div className="h-full flex flex-col p-0 pr-[22px] relative">
       <TileActions
         onSizeChange={handleSizeChange}
         onPositionChange={handlePositionChange}
@@ -137,7 +137,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           )}
 
         {imageUrl && !isDomainAllowed(imageUrl) && (
-          <div className="text-sm text-muted-foreground text-center px-4 ml-[15px]">
+          <div className="text-sm text-muted-foreground text-center px-1 mr-[2px]">
             This image domain is not allowed. Please use a supported image host.
           </div>
         )}
@@ -152,10 +152,10 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="absolute top-[-22px] left-1 z-10 font-extralight tracking-tight text-sm h-[18px] hover:h-fit transition-all duration-100 rounded-md max-w-[calc(100%-8px)] group overflow-hidden"
+                  className="absolute top-[0] left-1 z-10 font-extralight tracking-tight text-sm h-[18px] hover:h-fit transition-all duration-100 rounded-md max-w-[calc(100%-8px)] group overflow-hidden"
                 >
                   <div className="h-[18px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
-                    <span className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? '' : 'text-muted  group-hover:text-current'}`}>
+                    <span className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? 'font-semibold' : 'text-muted group-hover:text-current'}`}>
                       {currentAltText || "name"}
                     </span>
                   </div>
@@ -186,7 +186,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="absolute bottom-[-20px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
+              className="absolute bottom-[0px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
             >
               caption
             </Button>
@@ -209,7 +209,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
                 }`}
             />
             {hasError && (
-              <div className="text-sm text-muted-foreground text-center ml-[15px]">
+              <div className="text-sm text-muted-foreground text-center px-1 mr-[2px]">
                 Unable to load image. Please check the URL and try again.
               </div>
             )}

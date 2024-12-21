@@ -3,7 +3,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Minus,
-  MoreHorizontal,
+  MoreVertical,
   Plus,
   Trash,
 } from "lucide-react";
@@ -37,7 +37,7 @@ export function TileActions({
             variant="ghost"
             className="z-50 rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
           >
-            <MoreHorizontal />
+            <MoreVertical />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-40 p-1 rounded-xl" align="end">

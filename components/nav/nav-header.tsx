@@ -5,7 +5,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { NavActions } from "@/components/nav/nav-actions";
-import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
