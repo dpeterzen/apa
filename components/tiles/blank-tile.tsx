@@ -9,7 +9,15 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
-import { Image as ImageIcon, SendHorizontal, Smile, SquarePen, X } from "lucide-react";
+import {
+  Image as ImageIcon,
+  ImagePlay,
+  SendHorizontal,
+  Smile,
+  SquareArrowOutUpRight,
+  SquarePen,
+  X,
+} from "lucide-react";
 import * as motion from "motion/react-client";
 
 interface BlankTileProps {
@@ -55,10 +63,10 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
           duration: 0.3,
           type: "spring",
           stiffness: 200,
-          damping: 25
+          damping: 25,
         },
         opacity: { duration: 0.2 },
-        scale: { duration: 0.2 }
+        scale: { duration: 0.2 },
       }}
       className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-5 row-span-3 flex items-center justify-center"
     >
@@ -120,7 +128,15 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
             </CommandItem>
             <CommandItem onSelect={() => onSelect("image")}>
               <ImageIcon />
-              <span>Image</span>
+              <span>Image / GIF</span>
+            </CommandItem>
+            <CommandItem>
+              <ImagePlay />
+              <span>Video</span>
+            </CommandItem>
+            <CommandItem>
+              <SquareArrowOutUpRight />
+              <span>Link</span>
             </CommandItem>
             <CommandItem disabled>
               <Smile />
@@ -130,7 +146,6 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
         </CommandList>
       </Command>
     </motion.div>
-
   );
 };
 

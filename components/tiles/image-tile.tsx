@@ -25,15 +25,16 @@ interface ImageTileProps {
 }
 
 const isGifUrl = (url: string) => {
-  return url.toLowerCase().endsWith('.gif');
+  return url.toLowerCase().endsWith(".gif");
 };
 
 export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
-  const { handleSizeChange, handlePositionChange, handleDelete } = useTileActions({
-    tileId,
-    wallId,
-    size,
-  });
+  const { handleSizeChange, handlePositionChange, handleDelete } =
+    useTileActions({
+      tileId,
+      wallId,
+      size,
+    });
   const updateImageUrl = useMutation(api.imageTiles.updateImageUrl);
   const updateAltText = useMutation(api.imageTiles.updateImageTileAltText);
   const altText = useQuery(api.imageTiles.getAltText, { tileId });
@@ -141,55 +142,52 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             This image domain is not allowed. Please use a supported image host.
           </div>
         )}
-
-        {imageUrl && isDomainAllowed(imageUrl) && (
-          <>
-            <Popover
-              open={showAltTextPopover}
-              onOpenChange={setShowAltTextPopover}
-            >
-              <PopoverTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="absolute top-[0] left-1 z-10 font-extralight tracking-tight text-sm h-[18px] hover:h-fit transition-all duration-100 rounded-md max-w-[calc(100%-8px)] group overflow-hidden"
-                >
-                  <div className="h-[18px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
-                    <span className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? 'font-semibold' : 'text-muted group-hover:text-current'}`}>
-                      {currentAltText || "name"}
-                    </span>
-                  </div>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent
-                className="w-80 rounded-xl p-1"
-                align="center"
-                side="top"
-                sideOffset={-56}
-              >
-                <div className="flex flex-col gap-2">
-                  <Input
-                    className="h-7 border-0 p-[2px] overflow-hidden whitespace-nowrap"
-                    placeholder="Enter image name..."
-                    maxLength={MAX_ALT_TEXT_LENGTH}
-                    value={currentAltText}
-                    onChange={(e) => setCurrentAltText(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleAltTextUpdate();
-                      }
-                    }}
-                  />
-                </div>
-              </PopoverContent>
-            </Popover>
+        <Popover open={showAltTextPopover} onOpenChange={setShowAltTextPopover}>
+          <PopoverTrigger asChild>
             <Button
               variant="ghost"
               size="sm"
-              className="absolute bottom-[0px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
+              className="absolute top-[0] left-1 z-10 font-extralight tracking-tight text-sm h-[18px] hover:h-fit transition-all duration-100 rounded-md max-w-[calc(100%-8px)] group overflow-hidden"
             >
-              caption
+              <div className="h-[18px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
+                <span
+                  className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? "font-semibold" : "text-muted group-hover:text-current"}`}
+                >
+                  {currentAltText || "name"}
+                </span>
+              </div>
             </Button>
+          </PopoverTrigger>
+          <PopoverContent
+            className="w-80 rounded-xl p-1"
+            align="center"
+            side="top"
+            sideOffset={-56}
+          >
+            <div className="flex flex-col gap-2">
+              <Input
+                className="h-7 border-0 p-[2px] overflow-hidden whitespace-nowrap"
+                placeholder="Enter image name..."
+                maxLength={MAX_ALT_TEXT_LENGTH}
+                value={currentAltText}
+                onChange={(e) => setCurrentAltText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleAltTextUpdate();
+                  }
+                }}
+              />
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="absolute bottom-[0px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
+        >
+          caption      </Button>
+        {imageUrl && isDomainAllowed(imageUrl) && (
+          <>
             <Image
               src={imageUrl}
               alt={currentAltText || "Tile image"}
@@ -201,12 +199,13 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               `}
               onLoad={handleImageLoad}
               onError={handleImageError}
-              sizes={`(max-width: 768px) 100vw, ${size === "small"
-                ? "200px"
-                : size === "medium"
-                  ? "400px"
-                  : "600px"
-                }`}
+              sizes={`(max-width: 768px) 100vw, ${
+                size === "small"
+                  ? "200px"
+                  : size === "medium"
+                    ? "400px"
+                    : "600px"
+              }`}
             />
             {hasError && (
               <div className="text-sm text-muted-foreground text-center px-1 mr-[2px]">
