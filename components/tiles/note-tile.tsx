@@ -7,7 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { debounce } from "lodash";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
-import { NoteEditor } from '../editor/note-editor';
+// import { NoteEditor } from '../editor/note-editor';
 
 interface NoteTileProps {
   tileId: Id<"baseTiles">;

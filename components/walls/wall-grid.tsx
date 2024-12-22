@@ -35,10 +35,12 @@ export function WallGrid({
   setShowBlankTile,
   onExitComplete
 }: WallGridProps) {
+  const activeTiles = tiles?.filter(tile => tile.position >= 0);
+  
   return (
     <div className="grid grid-cols-12 auto-rows-[100px] gap-3">
       <AnimatePresence mode="popLayout" onExitComplete={onExitComplete}>
-        {tiles?.map((baseTile) => (
+        {activeTiles?.map((baseTile) => (
           <ContentTile
             key={baseTile._id}
             tile={{

@@ -1,6 +1,5 @@
 import { mutation, query } from "./_generated/server"
 import { v } from "convex/values"
-import { z } from "zod";
 
 export type TileType = "note" | "video" | "image";
 export type TileSize = "small" | "medium" | "large";
@@ -190,6 +189,20 @@ export const updateTilePosition = mutation({
       position: args.position,
       updatedAt: Date.now()
     });
+  }
+});
+
+export const getMinPosition = query({
+  args: { wallId: v.id("walls") },
+  async handler(ctx, args) {
+    const tiles = await ctx.db
+      .query("baseTiles")
+      .filter((q) => q.eq(q.field("wallId"), args.wallId))
+      .collect();
+    
+    if (tiles.length === 0) return 0;
+    
+    return Math.min(...tiles.map(tile => tile.position));
   }
 });
 

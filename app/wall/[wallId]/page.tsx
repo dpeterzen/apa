@@ -22,8 +22,8 @@ export default function WallIdPage({
   const [showBlankTile, setShowBlankTile] = useState(false);
   const [isExitComplete, setIsExitComplete] = useState(true);
   const [delayedExit, setDelayedExit] = useState(true);
-  const wall = useQuery(api.walls.getWall, { 
-    id: resolvedParams.wallId 
+  const wall = useQuery(api.walls.getWall, {
+    id: resolvedParams.wallId
   });
 
 
@@ -72,7 +72,7 @@ export default function WallIdPage({
   const handleTileSelect = async (type: TileType, options?: { title?: string }) => {
     try {
       const currentPosition = wall?.tileCount ?? 0;
-    
+
       const newTile = {
         type,
         size: "medium" as TileSize,
@@ -81,7 +81,7 @@ export default function WallIdPage({
         content: "",
         position: currentPosition
       };
-  
+
       await createTile(newTile);
       setShowBlankTile(false);
     } catch (error) {
@@ -96,7 +96,7 @@ export default function WallIdPage({
   };
 
   return (
-    <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px] pb-[84px]">
+    <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px]">
       <WallGrid
         tiles={tiles}
         wallId={resolvedParams.wallId as Id<"walls">}
@@ -105,10 +105,29 @@ export default function WallIdPage({
         setShowBlankTile={setShowBlankTile}
         onExitComplete={() => setIsExitComplete(true)}
       />
-      
+
       {!showBlankTile && delayedExit && (
         <AddTileButton onClick={() => handleCreateTile()} />
       )}
+
+      <div className="flex-1" />
+
+      <div className="mt-[45px]">
+        <h3 className="text-sm font-medium mb-2">Removed Tiles</h3>
+        <div className="max-h-[250px] grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2 overflow-y-auto">
+          {tiles
+            ?.filter(tile => tile.position < 0)
+            .sort((a, b) => b.position - a.position)
+            .map((tile) => (
+              <div
+                key={tile._id}
+                className="h-[25px] border border-zinc-200 dark:border-zinc-900/30 rounded-md flex items-center px-2 whitespace-nowrap overflow-hidden bg-zinc-200/30 dark:bg-zinc-900/30"
+              >
+                <span className="text-xs">{tile.type}</span>
+              </div>
+            ))}
+        </div>
+      </div>
     </main>
   );
 }
