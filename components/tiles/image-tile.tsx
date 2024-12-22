@@ -105,10 +105,10 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               Image link
             </div>
           </PopoverTrigger>
-          <PopoverContent className="w-80 rounded-xl p-1" align="center">
+          <PopoverContent className="max-w-[90vw] w-80 rounded-xl p-1" align="center">
             <div className="flex flex-col gap-2">
               <Input
-                className="h-7 border-0 p-[2px]"
+                className="h-7 border-0 p-[2px] min-w-0 w-full"
                 placeholder="Enter image URL..."
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
@@ -159,14 +159,14 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-80 rounded-xl p-1"
-            align="center"
+            className="max-w-[90vw] w-80 rounded-xl p-1"
+            align="start"
             side="top"
             sideOffset={-56}
           >
             <div className="flex flex-col gap-2">
               <Input
-                className="h-7 border-0 p-[2px] overflow-hidden whitespace-nowrap"
+                className="h-7 border-0 p-[2px] min-w-0 w-full"
                 placeholder="Enter image name..."
                 maxLength={MAX_ALT_TEXT_LENGTH}
                 value={currentAltText}
