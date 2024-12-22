@@ -44,7 +44,7 @@ export function WallTitle({ wallId, title }: WallTitleProps) {
 
   const getMaxWidth = () => {
     if (isMobile || state === "collapsed") {
-      return "calc(100vw - 80px)"; // Collapsed sidebar width
+      return "calc(100vw - 90px)"; // Collapsed sidebar width
     }
     return "calc(100vw - 350px)"; // Expanded sidebar width
   };

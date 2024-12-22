@@ -41,18 +41,12 @@ export function NavActions() {
   
   return (
     <div className="flex items-center gap-2 text-sm">
-      {/* <div className="hidden font-medium text-muted-foreground md:inline-block">
-        Edit Oct 08
-      </div>
-      <Button variant="ghost" size="icon" className="h-7 w-7">
-        <Star />
-      </Button> */}
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
             size="sm"
-            className="[&_svg]:size-6 px-[3px] h-[28px] mr-[-3px]"
+            className="[&_svg]:size-5 px-[3px] w-[32px] h-[32px] mr-[-3px]"
           >
             <MoreVertical />
           </Button>
