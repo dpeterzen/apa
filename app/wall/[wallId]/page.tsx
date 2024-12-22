@@ -26,6 +26,11 @@ export default function WallIdPage({
     id: resolvedParams.wallId
   });
 
+  const updateTilePosition = useMutation(api.tiles.updateTilePosition);
+  const getMaxPosition = useQuery(api.tiles.getMaxPosition, {
+    wallId: resolvedParams.wallId as Id<"walls">,
+  });
+
 
   useEffect(() => {
     if (isExitComplete) {
@@ -95,6 +100,14 @@ export default function WallIdPage({
     setDelayedExit(false);
   };
 
+  const handleRestoreTile = async (tileId: Id<"baseTiles">) => {
+    const maxPosition = getMaxPosition ?? -1;
+    await updateTilePosition({
+      tileId,
+      position: maxPosition + 1,
+    });
+  };
+
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px]">
       <WallGrid
@@ -124,6 +137,12 @@ export default function WallIdPage({
                 className="h-[25px] border border-zinc-200 dark:border-zinc-900/30 rounded-md flex items-center px-2 whitespace-nowrap overflow-hidden bg-zinc-200/30 dark:bg-zinc-900/30"
               >
                 <span className="text-xs">{tile.type}</span>
+                <button
+                  onClick={() => handleRestoreTile(tile._id)}
+                  className="text-xs text-blue-500 hover:text-blue-600"
+                >
+                  Restore
+                </button>
               </div>
             ))}
         </div>

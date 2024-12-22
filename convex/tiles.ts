@@ -206,6 +206,24 @@ export const getMinPosition = query({
   }
 });
 
+export const getMaxPosition = query({
+  args: { wallId: v.id("walls") },
+  async handler(ctx, args) {
+    const tiles = await ctx.db
+      .query("baseTiles")
+      .filter((q) => 
+        q.and(
+          q.eq(q.field("wallId"), args.wallId),
+          q.gte(q.field("position"), 0)
+        )
+      )
+      .collect();
+    
+    if (tiles.length === 0) return -1;
+    return Math.max(...tiles.map(tile => tile.position));
+  }
+});
+
 export const swapTilePositions = mutation({
   args: { 
     tileId1: v.id("baseTiles"),
