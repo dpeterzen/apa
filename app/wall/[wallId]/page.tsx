@@ -10,6 +10,8 @@ import { Id } from "@/convex/_generated/dataModel";
 import { TileSize, TileType } from "@/types";
 import { WallGrid } from "@/components/walls/wall-grid";
 import { AddTileButton } from "@/components/buttons/add-tile-button";
+import { Button } from "@/components/ui/button";
+import { Minus } from "lucide-react";
 
 export default function WallIdPage({
   params,
@@ -23,14 +25,13 @@ export default function WallIdPage({
   const [isExitComplete, setIsExitComplete] = useState(true);
   const [delayedExit, setDelayedExit] = useState(true);
   const wall = useQuery(api.walls.getWall, {
-    id: resolvedParams.wallId
+    id: resolvedParams.wallId,
   });
 
   const updateTilePosition = useMutation(api.tiles.updateTilePosition);
   const getMaxPosition = useQuery(api.tiles.getMaxPosition, {
     wallId: resolvedParams.wallId as Id<"walls">,
   });
-
 
   useEffect(() => {
     if (isExitComplete) {
@@ -74,7 +75,10 @@ export default function WallIdPage({
     redirect("/wall"); // Redirect to wall list
   }
 
-  const handleTileSelect = async (type: TileType, options?: { title?: string }) => {
+  const handleTileSelect = async (
+    type: TileType,
+    options?: { title?: string }
+  ) => {
     try {
       const currentPosition = wall?.tileCount ?? 0;
 
@@ -84,7 +88,7 @@ export default function WallIdPage({
         wallId: resolvedParams.wallId as Id<"walls">,
         title: options?.title || "",
         content: "",
-        position: currentPosition
+        position: currentPosition,
       };
 
       await createTile(newTile);
@@ -129,20 +133,21 @@ export default function WallIdPage({
         <h3 className="text-sm font-medium mb-2">Removed Tiles</h3>
         <div className="max-h-[250px] grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2 overflow-y-auto">
           {tiles
-            ?.filter(tile => tile.position < 0)
+            ?.filter((tile) => tile.position < 0)
             .sort((a, b) => b.position - a.position)
             .map((tile) => (
               <div
                 key={tile._id}
-                className="h-[25px] border border-zinc-200 dark:border-zinc-900/30 rounded-md flex items-center px-2 whitespace-nowrap overflow-hidden bg-zinc-200/30 dark:bg-zinc-900/30"
+                className="h-[25px] border border-zinc-200 dark:border-zinc-900/30 rounded-xl flex items-center justify-between pl-2 whitespace-nowrap overflow-hidden bg-zinc-200/30 dark:bg-zinc-900/30"
               >
                 <span className="text-xs">{tile.type}</span>
-                <button
+                <Button
+                  variant="ghost"
+                  className="rounded-full h-6 w-6 p-0 ml-2"
                   onClick={() => handleRestoreTile(tile._id)}
-                  className="text-xs text-blue-500 hover:text-blue-600"
                 >
-                  Restore
-                </button>
+                  <Minus />
+                </Button>
               </div>
             ))}
         </div>

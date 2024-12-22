@@ -9,13 +9,16 @@ interface UseTileActionsProps {
   size: TileSize;
 }
 
+
 export function useTileActions({ tileId, wallId, size }: UseTileActionsProps) {
   const updateTileSize = useMutation(api.tiles.updateTileSize);
   const swapTilePositions = useMutation(api.tiles.swapTilePositions);
   const deleteTile = useMutation(api.tiles.deleteTile);
   const updateTilePosition = useMutation(api.tiles.updateTilePosition);
-  const getMinPosition = useQuery(api.tiles.getMinPosition, { wallId });
   const currentTiles = useQuery(api.tiles.getWallTiles, { wallId });
+  const lowestNegativePosition = useQuery(api.tiles.getLowestNegativePosition, { wallId });
+  const resequenceWallTiles = useMutation(api.tiles.resequenceWallTiles);
+  const resequenceArchivedTiles = useMutation(api.tiles.resequenceArchivedTiles);
 
   const handleDelete = async () => {
     await deleteTile({
@@ -24,17 +27,21 @@ export function useTileActions({ tileId, wallId, size }: UseTileActionsProps) {
     });
   };
 
+
   const handleSizeChange = async (direction: "increase" | "decrease") => {
     const currentIndex = SIZES.indexOf(size as TileSize);
     let newIndex;
 
     if (direction === "decrease" && size === "small") {
-      const minPosition = getMinPosition ?? 0;
-      
+      const newPosition = (lowestNegativePosition ?? -1) - 1;
       await updateTilePosition({
         tileId,
-        position: minPosition - 1,
+        position: newPosition,
       });
+      await Promise.all([
+        resequenceWallTiles({ wallId }),
+        resequenceArchivedTiles({ wallId })
+      ]);
       return;
     }
 

@@ -55,9 +55,22 @@ export const create = mutation({
     if (wall.maxTiles && (wall.tileCount ?? 0) >= wall.maxTiles) {
       throw new Error("Wall tile limit reached");
     }
+    // Get current max position
+    const tiles = await ctx.db
+      .query("baseTiles")
+      .filter((q) => 
+        q.and(
+          q.eq(q.field("wallId"), args.wallId),
+          q.gte(q.field("position"), 0)
+        )
+      )
+      .collect();
+    
+    // Calculate next position (max + 1 or 0 if no tiles)
+    const nextPosition = tiles.length === 0 
+      ? 0 
+      : Math.max(...tiles.map(t => t.position)) + 1;
 
-    // Use tileCount for position
-    const currentPosition = wall.tileCount ?? 0;
 
     // Create base tile with correct user ID
     const baseTile = await ctx.db.insert("baseTiles", {
@@ -65,7 +78,7 @@ export const create = mutation({
       wallId: args.wallId,
       type: args.type as TileType,
       size: args.size as TileSize, 
-      position: currentPosition,
+      position: nextPosition,
       createdAt: Date.now(),
       updatedAt: Date.now(),
       isArchived: false
@@ -143,21 +156,26 @@ export const deleteTile = mutation({
     // Delete the baseTile
     await ctx.db.delete(args.tileId);
 
-    // Get all remaining tiles on this wall and reorder them
+    // After deleting the tile, get remaining tiles and reorder
     const remainingTiles = await ctx.db
       .query("baseTiles")
-      .filter(q => q.eq(q.field("wallId"), args.wallId))
+      .filter(q => 
+        q.and(
+          q.eq(q.field("wallId"), args.wallId),
+          q.gte(q.field("position"), 0) // Only get tiles with position >= 0
+        )
+      )
       .collect();
 
     // Sort tiles by current position
     const sortedTiles = remainingTiles.sort((a, b) => a.position - b.position);
 
-    // Update positions sequentially
-    for (let i = 0; i < sortedTiles.length; i++) {
-      await ctx.db.patch(sortedTiles[i]._id, {
-        position: i
-      });
-    }
+    // Update positions to be sequential starting from 0
+    const updates = sortedTiles.map((tile, index) => 
+      ctx.db.patch(tile._id, { position: index })
+    );
+    
+    await Promise.all(updates);
 
     // Update wall tile count
     const wall = await ctx.db.get(args.wallId);
@@ -179,18 +197,102 @@ export const updateTileSize = mutation({
   },
 });
 
+export const resequenceWallTiles = mutation({
+  args: { 
+    wallId: v.id("walls")
+  },
+  async handler(ctx, args) {
+    const wallTiles = await ctx.db
+      .query("baseTiles")
+      .filter(q => 
+        q.and(
+          q.eq(q.field("wallId"), args.wallId),
+          q.gte(q.field("position"), 0)
+        )
+      )
+      .collect();
+
+    const sortedTiles = wallTiles.sort((a, b) => a.position - b.position);
+    
+    const updates = sortedTiles.map((tile, index) => 
+      ctx.db.patch(tile._id, { position: index })
+    );
+    
+    await Promise.all(updates);
+  }
+});
+
+export const resequenceArchivedTiles = mutation({
+  args: { 
+    wallId: v.id("walls")
+  },
+  async handler(ctx, args) {
+    const archivedTiles = await ctx.db
+      .query("baseTiles")
+      .filter(q => 
+        q.and(
+          q.eq(q.field("wallId"), args.wallId),
+          q.lt(q.field("position"), 0)
+        )
+      )
+      .collect();
+
+    const sortedTiles = archivedTiles.sort((a, b) => b.position - a.position);
+    
+    const updates = sortedTiles.map((tile, index) => 
+      ctx.db.patch(tile._id, { position: -(index + 1) })
+    );
+    
+    await Promise.all(updates);
+  }
+});
+
 export const updateTilePosition = mutation({
   args: { 
     tileId: v.id("baseTiles"),
     position: v.number()
   },
   async handler(ctx, args) {
-    await ctx.db.patch(args.tileId, {
-      position: args.position,
-      updatedAt: Date.now()
-    });
+    const tile = await ctx.db.get(args.tileId);
+    if (!tile) throw new Error("Tile not found");
+
+    // Get the wall
+    const wall = await ctx.db.get(tile.wallId);
+    if (!wall) throw new Error("Wall not found");
+
+    const isMovingToWall = args.position >= 0 && tile.position < 0;
+    // When restoring a tile (moving from negative to positive position)
+    if (isMovingToWall) {
+      // Get current max position
+      const tiles = await ctx.db
+        .query("baseTiles")
+        .filter((q) => 
+          q.and(
+            q.eq(q.field("wallId"), tile.wallId),
+            q.gte(q.field("position"), 0)
+          )
+        )
+        .collect();
+      
+      // Set position to max + 1 or 0 if no tiles
+      const newPosition = tiles.length === 0 
+        ? 0 
+        : Math.max(...tiles.map(t => t.position)) + 1;
+
+      await ctx.db.patch(args.tileId, {
+        position: newPosition,
+        updatedAt: Date.now()
+      });
+    } else {
+      // Normal position update
+      await ctx.db.patch(args.tileId, {
+        position: args.position,
+        updatedAt: Date.now()
+      });
+    }
   }
 });
+
 
 export const getMinPosition = query({
   args: { wallId: v.id("walls") },
@@ -221,6 +323,24 @@ export const getMaxPosition = query({
     
     if (tiles.length === 0) return -1;
     return Math.max(...tiles.map(tile => tile.position));
+  }
+});
+
+export const getLowestNegativePosition = query({
+  args: { wallId: v.id("walls") },
+  async handler(ctx, args) {
+    const tiles = await ctx.db
+      .query("baseTiles")
+      .filter((q) => 
+        q.and(
+          q.eq(q.field("wallId"), args.wallId),
+          q.lt(q.field("position"), 0)
+        )
+      )
+      .collect();
+    
+    if (tiles.length === 0) return -1;
+    return Math.min(...tiles.map(tile => tile.position));
   }
 });
 
