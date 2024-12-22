@@ -11,7 +11,7 @@ import { TileSize, TileType } from "@/types";
 import { WallGrid } from "@/components/walls/wall-grid";
 import { AddTileButton } from "@/components/buttons/add-tile-button";
 import { Button } from "@/components/ui/button";
-import { Minus } from "lucide-react";
+import { Plus } from "lucide-react";
 import * as motion from "motion/react-client";
 
 export default function WallIdPage({
@@ -150,7 +150,7 @@ export default function WallIdPage({
                 layout
                 layoutId={`removed-tile-${tile._id}`}
                 key={tile._id}
-                className="h-[25px] border border-zinc-200 dark:border-zinc-900/30 rounded-xl flex items-center justify-between pl-2 whitespace-nowrap overflow-hidden bg-zinc-200/30 dark:bg-zinc-900/30"
+                className="flex items-center justify-between border border-zinc-200 dark:border-zinc-900/30 rounded-xl"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
@@ -163,13 +163,16 @@ export default function WallIdPage({
                   },
                 }}
               >
-                <span className="text-xs">{tile.type}</span>
+                <div className="h-[25px] border bg-zinc-200/30 dark:bg-zinc-900/30 border-zinc-200 dark:border-zinc-900/30 rounded-xl flex-grow pl-2 whitespace-nowrap overflow-hidden">
+
+                  <span className="text-xs align-middle">{tile.type}</span>
+                </div>
                 <Button
                   variant="ghost"
-                  className="rounded-full h-6 w-6 p-0 ml-2"
+                  className="rounded-full h-6 w-6 p-0"
                   onClick={() => handleRestoreTile(tile._id)}
                 >
-                  <Minus />
+                  <Plus />
                 </Button>
               </motion.div>
             ))}
