@@ -12,6 +12,7 @@ import { WallGrid } from "@/components/walls/wall-grid";
 import { AddTileButton } from "@/components/buttons/add-tile-button";
 import { Button } from "@/components/ui/button";
 import { Minus } from "lucide-react";
+import * as motion from "motion/react-client";
 
 export default function WallIdPage({
   params,
@@ -129,29 +130,51 @@ export default function WallIdPage({
 
       <div className="flex-1" />
 
-      <div className="mt-[45px]">
-        <h3 className="text-sm font-medium mb-2">Removed Tiles</h3>
-        <div className="max-h-[250px] grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2 overflow-y-auto">
-          {tiles
-            ?.filter((tile) => tile.position < 0)
-            .sort((a, b) => b.position - a.position)
-            .map((tile) => (
-              <div
-                key={tile._id}
-                className="h-[25px] border border-zinc-200 dark:border-zinc-900/30 rounded-xl flex items-center justify-between pl-2 whitespace-nowrap overflow-hidden bg-zinc-200/30 dark:bg-zinc-900/30"
-              >
-                <span className="text-xs">{tile.type}</span>
-                <Button
-                  variant="ghost"
-                  className="rounded-full h-6 w-6 p-0 ml-2"
-                  onClick={() => handleRestoreTile(tile._id)}
-                >
-                  <Minus />
-                </Button>
-              </div>
-            ))}
-        </div>
-      </div>
+      <motion.div 
+  className="mt-[45px]"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.3 }}
+>
+  <h3 className="text-sm font-medium mb-2">Removed Tiles</h3>
+  <motion.div 
+    layout
+    className="max-h-[250px] grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2 overflow-y-auto"
+    transition={{ duration: 0.3 }}
+  >
+    {tiles
+      ?.filter((tile) => tile.position < 0)
+      .sort((a, b) => b.position - a.position)
+      .map((tile, index) => (
+        <motion.div
+          layout
+          layoutId={`removed-tile-${tile._id}`}
+          key={tile._id}
+          className="h-[25px] border border-zinc-200 dark:border-zinc-900/30 rounded-xl flex items-center justify-between pl-2 whitespace-nowrap overflow-hidden bg-zinc-200/30 dark:bg-zinc-900/30"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ 
+            duration: 0.2, 
+            delay: index * 0.05,
+            layout: {
+              type: "spring",
+              stiffness: 300,
+              damping: 30
+            }
+          }}
+        >
+          <span className="text-xs">{tile.type}</span>
+          <Button
+            variant="ghost"
+            className="rounded-full h-6 w-6 p-0 ml-2"
+            onClick={() => handleRestoreTile(tile._id)}
+          >
+            <Minus />
+          </Button>
+        </motion.div>
+      ))}
+  </motion.div>
+</motion.div>
     </main>
   );
 }

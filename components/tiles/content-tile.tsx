@@ -72,7 +72,7 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         opacity: { duration: 0.2 },
         scale: { duration: 0.2 },
       }}
-      className={cn("rounded-xl border border-zinc-200 dark:border-zinc-900 shadow-md", sizeClasses[tile.size][tile.type])}
+      className={cn("rounded-xl border border-zinc-200 dark:border-zinc-900 shadow-inner", sizeClasses[tile.size][tile.type])}
     >
       {renderContent()}
     </motion.div>
