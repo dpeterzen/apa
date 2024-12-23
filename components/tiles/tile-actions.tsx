@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/popover";
 import { TileSize } from "@/types";
 import { ReactNode } from "react";
+import Square from "@/components/icons/square";
 
 interface TileActionsProps {
   onSizeChange: (direction: "increase" | "decrease") => void;
@@ -53,31 +54,40 @@ export function TileActions({
         </PopoverContent>
       </Popover>
 
+
+      <Button
+        className="z-[50] rounded-full absolute top-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
+        variant="ghost"
+      >
+        <Square />
+      </Button>
+
       <Button
         variant="ghost"
-        className="z-[50] rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
+        className="z-[50] rounded-full absolute top-[57px] right-[-1px] h-6 w-6 p-0 text-muted"
         onClick={() => onPositionChange("increase")}
       >
         <ChevronRight />
       </Button>
       <Button
+        className="z-[50] rounded-full absolute top-[86px] right-[-1px] h-6 w-6 p-0 text-muted"
         variant="ghost"
-        className="z-[50] rounded-full absolute bottom-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
         onClick={() => onPositionChange("decrease")}
       >
         <ChevronLeft />
       </Button>
 
+
       <Button
+        className="z-[50] rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
         variant="ghost"
-        className="z-[50] rounded-full absolute top-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
         onClick={() => onSizeChange("increase")}
       >
         <Plus />
       </Button>
       <Button
         variant="ghost"
-        className="z-[50] rounded-full absolute top-[57px] right-[-1px] h-6 w-6 p-0 text-muted"
+        className="z-[50] rounded-full absolute bottom-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
         onClick={() => onSizeChange("decrease")}
       >
         <Minus />

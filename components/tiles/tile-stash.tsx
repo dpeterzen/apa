@@ -1,6 +1,6 @@
 
 import * as motion from "motion/react-client";
-import { Plus } from "lucide-react";
+import { Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Id } from "@/convex/_generated/dataModel";
 
@@ -63,7 +63,7 @@ export default function TileStash({ tiles, onRestoreTile }: TileStashProps) {
                 className="rounded-full h-6 w-6 p-0"
                 onClick={() => onRestoreTile(tile._id)}
               >
-                <Plus />
+                <Minus />
               </Button>
             </motion.div>
           ))}
