@@ -36,7 +36,7 @@ export function TileActions({
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            className="z-50 rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
+            className="z-50 rounded-full absolute top-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
           >
             <MoreVertical />
           </Button>
@@ -56,7 +56,7 @@ export function TileActions({
 
 
       <Button
-        className="z-[50] rounded-full absolute top-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
+        className="z-[50] rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
         variant="ghost"
       >
         <Square />
