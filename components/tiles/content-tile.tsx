@@ -2,8 +2,8 @@ import cn from "classnames";
 import { NoteTile } from "./note-tile";
 import { ImageTile } from "./image-tile";
 import { Id } from "@/convex/_generated/dataModel";
-import { Tile } from "@/types";
 import * as motion from "motion/react-client";
+import { ClientTile } from "@/types";
 
 // xs (<640px): Full width (12 cols)
 // sm (≥640px): Various widths
@@ -31,7 +31,11 @@ const sizeClasses = {
   },
 };
 
-export default function ContentTile({ tile }: { tile: Tile }) {
+interface ContentTileProps {
+  tile: ClientTile;
+}
+
+export default function ContentTile({ tile }: ContentTileProps)  {
   const renderContent = () => {
     switch (tile.type) {
       case "note":

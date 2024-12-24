@@ -1,21 +1,9 @@
-
 import * as motion from "motion/react-client";
 import { Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Id } from "@/convex/_generated/dataModel";
+import { BaseTile } from "@/types";
 
-interface BaseTile {
-  _id: Id<"baseTiles">;
-  _creationTime: number;
-  type: string;
-  size: string;
-  position: number;
-  userId: Id<"users">;
-  wallId: Id<"walls">;
-  createdAt: number;
-  updatedAt: number;
-  isArchived: boolean;
-}
 interface TileStashProps {
   tiles: BaseTile[]
   onRestoreTile: (tileId: Id<"baseTiles">) => void

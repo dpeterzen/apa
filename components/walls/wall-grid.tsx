@@ -1,22 +1,10 @@
 import React from "react";
 import ContentTile from "@/components/tiles/content-tile";
 import { Id } from "@/convex/_generated/dataModel";
-import { TileSize, TileType } from "@/types";
+import { BaseTile, TileType, toClientTile } from "@/types";
 import BlankTile from "@/components/tiles/blank-tile";
 import { AnimatePresence } from "motion/react";
 
-interface BaseTile {
-  _id: Id<"baseTiles">;
-  type: string;
-  size: string;
-  position: number;
-  wallId: Id<"walls">;
-  userId: Id<"users">;
-  createdAt: number;
-  updatedAt: number;
-  isArchived: boolean;
-  _creationTime: number;
-}
 
 interface WallGridProps {
   tiles: BaseTile[] | undefined;
@@ -29,7 +17,6 @@ interface WallGridProps {
 
 export function WallGrid({ 
   tiles, 
-  wallId, 
   showBlankTile, 
   onTileSelect, 
   setShowBlankTile,
@@ -43,14 +30,7 @@ export function WallGrid({
         {activeTiles?.map((baseTile) => (
           <ContentTile
             key={baseTile._id}
-            tile={{
-              id: baseTile._id,
-              type: baseTile.type as TileType,
-              size: baseTile.size as TileSize,
-              wallId: wallId,
-              title: "",
-              position: baseTile.position,
-            }}
+            tile={toClientTile(baseTile)}
           />
         ))}
         {showBlankTile && (
