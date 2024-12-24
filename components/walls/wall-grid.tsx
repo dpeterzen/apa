@@ -4,19 +4,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { TileSize, TileType } from "@/types";
 import BlankTile from "@/components/tiles/blank-tile";
 import { AnimatePresence } from "motion/react";
-
-interface BaseTile {
-  _id: Id<"baseTiles">;
-  type: string;
-  size: string;
-  position: number;
-  wallId: Id<"walls">;
-  userId: Id<"users">;
-  createdAt: number;
-  updatedAt: number;
-  isArchived: boolean;
-  _creationTime: number;
-}
+import { BaseTile } from "@/types";
 
 interface WallGridProps {
   tiles: BaseTile[] | undefined;

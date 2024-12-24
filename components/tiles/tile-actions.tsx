@@ -32,16 +32,39 @@ export function TileActions({
 }: TileActionsProps) {
   return (
     <>
+
+      <Button
+        className="z-[50] rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
+        variant="ghost"
+      >
+        <Square />
+      </Button>
+
+      <Button
+        variant="ghost"
+        className="z-[50] rounded-full absolute top-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
+        onClick={() => onPositionChange("increase")}
+      >
+        <ChevronRight />
+      </Button>
+      <Button
+        className="z-[50] rounded-full absolute top-[57px] right-[-1px] h-6 w-6 p-0 text-muted"
+        variant="ghost"
+        onClick={() => onPositionChange("decrease")}
+      >
+        <ChevronLeft />
+      </Button>
+
       <Popover>
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            className="z-50 rounded-full absolute top-[28px] right-[-1px] h-6 w-6 p-0 text-muted"
+            className="z-50 rounded-full absolute top-[86px] right-[-1px] h-6 w-6 p-0 text-muted data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
           >
             <MoreVertical />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-40 p-1 rounded-xl" align="end">
+        <PopoverContent className="w-40 p-1 rounded-xl" align="start" side="left">
           {children}
           <div
             role="button"
@@ -53,30 +76,6 @@ export function TileActions({
           </div>
         </PopoverContent>
       </Popover>
-
-
-      <Button
-        className="z-[50] rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
-        variant="ghost"
-      >
-        <Square />
-      </Button>
-
-      <Button
-        variant="ghost"
-        className="z-[50] rounded-full absolute top-[57px] right-[-1px] h-6 w-6 p-0 text-muted"
-        onClick={() => onPositionChange("increase")}
-      >
-        <ChevronRight />
-      </Button>
-      <Button
-        className="z-[50] rounded-full absolute top-[86px] right-[-1px] h-6 w-6 p-0 text-muted"
-        variant="ghost"
-        onClick={() => onPositionChange("decrease")}
-      >
-        <ChevronLeft />
-      </Button>
-
 
       <Button
         className="z-[50] rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"

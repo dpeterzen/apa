@@ -1,8 +1,6 @@
-import { mutation, query } from "./_generated/server"
-import { v } from "convex/values"
-
-export type TileType = "note" | "video" | "image";
-export type TileSize = "small" | "medium" | "large";
+import { mutation, query } from "./_generated/server";
+import { v } from "convex/values";
+import { TileSize, TileType } from "../types";
 
 export const create = mutation({
   args: {

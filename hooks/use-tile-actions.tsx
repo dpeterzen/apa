@@ -1,5 +1,5 @@
 import { Id } from "@/convex/_generated/dataModel";
-import { TileSize, SIZES } from "@/types";
+import { TileSize, TILE_SIZES } from "@/types";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
@@ -29,7 +29,7 @@ export function useTileActions({ tileId, wallId, size }: UseTileActionsProps) {
 
 
   const handleSizeChange = async (direction: "increase" | "decrease") => {
-    const currentIndex = SIZES.indexOf(size as TileSize);
+    const currentIndex = TILE_SIZES.indexOf(size as TileSize);
     let newIndex;
 
     if (direction === "decrease" && size === "small") {
@@ -47,7 +47,7 @@ export function useTileActions({ tileId, wallId, size }: UseTileActionsProps) {
 
     if (direction === "increase") {
       newIndex =
-        currentIndex < SIZES.length - 1 ? currentIndex + 1 : currentIndex;
+        currentIndex < TILE_SIZES.length - 1 ? currentIndex + 1 : currentIndex;
     } else {
       newIndex = currentIndex > 0 ? currentIndex - 1 : currentIndex;
     }
@@ -55,7 +55,7 @@ export function useTileActions({ tileId, wallId, size }: UseTileActionsProps) {
     if (newIndex !== currentIndex) {
       await updateTileSize({
         tileId,
-        size: SIZES[newIndex],
+        size: TILE_SIZES[newIndex],
       });
     }
 };
