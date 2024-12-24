@@ -1,4 +1,4 @@
-import { Id } from "@/convex/_generated/dataModel";
+import { Id } from "./convex/_generated/dataModel";
 
 export const TILE_TYPES = ['note', 'image', 'video'] as const
 export const TILE_SIZES = ['small', 'medium', 'large'] as const
