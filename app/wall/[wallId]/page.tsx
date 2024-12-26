@@ -10,7 +10,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { TileSize, TileType } from "@/types";
 import { WallGrid } from "@/components/walls/wall-grid";
 import { AddTileButton } from "@/components/buttons/add-tile-button";
-import TileStash  from "@/components/tiles/tile-stash";
+import TileStash from "@/components/tiles/tile-stash";
 
 export default function WallIdPage({
   params,
@@ -113,25 +113,22 @@ export default function WallIdPage({
 
   return (
     <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px]">
-    <WallGrid
-      tiles={tiles}
-      wallId={resolvedParams.wallId as Id<"walls">}
-      showBlankTile={showBlankTile}
-      onTileSelect={handleTileSelect}
-      setShowBlankTile={setShowBlankTile}
-      onExitComplete={() => setIsExitComplete(true)}
-    />
+      <WallGrid
+        tiles={tiles}
+        wallId={resolvedParams.wallId as Id<"walls">}
+        showBlankTile={showBlankTile}
+        onTileSelect={handleTileSelect}
+        setShowBlankTile={setShowBlankTile}
+        onExitComplete={() => setIsExitComplete(true)}
+      />
 
-    {!showBlankTile && delayedExit && (
-      <AddTileButton onClick={() => handleCreateTile()} />
-    )}
+      {!showBlankTile && delayedExit && (
+        <AddTileButton onClick={() => handleCreateTile()} />
+      )}
 
-    <div className="flex-1" />
-    
-    <TileStash 
-      tiles={tiles ?? []} 
-      onRestoreTile={handleRestoreTile}
-    />
-  </main>
+      <div className="flex-1" />
+
+      <TileStash tiles={tiles ?? []} onRestoreTile={handleRestoreTile} />
+    </main>
   );
 }
