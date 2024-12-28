@@ -1,4 +1,3 @@
-
 import * as motion from "motion/react-client";
 import { Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,8 +5,8 @@ import { Id } from "@/convex/_generated/dataModel";
 import { BaseTile } from "@/types";
 
 interface TileStashProps {
-  tiles: BaseTile[]
-  onRestoreTile: (tileId: Id<"baseTiles">) => void
+  tiles: BaseTile[];
+  onRestoreTile: (tileId: Id<"baseTiles">) => void;
 }
 
 export default function TileStash({ tiles, onRestoreTile }: TileStashProps) {
@@ -58,5 +57,5 @@ export default function TileStash({ tiles, onRestoreTile }: TileStashProps) {
           ))}
       </motion.div>
     </motion.div>
-  )
+  );
 }
