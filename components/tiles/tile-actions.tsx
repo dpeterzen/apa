@@ -32,7 +32,6 @@ export function TileActions({
 }: TileActionsProps) {
   return (
     <>
-
       <Button
         className="z-[50] rounded-full absolute top-[-1px] right-[-1px] h-6 w-6 p-0 text-muted"
         variant="ghost"
@@ -64,7 +63,11 @@ export function TileActions({
             <MoreVertical />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-40 p-1 rounded-xl" align="start" side="left">
+        <PopoverContent
+          className="w-40 p-1 rounded-xl"
+          align="start"
+          side="left"
+        >
           {children}
           <div
             role="button"

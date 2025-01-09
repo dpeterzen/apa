@@ -1,9 +1,8 @@
-"use client"
+"use client";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
 import { useConvexAuth } from "convex/react";
-
 
 export default function WallPage() {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -43,5 +42,5 @@ export default function WallPage() {
   }
 
   // Not authenticated, redirect to login
-  redirect('/');
+  redirect("/");
 }
