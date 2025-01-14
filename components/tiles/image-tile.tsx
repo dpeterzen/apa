@@ -105,7 +105,10 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               Image link
             </div>
           </PopoverTrigger>
-          <PopoverContent className="max-w-[90vw] w-80 rounded-xl p-1" align="center">
+          <PopoverContent
+            className="max-w-[90vw] w-80 rounded-xl p-1"
+            align="center"
+          >
             <div className="flex flex-col gap-2">
               <Input
                 className="h-7 border-0 p-[2px] min-w-0 w-full"
