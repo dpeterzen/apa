@@ -108,7 +108,7 @@ export function NoteEditor({ content, onChange }: NoteEditorProps) {
     >
       <Editable
         renderElement={renderElement}
-        placeholder="Start writing..."
+        placeholder="New note"
         spellCheck
         className="flex-1 p-2 focus:outline-none"
       />
