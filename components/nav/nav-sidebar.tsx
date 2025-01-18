@@ -63,7 +63,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>My Walls</SidebarGroupLabel>
+          <SidebarGroupLabel>Walls</SidebarGroupLabel>
           <SidebarMenu className=" gap-0">
             {walls?.map((wall) => {
               const isCurrentWall = wall._id === currentWallId;
