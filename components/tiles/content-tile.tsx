@@ -73,11 +73,13 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         scale: { duration: 0.2 },
       }}
       className={cn(
-        "rounded-xl border border-zinc-200 dark:border-zinc-900 shadow-inner",
+        "rounded-xl",
         sizeClasses[tile.size][tile.type]
       )}
     >
-      {renderContent()}
+      <div className="h-full flex flex-col p-0 pb-[28px] relative">
+        {renderContent()}
+      </div>
     </motion.div>
   );
 }

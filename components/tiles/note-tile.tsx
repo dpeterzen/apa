@@ -63,7 +63,7 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
   // }
 
   return (
-    <div className="h-full flex flex-col pr-[22px] relative">
+    <>
       <TileActions
         onSizeChange={handleSizeChange}
         onPositionChange={handlePositionChange}
@@ -77,7 +77,7 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
         value={title}
         title={title}
         onChange={handleTitleChange}
-        className="font-semibold border-0 rounded-xl bg-zinc-200/30 dark:bg-zinc-900/30 rounded-b-none"
+        className="font-semibold border-0 rounded-xl bg-zinc-200/30 dark:bg-zinc-800 rounded-b-none"
       />
       {/* <NoteEditor
         content={content}
@@ -89,8 +89,8 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
       <Textarea
         value={content}
         onChange={handleContentChange}
-        className="flex-1 resize-none border-0 rounded-xl bg-zinc-200/30 dark:bg-zinc-900/30 rounded-t-none"
+        className="flex-1 resize-none border-0 rounded-xl bg-zinc-200/30 dark:bg-zinc-800 rounded-t-none"
       />
-    </div>
+    </>
   );
 }

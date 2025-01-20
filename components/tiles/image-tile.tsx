@@ -88,7 +88,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   };
 
   return (
-    <div className="h-full flex flex-col p-0 pr-[22px] relative">
+    <>
       <TileActions
         onSizeChange={handleSizeChange}
         onPositionChange={handlePositionChange}
@@ -126,7 +126,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         </Popover>
       </TileActions>
 
-      <div className="flex-1 flex items-center justify-center relative bg-zinc-200/50 dark:bg-zinc-900/30 rounded-xl">
+      <div className="flex-1 flex items-center justify-center relative bg-zinc-200/50 dark:bg-zinc-800 rounded-xl">
         {!imageUrl && (
           <div className="flex items-center justify-center">
             <ImageIcon className="size-10 text-muted-foreground/30" />
@@ -219,6 +219,6 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           </>
         )}
       </div>
-    </div>
+      </>
   );
 }

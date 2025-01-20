@@ -41,13 +41,13 @@ export function TileActions({
 
       <Button
         variant="ghost"
-        className="z-[50] rounded-full absolute bottom-[28px] right-[-1px] h-6 w-6 p-0"
+        className="z-[50] rounded-full absolute bottom-[0px] left-[23px] h-6 w-6 p-0"
         onClick={() => onPositionChange("increase")}
       >
         <ChevronRight />
       </Button>
       <Button
-        className="z-[50] rounded-full absolute bottom-[28px] right-[23px] h-6 w-6 p-0"
+        className="z-[50] rounded-full absolute bottom-[0px] left-[-1px] h-6 w-6 p-0"
         variant="ghost"
         onClick={() => onPositionChange("decrease")}
       >
@@ -58,7 +58,7 @@ export function TileActions({
         <PopoverTrigger asChild>
           <Button
             variant="ghost"
-            className="z-50 rounded-full absolute top-[-1px] right-[23px] h-6 w-6 p-0 data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
+            className="z-50 rounded-full absolute bottom-[0px] right-[-1px] h-6 w-6 p-0 data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
           >
             <MoreVertical />
           </Button>
@@ -81,7 +81,7 @@ export function TileActions({
       </Popover>
 
       <Button
-        className="z-[50] rounded-full absolute bottom-[-1px] right-[-1px] h-6 w-6 p-0"
+        className="z-[50] rounded-full absolute bottom-[0px] right-[23px] h-6 w-6 p-0"
         variant="ghost"
         onClick={() => onSizeChange("increase")}
       >
@@ -89,7 +89,7 @@ export function TileActions({
       </Button>
       <Button
         variant="ghost"
-        className="z-[50] rounded-full absolute bottom-[-1px] right-[23px] h-6 w-6 p-0"
+        className="z-[50] rounded-full absolute bottom-[0px] right-[47px] h-6 w-6 p-0"
         onClick={() => onSizeChange("decrease")}
       >
         <Minus />
