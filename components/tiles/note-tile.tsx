@@ -16,11 +16,12 @@ interface NoteTileProps {
 }
 
 export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
-  const { handleSizeChange, handlePositionChange, handleDelete } = useTileActions({
-    tileId,
-    wallId,
-    size,
-  });
+  const { handleSizeChange, handlePositionChange, handleDelete } =
+    useTileActions({
+      tileId,
+      wallId,
+      size,
+    });
   const noteData = useQuery(api.noteTiles.getNoteContent, { tileId });
   const updateNote = useMutation(api.noteTiles.updateNoteContent);
   const [title, setTitle] = useState("");
@@ -69,9 +70,8 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
         onPositionChange={handlePositionChange}
         onDelete={handleDelete}
         size={size}
-      >
-      </TileActions>
-  
+      ></TileActions>
+
       <Input
         placeholder=""
         value={title}
