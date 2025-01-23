@@ -219,6 +219,6 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           </>
         )}
       </div>
-      </>
+    </>
   );
 }
