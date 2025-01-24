@@ -3,7 +3,6 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
-import PanelLeft from "@/components/icons/panel-left";
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -18,7 +17,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import Square from "../icons/square";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -269,8 +268,7 @@ const SidebarTrigger = React.forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
-  const { toggleSidebar } = useSidebar()
-  const [isHovered, setIsHovered] = React.useState(false)
+  const { toggleSidebar, open } = useSidebar()
 
   return (
     <Button
@@ -283,18 +281,9 @@ const SidebarTrigger = React.forwardRef<
         onClick?.(event)
         toggleSidebar()
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       {...props}
     >
-      <div className="relative">
-        <div className={`transition-opacity duration-200 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
-          <Square />
-        </div>
-        <div className={`absolute inset-0 transition-opacity duration-200 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-          <PanelLeft />
-        </div>
-      </div>
+      {open ? <ChevronLeft /> : <ChevronRight />}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

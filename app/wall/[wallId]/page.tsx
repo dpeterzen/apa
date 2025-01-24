@@ -112,7 +112,8 @@ export default function WallIdPage({
   };
 
   return (
-    <main className="flex flex-1 flex-col gap-2 p-2 pl-[13px] pr-[14px]">
+    <main className="flex flex-1 flex-col gap-2 p-2 px-[18px]">
+      <div className="flex flex-1 flex-col mx-auto w-full items-center">
       <WallGrid
         tiles={tiles}
         wallId={resolvedParams.wallId as Id<"walls">}
@@ -125,6 +126,8 @@ export default function WallIdPage({
       {!showBlankTile && delayedExit && (
         <AddTileButton onClick={() => handleCreateTile()} />
       )}
+
+      </div>
 
       <div className="flex-1" />
 

@@ -88,8 +88,8 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         }`}
                         tooltip={wall.title}
                       >
-                        <Square className="group-data-[state=open]/collapsible:hidden" />
-                        <SquareDot className="group-data-[state=closed]/collapsible:hidden" />
+                        <Square className="group-data-[state=open]/collapsible:hidden opacity-50" />
+                        <SquareDot className="group-data-[state=closed]/collapsible:hidden opacity-50" />
                         <span
                           className={`${isCurrentWall ? "text-blue-500 dark:text-blue-400" : ""}`}
                         >

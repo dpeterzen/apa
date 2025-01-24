@@ -2,7 +2,6 @@
 
 import {
   SidebarTrigger,
-  useSidebar,
 } from "@/components/ui/sidebar"
 import { NavActions } from "@/components/nav/nav-actions";
 import { usePathname } from "next/navigation";
@@ -13,7 +12,6 @@ import { redirect } from 'next/navigation';
 import { WallTitle } from "@/components/walls/wall-title";
 
 export function NavHeader() {
-  const { state, isMobile } = useSidebar();
   const pathname = usePathname();
   const pathWallId = pathname.split("/").pop() || "";
   
@@ -29,10 +27,8 @@ export function NavHeader() {
 }
 
   return (
-    <header className="sticky top-0 z-[51] bg-background/100 flex h-[48px] shrink-0 items-center px-[14px] backdrop-blur-sm">
-      {(state === "collapsed" || isMobile) && (
+    <header className="sticky top-0 z-[49] bg-background/100 flex h-[48px] shrink-0 items-center px-[14px] backdrop-blur-sm">
         <SidebarTrigger />
-      )}
       <div className="flex-1 flex">
         {currentWall && (
           <WallTitle 
