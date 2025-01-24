@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { BadgeCheck, ChevronDown, LogOut, Monitor, Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
+import { ChevronDown, Monitor, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useSession } from "next-auth/react";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,9 +11,8 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -25,22 +24,22 @@ import { useRouter } from "next/navigation";
 
 export function NavUser() {
   const router = useRouter();
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
   // const { isMobile } = useSidebar()
-  const session = useSession()
+  const session = useSession();
 
   const name = session?.data?.user?.name;
   const email = session?.data?.user?.email;
-  const firstName = name?.split(' ')[0];
+  const firstName = name?.split(" ")[0];
 
   const handleSignOut = async () => {
     try {
       await signOutAction();
       router.refresh(); // Clear router cache
-      router.replace('/');
+      router.replace("/");
     } catch (error) {
-      console.error('Logout error:', error);
-      router.replace('/');
+      console.error("Logout error:", error);
+      router.replace("/");
     }
   };
 
@@ -49,12 +48,9 @@ export function NavUser() {
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              className="h-[38px] data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
+            <SidebarMenuButton className="h-[38px] data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
-                </div>
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400"></div>
                 <div className="flex flex-col">
                   <span className="text-sm">{firstName}</span>
                 </div>
@@ -62,18 +58,19 @@ export function NavUser() {
               <ChevronDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full min-w-[288px] md:min-w-[256px] rounded-2xl drop-shadow-lg">
+          <DropdownMenuContent className="w-full min-w-[276px] md:min-w-[244px] rounded-xl drop-shadow-lg">
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-xs leading-none text-muted-foreground mb-2">
                   {email}
                 </p>
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400">
-                  </div>
+                  <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-pink-400"></div>
                   <div className="flex flex-col">
                     <span className="text-sm">{firstName}</span>
-                    <span className="text-xs text-muted-foreground">Free plan</span>
+                    <span className="text-xs text-muted-foreground">
+                      Free plan
+                    </span>
                   </div>
                 </div>
               </div>
@@ -84,25 +81,12 @@ export function NavUser() {
             </Button> */}
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="w-full cursor-pointer py-[10px] rounded-md">
-                <BadgeCheck />
+              <DropdownMenuItem className="w-full cursor-pointer py-[7px] rounded-lg">
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem 
-                onClick={handleSignOut}
-                className="w-full cursor-pointer py-[10px] rounded-md"
->
-                <LogOut />
-                Log Out
-              </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
 
-            <DropdownMenuLabel>
-              <span className="text-xs font-normal text-muted-foreground">Preferences</span>
-            </DropdownMenuLabel>
             <DropdownMenuGroup className="space-y-1 px-2 py-2">
-
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
                   <span className="text-sm">Theme</span>
@@ -135,10 +119,16 @@ export function NavUser() {
                 </div>
               </div>
             </DropdownMenuGroup>
-
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={handleSignOut}
+              className="w-full cursor-pointer py-[7px] rounded-lg"
+            >
+              Log Out
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }
