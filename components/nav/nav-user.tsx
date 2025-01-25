@@ -59,7 +59,7 @@ export function NavUser() {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-full min-w-[276px] md:min-w-[244px] rounded-xl drop-shadow-lg">
-            <DropdownMenuLabel className="font-normal">
+            <DropdownMenuLabel className="font-normal mb-2">
               <div className="flex flex-col space-y-1">
                 <p className="text-xs leading-none text-muted-foreground mb-2">
                   {email}
@@ -79,9 +79,8 @@ export function NavUser() {
             <Button size="sm" className="w-full" variant="outline">
               Upgrade Plan
             </Button> */}
-            <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="w-full cursor-pointer py-[7px] rounded-lg">
+              <DropdownMenuItem className="w-full cursor-pointer py-[7px] rounded-md">
                 Account
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -122,7 +121,7 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={handleSignOut}
-              className="w-full cursor-pointer py-[7px] rounded-lg"
+              className="w-full cursor-pointer py-[7px] rounded-md"
             >
               Log Out
             </DropdownMenuItem>

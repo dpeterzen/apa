@@ -68,7 +68,7 @@ export function TileActions({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-40 p-1 rounded-xl"
+          className="w-40 p-2 rounded-xl"
           align="start"
           side="left"
         >
