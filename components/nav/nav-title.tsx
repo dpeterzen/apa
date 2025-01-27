@@ -29,7 +29,7 @@ export function NavTitle() {
       <SidebarMenuItem>
       <div className="flex gap-1 py-2 px-1">
         <LayoutDashboardIcon className={`size-6`} />
-        <h1 className="font-semibold text-[16px]">TileRecall</h1>
+        <h1 className="font-semibold text-[16px]">TidyRecall</h1>
       </div>
 
       </SidebarMenuItem>
