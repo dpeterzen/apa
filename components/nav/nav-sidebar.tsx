@@ -191,7 +191,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <Button
               className="w-full rounded-lg mb-1 px-4 py-2 font-bold text-[15px]"
-              variant={"tertiary"}
+              variant={"default"}
               onClick={() => setDialogOpen(true)}
             >
               New Wall

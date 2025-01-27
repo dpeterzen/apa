@@ -112,21 +112,20 @@ export default function WallIdPage({
   };
 
   return (
-    <main className="flex flex-1 flex-col gap-2 p-2 px-[18px]">
-      <div className="flex flex-1 flex-col mx-auto w-full items-center">
-      <WallGrid
-        tiles={tiles}
-        wallId={resolvedParams.wallId as Id<"walls">}
-        showBlankTile={showBlankTile}
-        onTileSelect={handleTileSelect}
-        setShowBlankTile={setShowBlankTile}
-        onExitComplete={() => setIsExitComplete(true)}
-      />
+    <main className="flex flex-1 flex-col gap-2 p-2 px-[22px]">
+      <div className="flex flex-col mx-auto w-full items-center">
+        <WallGrid
+          tiles={tiles}
+          wallId={resolvedParams.wallId as Id<"walls">}
+          showBlankTile={showBlankTile}
+          onTileSelect={handleTileSelect}
+          setShowBlankTile={setShowBlankTile}
+          onExitComplete={() => setIsExitComplete(true)}
+        />
 
-      {!showBlankTile && delayedExit && (
-        <AddTileButton onClick={() => handleCreateTile()} />
-      )}
-
+        {!showBlankTile && delayedExit && (
+          <AddTileButton onClick={() => handleCreateTile()} />
+        )}
       </div>
 
       <div className="flex-1" />
