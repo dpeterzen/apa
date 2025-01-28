@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useCallback, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,6 +9,7 @@ import { api } from "@/convex/_generated/api";
 import { debounce } from "lodash";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
+import Tiptap from '@/components/tiptap/Tiptap';
 // import { NoteEditor } from '../editor/note-editor';
 
 interface NoteTileProps {
@@ -72,13 +75,16 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
         size={size}
       ></TileActions>
 
-      <Input
+      {/* <Input
         placeholder=""
         value={title}
         title={title}
         onChange={handleTitleChange}
         className="font-semibold border-0 rounded-xl bg-zinc-200/30 dark:bg-zinc-800 rounded-b-none"
-      />
+      /> */}
+<div className="w-full">
+  <Tiptap />
+</div>
       {/* <NoteEditor
         content={content}
         onChange={(newContent) => {
@@ -86,11 +92,11 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
           debouncedUpdate(title, newContent);
         }}
       /> */}
-      <Textarea
+      {/* <Textarea
         value={content}
         onChange={handleContentChange}
         className="flex-1 resize-none border-0 rounded-xl bg-zinc-200/30 dark:bg-zinc-800 rounded-t-none"
-      />
+      /> */}
     </>
   );
 }
