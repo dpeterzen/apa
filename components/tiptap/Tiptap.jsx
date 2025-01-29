@@ -1,6 +1,8 @@
-'use client'
+'use client';
 
-import './styles.scss'
+import './styles.scss';
+import { useState, useCallback, useEffect } from "react";
+import debounce from 'lodash/debounce';
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Highlight from '@tiptap/extension-highlight'
@@ -95,7 +97,17 @@ const MenuBar = ({ editor }) => {
   )
 }
 
-const Tiptap = () => {
+const Tiptap = ({ initialContent, onUpdate }) => {
+  const [localContent, setLocalContent] = useState(initialContent);
+
+  // Create memoized debounced callback
+  const debouncedOnUpdate = useCallback(
+    debounce((html) => {
+      onUpdate({ editor: { getHTML: () => html } });
+    }, 1000),
+    [onUpdate]
+  );
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -104,17 +116,30 @@ const Tiptap = () => {
       }),
       Highlight,
     ],
-    content: '<p>Start typing...</p>',
-  })
+    content: initialContent,
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      setLocalContent(html);
+      debouncedOnUpdate(html);
+    },
+    enableRichTextPaste: true,
+    immediatelyRender: false,
+  });
+
+  useEffect(() => {
+    if (editor && initialContent !== localContent) {
+      editor.commands.setContent(initialContent);
+    }
+  }, [editor, initialContent]);
 
   return (
-    <div className="border rounded-lg overflow-hidden">
+    <div className="flex flex-col h-full rounded-xl bg-zinc-200/30 dark:bg-zinc-800 overflow-hidden">
       <MenuBar editor={editor} />
-      <div className="p-4">
-        <EditorContent editor={editor} />
+      <div className="flex-1 overflow-y-auto min-h-0">
+        <EditorContent editor={editor} className="h-full p-4" />
       </div>
     </div>
-  )
+  );
 }
 
 export default Tiptap
