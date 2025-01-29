@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  compiler: {
+  },
+  webpack: (config) => {
+    if (process.env.NODE_ENV === 'development') {
+      config.devtool = false; // Disable source maps in development
+    }
+    return config;
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
