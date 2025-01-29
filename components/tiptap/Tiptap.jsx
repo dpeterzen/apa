@@ -1,8 +1,7 @@
 'use client';
 
 import './styles.scss';
-import { useState, useCallback, useEffect } from "react";
-import debounce from 'lodash/debounce';
+import { useEffect } from "react";
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Highlight from '@tiptap/extension-highlight'
@@ -98,16 +97,6 @@ const MenuBar = ({ editor }) => {
 }
 
 const Tiptap = ({ initialContent, onUpdate }) => {
-  const [localContent, setLocalContent] = useState(initialContent);
-
-  // Create memoized debounced callback
-  const debouncedOnUpdate = useCallback(
-    debounce((html) => {
-      onUpdate({ editor: { getHTML: () => html } });
-    }, 1000),
-    [onUpdate]
-  );
-
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -118,20 +107,18 @@ const Tiptap = ({ initialContent, onUpdate }) => {
     ],
     content: initialContent,
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
-      setLocalContent(html);
-      debouncedOnUpdate(html);
+      onUpdate({ editor });
     },
     enableRichTextPaste: true,
     immediatelyRender: false,
   });
 
   useEffect(() => {
-    if (editor && initialContent !== localContent) {
+    if (editor && editor.getHTML() !== initialContent) {
       editor.commands.setContent(initialContent);
     }
   }, [editor, initialContent]);
-
+  
   return (
     <div className="flex flex-col h-full rounded-xl bg-zinc-200/30 dark:bg-zinc-800 overflow-hidden">
       <MenuBar editor={editor} />
