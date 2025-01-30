@@ -38,7 +38,7 @@ export function TileCreationDialog({ onCreateTile }: TileCreationDialogProps) {
       <DialogTrigger asChild>
         <SidebarMenuButton>
           <span className="text-blue-500 font-semibold flex items-center">
-            <SquarePlusIcon className="size-7 ml-[-2px] mr-1" />
+            <SquarePlusIcon className="size-6 ml-[-2px] mr-1" />
             Add tile
           </span>
         </SidebarMenuButton>

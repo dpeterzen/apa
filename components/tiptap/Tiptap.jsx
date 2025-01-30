@@ -120,7 +120,7 @@ const Tiptap = ({ initialContent, onUpdate }) => {
   }, [editor, initialContent]);
   
   return (
-    <div className="flex flex-col h-full rounded-xl bg-zinc-200/30 dark:bg-zinc-800 overflow-hidden">
+    <div className="flex flex-col h-full rounded-xl bg-accent/30 dark:bg-accent overflow-hidden">
       <MenuBar editor={editor} />
       <div className="flex-1 overflow-y-auto min-h-0">
         <EditorContent editor={editor} className="h-full p-4" />

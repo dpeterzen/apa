@@ -52,7 +52,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuItem>
                 <SidebarMenuButton>
                   <span className="flex items-center">
-                    <Search className="mr-[5px] opacity-50" />
+                    <Search className="mr-[5px] opacity-50 size-5" />
                     Search
                   </span>
                 </SidebarMenuButton>
@@ -75,7 +75,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 >
                   <SidebarMenuItem
                     className={`group/menuitem ${
-                      isCurrentWall ? "" : "hover:bg-accent"
+                      isCurrentWall ? "" : "hover:bg-sidebar-accent"
                     } rounded-md`}
                   >
                     <CollapsibleTrigger asChild>
