@@ -27,7 +27,7 @@ export function NavHeader() {
 }
 
   return (
-    <header className="sticky top-0 z-[49] bg-background/100 flex h-[48px] shrink-0 items-center px-[14px] backdrop-blur-sm">
+    <header className="sticky top-0 z-[51] bg-background/100 flex h-[48px] shrink-0 items-center px-[14px] backdrop-blur-sm">
         <SidebarTrigger />
       <div className="flex-1 flex">
         {currentWall && (

@@ -11,7 +11,7 @@ const MenuBar = ({ editor }) => {
   if (!editor) return null
 
   return (
-    <div className="flex flex-wrap gap-2 p-2 border-b">
+    <div className="flex flex-wrap gap-2 p-2">
         <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} className={editor.isActive('heading', { level: 1 }) ? 'bg-accent' : ''}>
           H1
         </button>
@@ -120,11 +120,12 @@ const Tiptap = ({ initialContent, onUpdate }) => {
   }, [editor, initialContent]);
   
   return (
-    <div className="flex flex-col h-full rounded-xl bg-accent/30 dark:bg-accent overflow-hidden">
+    <div className="flex flex-col h-full rounded-md bg-accent/20 dark:bg-accent/70 overflow-hidden">
       <MenuBar editor={editor} />
       <div className="flex-1 overflow-y-auto min-h-0">
-        <EditorContent editor={editor} className="h-full p-4" />
+        <EditorContent editor={editor} className="h-full" />
       </div>
+      {/* <div className="h-4"></div> */}
     </div>
   );
 }

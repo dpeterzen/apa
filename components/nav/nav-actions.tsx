@@ -42,7 +42,7 @@ export function NavActions() {
           <Button
             variant="ghost"
             size="sm"
-            className="[&_svg]:size-5 px-[3px] w-[32px] h-[32px] mr-[-3px] data-[state=open]:bg-accent"
+            className="[&_svg]:size-4 px-[3px] w-[36px] h-[36px] mr-[-8px] data-[state=open]:bg-accent"
           >
             <MoreVertical />
           </Button>

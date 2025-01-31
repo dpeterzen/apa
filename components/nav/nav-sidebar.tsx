@@ -75,7 +75,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 >
                   <SidebarMenuItem
                     className={`group/menuitem ${
-                      isCurrentWall ? "" : "hover:bg-sidebar-accent"
+                      isCurrentWall ? "" : "hover:bg-sidebar-accent/40 dark:hover:bg-sidebar-accent/50"
                     } rounded-md`}
                   >
                     <CollapsibleTrigger asChild>

@@ -56,17 +56,17 @@ export function WallTitle({ wallId, title }: WallTitleProps) {
             variant="ghost"
             size="sm"
             title={title}
-            className="overflow-hidden font-semibold !text-[18px] !leading-[27px] rounded-md"
+            className="overflow-hidden !text-[15px] !leading-[24px] rounded-md"
           >
             <span className="truncate block w-full text-left">
               {title}
             </span>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="max-w-[90vw] w-96 rounded-xl p-1 z-[52]" align="start">
+        <PopoverContent className="max-w-[90vw] w-96 rounded-lg p-1 z-[52]" align="start">
           <div className="flex flex-col gap-2">
             <Input
-              className="dark:text-zinc-300 border-0 flex-grow min-h-[33px] py-1 px-[2px] !text-[18px] !leading-[27px] font-bold min-w-0 w-full"
+              className="dark:text-zinc-300 border-0 flex-grow h-7 py-1 px-[2px] !text-[15px] !leading-[24px] min-w-0 w-full"
               placeholder="Enter wall title..."
               maxLength={100}
               value={editableTitle}

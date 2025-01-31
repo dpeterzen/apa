@@ -99,14 +99,14 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           <PopoverTrigger asChild>
             <div
               role="button"
-              className="flex items-center px-2 py-1.5 text-sm rounded-md cursor-pointer hover:bg-accent"
+              className="flex items-center px-2 py-1.5 text-sm rounded-md cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/50"
             >
               <Link className="mr-2 h-4 w-4" />
               Image link
             </div>
           </PopoverTrigger>
           <PopoverContent
-            className="max-w-[90vw] w-80 rounded-xl p-1"
+            className="max-w-[90vw] w-80 rounded-lg p-1"
             align="center"
           >
             <div className="flex flex-col gap-2">
@@ -126,7 +126,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         </Popover>
       </TileActions>
 
-      <div className="flex-1 flex items-center justify-center relative bg-zinc-200/50 dark:bg-zinc-800 rounded-xl">
+      <div className="flex-1 flex items-center justify-center relative bg-accent/20 dark:bg-accent/70 rounded-md">
         {!imageUrl && (
           <div className="flex items-center justify-center">
             <ImageIcon className="size-10 text-muted-foreground/30" />
@@ -162,7 +162,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="max-w-[90vw] w-80 rounded-xl p-1"
+            className="max-w-[90vw] w-80 rounded-md p-1"
             align="start"
             side="top"
             sideOffset={-56}

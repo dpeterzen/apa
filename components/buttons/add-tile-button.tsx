@@ -9,7 +9,7 @@ interface AddTileButtonProps {
 export function AddTileButton({ onClick }: AddTileButtonProps) {
   return (
     <Button
-      className="mt-3 pl-[6px] flex-grow w-full max-w-[1536px] group justify-start items-center hover:bg-transparent rounded-none [&_svg]:size-[20px]"
+      className="mt-3 pl-[6px] flex-grow w-full max-w-[1536px] group justify-start items-center hover:!bg-transparent [&_svg]:size-[20px]"
       variant="ghost"
       onClick={onClick}
     >
