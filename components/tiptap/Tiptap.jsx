@@ -6,123 +6,159 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
+import { Button } from "@/components/ui/button";
+import { AlignCenter, AlignLeft, AlignRight, Bold, Code, Heading1, Heading2, Heading3, Highlighter, Italic, List, ListOrdered, MessageSquareQuote, Minus, Quote, Redo2, Strikethrough, TextQuote, Undo2 } from "lucide-react";
 
 const MenuBar = ({ editor }) => {
   if (!editor) return null;
 
   return (
-    <div className="flex flex-wrap gap-2 p-2">
-      <button
+    <div className="flex flex-wrap pt-1 pb-1 pr-5 border-b">
+      <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={editor.isActive("heading", { level: 1 }) ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        H1
-      </button>
-      <button
+        <Heading1 />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={editor.isActive("heading", { level: 2 }) ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        H2
-      </button>
-      <button
+        <Heading2 />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={editor.isActive("heading", { level: 3 }) ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        H3
-      </button>
-      <button
+        <Heading3 />
+      </Button>
+      {/* <Button
         onClick={() => editor.chain().focus().setParagraph().run()}
         className={editor.isActive("paragraph") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
         Paragraph
-      </button>
-      <button
+      </Button> */}
+      <Button
         onClick={() => editor.chain().focus().toggleBold().run()}
         className={editor.isActive("bold") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Bold
-      </button>
-      <button
+        <Bold />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleItalic().run()}
         className={editor.isActive("italic") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Italic
-      </button>
-      <button
+        <Italic />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleStrike().run()}
         className={editor.isActive("strike") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Strike
-      </button>
-      <button
+        <Strikethrough />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleHighlight().run()}
         className={editor.isActive("highlight") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Highlight
-      </button>
-      <button
+        <Highlighter />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         className={editor.isActive({ textAlign: "left" }) ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Left
-      </button>
-      <button
+        <AlignLeft />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
         className={editor.isActive({ textAlign: "center" }) ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Center
-      </button>
-      <button
+        <AlignCenter />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
         className={editor.isActive({ textAlign: "right" }) ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Right
-      </button>
-      <button
+        <AlignRight />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive("bulletList") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Bullet List
-      </button>
-
-      <button
+        <List />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={editor.isActive("orderedList") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Ordered List
-      </button>
-
-      <button
+        <ListOrdered />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         className={editor.isActive("codeBlock") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Code Block
-      </button>
-
-      <button
+        <Code />
+      </Button>
+      <Button
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={editor.isActive("blockquote") ? "bg-accent" : ""}
+        variant="ghost"
+        size="xs"
       >
-        Blockquote
-      </button>
-
-      <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
-        Horizontal Rule
-      </button>
-
-      <button
-        onClick={() => editor.chain().focus().undo().run()}
-        disabled={!editor.can().chain().focus().undo().run()}
+        <MessageSquareQuote />
+      </Button>
+      <Button
+        onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        variant="ghost"
+        size="xs"
       >
-        Undo
-      </button>
-
-      <button
-        onClick={() => editor.chain().focus().redo().run()}
-        disabled={!editor.can().chain().focus().redo().run()}
-      >
-        Redo
-      </button>
+        <Minus />
+      </Button>
+      <div className="undo-redo-container">
+  <Button
+    onClick={() => editor.chain().focus().undo().run()}
+    disabled={!editor.can().chain().focus().undo().run()}
+    variant="ghost"
+    size="xs"
+  >
+    <Undo2 />
+  </Button>
+  <Button
+    onClick={() => editor.chain().focus().redo().run()}
+    disabled={!editor.can().chain().focus().redo().run()}
+    variant="ghost"
+    size="xs"
+  >
+    <Redo2 />
+  </Button>
+</div>
     </div>
   );
 };
@@ -156,6 +192,7 @@ const Tiptap = ({ initialContent, onUpdate }) => {
       <div className="flex-1 overflow-y-auto min-h-0">
         <EditorContent editor={editor} className="h-full" />
       </div>
+      {/* <div className="h-4"></div> */}
     </div>
   );
 };

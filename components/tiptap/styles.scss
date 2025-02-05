@@ -4,20 +4,16 @@
     outline: none;
   }
   &.ProseMirror {
+
     padding: 3px;
-    margin: 0px 16px;
-  }
-  &.ProseMirror:focus-visible p:first-child {
-    border: 1px solid hsl(var(--border-2));
+    margin: 0px 5px;
   }
 
-  p:first-child {
-    border-radius: 0.6rem;
-    // border-radius: 0 0 0.4rem 0.4rem;
-    border: 1px solid hsl(var(--border-1));
-    margin-top: 0;
+  :first-child {
+    margin-top: 3px;
+  }
+  :last-child {
     margin-bottom: 10px;
-    padding: 6px 6px 10px;
   }
 
   /* List styles */
@@ -91,5 +87,11 @@
     border: none;
     border-top: 1px solid hsl(var(--border));
     margin: 2rem 0;
+  }
+
+  .undo-redo-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 }

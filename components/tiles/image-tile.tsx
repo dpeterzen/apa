@@ -198,7 +198,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               fill
               unoptimized={isGifUrl(imageUrl)}
               className={`
-                object-contain transition-opacity duration-300 rounded-xl
+                object-contain transition-opacity duration-300 rounded-md
                 ${isImageLoading || hasError ? "opacity-0" : "opacity-100"}
               `}
               onLoad={handleImageLoad}

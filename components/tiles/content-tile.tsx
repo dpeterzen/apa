@@ -77,7 +77,7 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         sizeClasses[tile.size][tile.type]
       )}
     >
-      <div className="h-full flex flex-col p-0 pb-[28px] relative">
+      <div className="h-full flex flex-col p-0 pb-[30px] relative">
         {renderContent()}
       </div>
     </motion.div>
