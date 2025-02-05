@@ -50,7 +50,8 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
       />
       <div className="flex-1 min-h-0">
         <Tiptap
-          initialContent={noteData.content || "<p>Write something...</p>"}
+          initialContent={noteData.content || ""}
+          placeholder="Write something..."
           onUpdate={({ editor }) => {
             debouncedUpdate(editor.getHTML());
           }}

@@ -6,6 +6,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
+import Placeholder from '@tiptap/extension-placeholder'
 import { Button } from "@/components/ui/button";
 import {
   AlignCenter,
@@ -31,7 +32,7 @@ const MenuBar = ({ editor }) => {
   if (!editor) return null;
 
   return (
-    <div className="flex flex-wrap pt-1 pb-1 pr-5 border-b">
+    <div className="flex flex-wrap pt-1 pb-1 pr-5 border-b mb-1">
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={editor.isActive("heading", { level: 1 }) ? "bg-accent" : ""}
@@ -181,7 +182,7 @@ const MenuBar = ({ editor }) => {
   );
 };
 
-const Tiptap = ({ initialContent, onUpdate, showMenu = true }) => {
+const Tiptap = ({ initialContent, onUpdate, showMenu = true, placeholder }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -189,6 +190,9 @@ const Tiptap = ({ initialContent, onUpdate, showMenu = true }) => {
         types: ["heading", "paragraph"],
       }),
       Highlight,
+      Placeholder.configure({
+        placeholder: placeholder,
+      }),
     ],
     content: initialContent,
     onUpdate: ({ editor }) => {
