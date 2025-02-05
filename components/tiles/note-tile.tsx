@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useCallback } from "react";
 import { Id } from "@/convex/_generated/dataModel";
@@ -7,7 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { debounce } from "lodash";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
-import Tiptap from '@/components/tiptap/Tiptap';
+import Tiptap from "@/components/tiptap/Tiptap";
 // import { NoteEditor } from '../editor/note-editor';
 
 interface NoteTileProps {
@@ -23,39 +23,40 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
       wallId,
       size,
     });
-    const noteData = useQuery(api.noteTiles.getNoteContent, { tileId });
-    const updateNote = useMutation(api.noteTiles.updateNoteContent);
-  
-    const debouncedUpdate = useCallback(
-      debounce((newContent: string) => {
-        updateNote({
-          tileId,
-          content: newContent,
-        });
-      }, 4000),
-      [tileId]
-    );
-  
-    if (!noteData) {
-      return <div className="p-4">Loading...</div>;
-    }
-  
-    return (
-      <>
-        <TileActions
-          onSizeChange={handleSizeChange}
-          onPositionChange={handlePositionChange}
-          onDelete={handleDelete}
-          size={size}
-        />
-        <div className="flex-1 min-h-0">
-          <Tiptap 
-            initialContent={noteData.content || "<p>Write something...</p>"}
-            onUpdate={({ editor }) => {
-              debouncedUpdate(editor.getHTML());
-            }}
-          />
-        </div>
-      </>
-    );
+  const noteData = useQuery(api.noteTiles.getNoteContent, { tileId });
+  const updateNote = useMutation(api.noteTiles.updateNoteContent);
+
+  const debouncedUpdate = useCallback(
+    debounce((newContent: string) => {
+      updateNote({
+        tileId,
+        content: newContent,
+      });
+    }, 4000),
+    [tileId]
+  );
+
+  if (!noteData) {
+    return <div className="p-4">Loading...</div>;
   }
+
+  return (
+    <>
+      <TileActions
+        onSizeChange={handleSizeChange}
+        onPositionChange={handlePositionChange}
+        onDelete={handleDelete}
+        size={size}
+      />
+      <div className="flex-1 min-h-0">
+        <Tiptap
+          initialContent={noteData.content || "<p>Write something...</p>"}
+          onUpdate={({ editor }) => {
+            debouncedUpdate(editor.getHTML());
+          }}
+          showMenu={size !== "small"}
+        />
+      </div>
+    </>
+  );
+}

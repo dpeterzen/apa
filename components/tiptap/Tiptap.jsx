@@ -7,7 +7,25 @@ import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
 import { Button } from "@/components/ui/button";
-import { AlignCenter, AlignLeft, AlignRight, Bold, Code, Heading1, Heading2, Heading3, Highlighter, Italic, List, ListOrdered, MessageSquareQuote, Minus, Quote, Redo2, Strikethrough, TextQuote, Undo2 } from "lucide-react";
+import {
+  AlignCenter,
+  AlignLeft,
+  AlignRight,
+  Bold,
+  Code,
+  Heading1,
+  Heading2,
+  Heading3,
+  Highlighter,
+  Italic,
+  List,
+  ListOrdered,
+  MessageSquareQuote,
+  Minus,
+  Redo2,
+  Strikethrough,
+  Undo2,
+} from "lucide-react";
 
 const MenuBar = ({ editor }) => {
   if (!editor) return null;
@@ -142,28 +160,28 @@ const MenuBar = ({ editor }) => {
         <Minus />
       </Button>
       <div className="undo-redo-container">
-  <Button
-    onClick={() => editor.chain().focus().undo().run()}
-    disabled={!editor.can().chain().focus().undo().run()}
-    variant="ghost"
-    size="xs"
-  >
-    <Undo2 />
-  </Button>
-  <Button
-    onClick={() => editor.chain().focus().redo().run()}
-    disabled={!editor.can().chain().focus().redo().run()}
-    variant="ghost"
-    size="xs"
-  >
-    <Redo2 />
-  </Button>
-</div>
+        <Button
+          onClick={() => editor.chain().focus().undo().run()}
+          disabled={!editor.can().chain().focus().undo().run()}
+          variant="ghost"
+          size="xs"
+        >
+          <Undo2 />
+        </Button>
+        <Button
+          onClick={() => editor.chain().focus().redo().run()}
+          disabled={!editor.can().chain().focus().redo().run()}
+          variant="ghost"
+          size="xs"
+        >
+          <Redo2 />
+        </Button>
+      </div>
     </div>
   );
 };
 
-const Tiptap = ({ initialContent, onUpdate }) => {
+const Tiptap = ({ initialContent, onUpdate, showMenu = true }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -188,11 +206,10 @@ const Tiptap = ({ initialContent, onUpdate }) => {
 
   return (
     <div className="flex flex-col h-full rounded-md bg-accent/20 dark:bg-accent/70 overflow-hidden">
-      <MenuBar editor={editor} />
+      {showMenu && <MenuBar editor={editor} />}
       <div className="flex-1 overflow-y-auto min-h-0">
         <EditorContent editor={editor} className="h-full" />
       </div>
-      {/* <div className="h-4"></div> */}
     </div>
   );
 };
