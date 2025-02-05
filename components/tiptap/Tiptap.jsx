@@ -156,7 +156,6 @@ const Tiptap = ({ initialContent, onUpdate }) => {
       <div className="flex-1 overflow-y-auto min-h-0">
         <EditorContent editor={editor} className="h-full" />
       </div>
-      {/* <div className="h-4"></div> */}
     </div>
   );
 };
