@@ -150,7 +150,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="absolute top-[0] left-1 z-10 font-extralight tracking-tight text-sm h-[18px] hover:h-fit transition-all duration-100 rounded-md max-w-[calc(100%-8px)] group overflow-hidden"
+              className="absolute top-[0] left-0 z-10 font-extralight tracking-tight text-sm h-[18px] hover:h-fit transition-all duration-100 rounded-md max-w-[calc(100%-8px)] group overflow-hidden"
             >
               <div className="h-[18px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span
@@ -186,7 +186,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         <Button
           variant="ghost"
           size="sm"
-          className="absolute bottom-[0px] left-1 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
+          className="absolute bottom-[0px] left-0 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
         >
           caption{" "}
         </Button>
