@@ -73,17 +73,13 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   defaultOpen={false}
                   className="group/collapsible"
                 >
-                  <SidebarMenuItem
-                    className={`group/menuitem ${
-                      isCurrentWall ? "" : "hover:bg-sidebar-accent/40 dark:hover:bg-sidebar-accent/50"
-                    } rounded-md`}
-                  >
+                  <SidebarMenuItem className="group/menuitem rounded-md">
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
                         className={`px-2 ${
                           isCurrentWall
                             ? "bg-blue-300/30 hover:bg-blue-300/30 dark:!bg-zinc-950/80 dark:hover:bg-zinc-950/80"
-                            : "group-hover/menuitem:bg-transparent"
+                            : "group-hover/menuitem:bg-accent/40 dark:group-hover/menuitem:bg-accent/30"
                         }`}
                         tooltip={wall.title}
                       >
