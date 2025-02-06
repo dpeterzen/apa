@@ -33,9 +33,9 @@ export function TileActions({
   return (
     <>
       <Button
-        className="z-[50] rounded-full absolute top-[1px] right-[1px] h-5 w-5 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
-        [&:not(:hover)]:opacity-50"
-        variant="ghost"
+        className="z-[50] rounded-full absolute top-[0px] right-[0px] h-5 w-5 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
+        [&:not(:hover)]:opacity-20"
+        variant="ghost2"
       >
         <Circle />
       </Button>

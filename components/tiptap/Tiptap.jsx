@@ -265,7 +265,7 @@ const Tiptap = ({ initialContent, onUpdate, showMenu = true, placeholder }) => {
   }, [editor, initialContent]);
 
   return (
-    <div className="flex flex-col h-full rounded-xl bg-inherit dark:bg-accent/70 overflow-hidden">
+    <div className="flex flex-col h-full rounded-lg bg-inherit dark:bg-accent/70 overflow-hidden">
       {showMenu && <MenuBar editor={editor} />}
       <div className="flex-1 overflow-y-auto min-h-0 mt-[20px]">
         <EditorContent editor={editor} className="h-full" />

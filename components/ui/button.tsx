@@ -20,6 +20,7 @@ const buttonVariants = cva(
             "hover:bg-[hsl(var(--accent))] text-secondary-foreground bg-zinc-800",
         ghost: "hover:bg-accent/40 dark:hover:bg-accent/20 hover:text-accent-foreground",
         ghost1: "hover:bg-accent/50 dark:hover:bg-accent hover:text-accent-foreground",
+        ghost2: " hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         segmented: "relative bg-secondary text-secondary-foreground hover:bg-[hsl(var(--accent))] after:content-[''] after:absolute after:right-0 after:top-[4px] after:h-4 after:w-[1px] after:bg-white/20",
         // Add segmented-end variant if needed to remove the divider

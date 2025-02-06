@@ -126,7 +126,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         </Popover>
       </TileActions>
 
-      <div className="flex-1 flex items-center justify-center relative rounded-xl border dark:border-transparent bg-inherit dark:bg-accent/70">
+      <div className="flex-1 flex items-center justify-center relative rounded-lg border dark:border-transparent bg-inherit dark:bg-accent/70">
         {!imageUrl && (
           <div className="flex items-center justify-center">
             <ImageIcon className="size-10 text-muted-foreground/30" />
@@ -198,7 +198,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               fill
               unoptimized={isGifUrl(imageUrl)}
               className={`
-                object-cover transition-opacity duration-300 rounded-xl
+                object-cover transition-opacity duration-300 rounded-lg
                 ${isImageLoading || hasError ? "opacity-0" : "opacity-100"}
               `}
               onLoad={handleImageLoad}
