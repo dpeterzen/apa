@@ -35,7 +35,7 @@ export function TileActions({
       <Button
         className="z-[50] rounded-full absolute top-[1px] right-[1px] h-5 w-5 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
         [&:not(:hover)]:opacity-50"
-        variant="secondary"
+        variant="ghost"
       >
         <Circle />
       </Button>
@@ -76,7 +76,7 @@ export function TileActions({
           <div
             role="button"
             onClick={onDelete}
-            className="flex items-center px-2 py-1.5 text-sm text-red-600 rounded-md cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/50"
+            className="flex items-center px-2 py-1.5 text-sm text-red-600 rounded-md cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/20"
           >
             <Trash className="mr-2 h-4 w-4" />
             Delete

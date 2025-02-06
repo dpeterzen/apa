@@ -521,7 +521,7 @@ const sidebarMenuButtonVariants = cva(
   {
     variants: {
       variant: {
-        default: "hover:bg-accent/40 dark:hover:bg-accent/30", // Updated to match ghost button
+        default: "hover:bg-accent/40 dark:hover:bg-accent/20", // Updated to match ghost button
         outline:
           "bg-background shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]",
       },

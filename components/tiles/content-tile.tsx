@@ -73,7 +73,7 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         scale: { duration: 0.2 },
       }}
       className={cn(
-        "rounded-md",
+        "rounded-xl",
         sizeClasses[tile.size][tile.type]
       )}
     >

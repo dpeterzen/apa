@@ -99,7 +99,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           <PopoverTrigger asChild>
             <div
               role="button"
-              className="flex items-center px-2 py-1.5 text-sm rounded-md cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/50"
+              className="flex items-center px-2 py-1.5 text-sm rounded-md cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/20"
             >
               <Link className="mr-2 h-4 w-4" />
               Image link
@@ -126,7 +126,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         </Popover>
       </TileActions>
 
-      <div className="flex-1 flex items-center justify-center relative bg-accent/20 dark:bg-accent/70 rounded-md">
+      <div className="flex-1 flex items-center justify-center relative rounded-xl border dark:border-transparent bg-inherit dark:bg-accent/70">
         {!imageUrl && (
           <div className="flex items-center justify-center">
             <ImageIcon className="size-10 text-muted-foreground/30" />
@@ -154,7 +154,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             >
               <div className="h-[18px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span
-                  className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? "font-medium" : "text-muted group-hover:text-current"}`}
+                  className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? "font-medium" : "text-[hsl(var(--muted-2))] group-hover:text-current"}`}
                 >
                   {currentAltText || "name"}
                 </span>
@@ -186,7 +186,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         <Button
           variant="ghost"
           size="sm"
-          className="absolute bottom-[0px] left-0 z-10 font-extralight tracking-tight text-muted text-sm h-[18px] rounded-md"
+          className="absolute bottom-[0px] left-0 z-10 font-extralight tracking-tight text-[hsl(var(--muted-2))] text-sm h-[18px] rounded-md"
         >
           caption{" "}
         </Button>
@@ -198,7 +198,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               fill
               unoptimized={isGifUrl(imageUrl)}
               className={`
-                object-contain transition-opacity duration-300 rounded-md
+                object-cover transition-opacity duration-300 rounded-xl
                 ${isImageLoading || hasError ? "opacity-0" : "opacity-100"}
               `}
               onLoad={handleImageLoad}
