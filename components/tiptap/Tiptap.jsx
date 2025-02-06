@@ -6,7 +6,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
-import Placeholder from '@tiptap/extension-placeholder'
+import Placeholder from "@tiptap/extension-placeholder";
 import { Button } from "@/components/ui/button";
 import {
   AlignCenter,
@@ -32,10 +32,14 @@ const MenuBar = ({ editor }) => {
   if (!editor) return null;
 
   return (
-    <div className="flex flex-wrap pt-1 pb-1 pr-5 border-b">
+    <div className="flex flex-wrap pl-1 pt-1 pb-1 pr-5 border-b">
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={editor.isActive("heading", { level: 1 }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive("heading", { level: 1 })
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -43,7 +47,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive("heading", { level: 2 }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive("heading", { level: 2 })
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -51,7 +59,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={editor.isActive("heading", { level: 3 }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive("heading", { level: 3 })
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -67,7 +79,11 @@ const MenuBar = ({ editor }) => {
       </Button> */}
       <Button
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={editor.isActive("bold") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dark:hover:bg-accent/70" : ""}
+        className={
+          editor.isActive("bold")
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dark:hover:bg-accent/70"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -75,7 +91,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={editor.isActive("italic") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dahover:rk:bg-accent/70" : ""}
+        className={
+          editor.isActive("italic")
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dahover:rk:bg-accent/70"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -83,7 +103,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleStrike().run()}
-        className={editor.isActive("strike") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dahover:rk:bg-accent/70" : ""}
+        className={
+          editor.isActive("strike")
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dahover:rk:bg-accent/70"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -91,7 +115,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHighlight().run()}
-        className={editor.isActive("highlight") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive("highlight")
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -99,7 +127,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
-        className={editor.isActive({ textAlign: "left" }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive({ textAlign: "left" })
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -107,7 +139,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
-        className={editor.isActive({ textAlign: "center" }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive({ textAlign: "center" })
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -115,7 +151,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
-        className={editor.isActive({ textAlign: "right" }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive({ textAlign: "right" })
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -123,7 +163,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive("bulletList") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive("bulletList")
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -131,7 +175,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={editor.isActive("orderedList") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive("orderedList")
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -139,7 +187,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={editor.isActive("codeBlock") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive("codeBlock")
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >
@@ -147,7 +199,11 @@ const MenuBar = ({ editor }) => {
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive("blockquote") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        className={
+          editor.isActive("blockquote")
+            ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset"
+            : ""
+        }
         variant="ghost1"
         size="xs"
       >

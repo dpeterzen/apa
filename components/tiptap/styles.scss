@@ -10,10 +10,6 @@
     line-height: 28px;
   }
 
-  // :first-child {
-  //   margin-top: 3px;
-  // }
-
   p.is-editor-empty:first-child::before {
     color: hsl(var(--muted-foreground));
     content: attr(data-placeholder);
