@@ -35,127 +35,127 @@ const MenuBar = ({ editor }) => {
     <div className="flex flex-wrap pt-1 pb-1 pr-5 border-b">
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={editor.isActive("heading", { level: 1 }) ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("heading", { level: 1 }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <Heading1 />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive("heading", { level: 2 }) ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("heading", { level: 2 }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <Heading2 />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={editor.isActive("heading", { level: 3 }) ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("heading", { level: 3 }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <Heading3 />
       </Button>
       {/* <Button
         onClick={() => editor.chain().focus().setParagraph().run()}
-        className={editor.isActive("paragraph") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("paragraph") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         Paragraph
       </Button> */}
       <Button
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={editor.isActive("bold") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("bold") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dark:hover:bg-accent/70" : ""}
+        variant="ghost1"
         size="xs"
       >
         <Bold />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={editor.isActive("italic") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("italic") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dahover:rk:bg-accent/70" : ""}
+        variant="ghost1"
         size="xs"
       >
         <Italic />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleStrike().run()}
-        className={editor.isActive("strike") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("strike") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset bg-accent/20 dahover:rk:bg-accent/70" : ""}
+        variant="ghost1"
         size="xs"
       >
         <Strikethrough />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleHighlight().run()}
-        className={editor.isActive("highlight") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("highlight") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <Highlighter />
       </Button>
       <Button
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
-        className={editor.isActive({ textAlign: "left" }) ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive({ textAlign: "left" }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <AlignLeft />
       </Button>
       <Button
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
-        className={editor.isActive({ textAlign: "center" }) ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive({ textAlign: "center" }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <AlignCenter />
       </Button>
       <Button
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
-        className={editor.isActive({ textAlign: "right" }) ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive({ textAlign: "right" }) ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <AlignRight />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive("bulletList") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("bulletList") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <List />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={editor.isActive("orderedList") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("orderedList") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <ListOrdered />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={editor.isActive("codeBlock") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("codeBlock") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <Code />
       </Button>
       <Button
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive("blockquote") ? "bg-accent" : ""}
-        variant="ghost"
+        className={editor.isActive("blockquote") ? "ring-1 ring-[hsl(var(--accent-1))] ring-inset" : ""}
+        variant="ghost1"
         size="xs"
       >
         <MessageSquareQuote />
       </Button>
       <Button
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        variant="ghost"
+        variant="ghost1"
         size="xs"
       >
         <Minus />
@@ -164,7 +164,7 @@ const MenuBar = ({ editor }) => {
         <Button
           onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}
-          variant="ghost"
+          variant="ghost1"
           size="xs"
         >
           <Undo2 />
@@ -172,7 +172,7 @@ const MenuBar = ({ editor }) => {
         <Button
           onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}
-          variant="ghost"
+          variant="ghost1"
           size="xs"
         >
           <Redo2 />
