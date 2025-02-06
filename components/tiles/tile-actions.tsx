@@ -42,15 +42,13 @@ export function TileActions({
 
       <Button
         variant="segmented-end"
-        className="z-[50] rounded-r-full absolute bottom-[-1px] left-[27px] h-6 w-7 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
-        [&:not(:hover)]:opacity-50"
+        className="z-[50] rounded-r-full absolute bottom-[-1px] left-[28px] h-6 w-7 p-0 "
         onClick={() => onPositionChange("increase")}
       >
         <ChevronRight />
       </Button>
       <Button
-        className="z-[50] rounded-l-full absolute bottom-[-1px] left-[0px] h-6 w-7 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
-        [&:not(:hover)]:opacity-50"
+        className="z-[50] rounded-l-full absolute bottom-[-1px] left-[0px] h-6 w-7 p-0 "
         variant="segmented"
         onClick={() => onPositionChange("decrease")}
       >
@@ -60,9 +58,8 @@ export function TileActions({
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            variant="secondary"
-            className="z-50 rounded-full absolute bottom-[-1px] right-[0px] h-6 w-6 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
-        [&:not(:hover)]:opacity-50 data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
+            variant="outline1"
+            className="z-50 rounded-full absolute bottom-[-1px] right-[0px] h-6 w-6 p-0 "
           >
             <MoreVertical />
           </Button>
@@ -85,8 +82,7 @@ export function TileActions({
       </Popover>
 
       <Button
-        className="z-[50] rounded-r-full absolute bottom-[-1px] right-[31px] h-6 w-7 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
-        [&:not(:hover)]:opacity-50"
+        className="z-[50] rounded-r-full absolute bottom-[-1px] right-[31px] h-6 w-7 p-0 "
         variant="segmented-end"
         onClick={() => onSizeChange("increase")}
       >
@@ -94,8 +90,7 @@ export function TileActions({
       </Button>
       <Button
         variant="segmented"
-        className="z-[50] rounded-l-full absolute bottom-[-1px] right-[59px] h-6 w-7 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
-        [&:not(:hover)]:opacity-50"
+        className="z-[50] rounded-l-full absolute bottom-[-1px] right-[59px] h-6 w-7 p-0 "
         onClick={() => onSizeChange("decrease")}
       >
         <Minus />

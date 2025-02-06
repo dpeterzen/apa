@@ -78,7 +78,7 @@ export function NavSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <SidebarMenuButton
                         className={`px-2 ${
                           isCurrentWall
-                            ? "bg-blue-300/30 hover:bg-blue-300/20 dark:!bg-zinc-950/80 dark:hover:!bg-zinc-950/60"
+                            ? "!bg-blue-300/30 hover:!bg-blue-300/20 dark:!bg-zinc-950/80 dark:hover:!bg-zinc-950/60"
                             : "group-hover/menuitem:bg-accent/40 dark:group-hover/menuitem:bg-accent/20"
                         }`}
                         tooltip={wall.title}
