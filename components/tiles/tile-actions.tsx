@@ -2,6 +2,7 @@ import { Button } from "../ui/button";
 import {
   ChevronLeft,
   ChevronRight,
+  Circle,
   Minus,
   MoreVertical,
   Plus,
@@ -14,7 +15,6 @@ import {
 } from "@/components/ui/popover";
 import { TileSize } from "@/types";
 import { ReactNode } from "react";
-import Square from "@/components/icons/square";
 
 interface TileActionsProps {
   onSizeChange: (direction: "increase" | "decrease") => void;
@@ -33,11 +33,11 @@ export function TileActions({
   return (
     <>
       <Button
-        className="z-[50] rounded-md absolute top-[0px] right-[0px] h-5 w-[18px] p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
+        className="z-[50] rounded-full absolute top-[1px] right-[1px] h-5 w-5 p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
         [&:not(:hover)]:opacity-50"
         variant="secondary"
       >
-        <Square />
+        <Circle />
       </Button>
 
       <Button

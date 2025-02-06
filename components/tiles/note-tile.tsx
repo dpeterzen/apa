@@ -48,7 +48,7 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
         onDelete={handleDelete}
         size={size}
       />
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-0 rounded-xl border dark:border-transparent shadow-sm dark:shadow-none">
         <Tiptap
           initialContent={noteData.content || ""}
           placeholder="Write something..."
