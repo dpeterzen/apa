@@ -66,14 +66,14 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         layout: {
           duration: 0.3,
           type: "spring",
-          stiffness: 200,
+          stiffness: 100,
           damping: 25,
         },
         opacity: { duration: 0.2 },
         scale: { duration: 0.2 },
       }}
       className={cn(
-        "rounded-lg",
+        "rounded-xl",
         sizeClasses[tile.size][tile.type]
       )}
     >

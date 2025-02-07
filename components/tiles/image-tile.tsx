@@ -126,7 +126,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         </Popover>
       </TileActions>
 
-      <div className="flex-1 flex items-center justify-center relative rounded-lg border dark:border-transparent bg-inherit dark:bg-accent/70">
+      <div className="flex-1 flex items-center justify-center relative rounded-xl border dark:!border-none bg-inherit dark:bg-accent/70">
         {!imageUrl && (
           <div className="flex items-center justify-center">
             <ImageIcon className="size-10 text-muted-foreground/30" />
@@ -148,11 +148,11 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         <Popover open={showAltTextPopover} onOpenChange={setShowAltTextPopover}>
           <PopoverTrigger asChild>
             <Button
-              variant="ghost"
+              variant="ghost2"
               size="sm"
-              className="absolute top-[0] left-0 z-10 font-extralight tracking-tight text-sm h-[18px] hover:h-fit transition-all duration-100 rounded-md max-w-[calc(100%-8px)] group overflow-hidden"
+              className={`absolute top-[0] left-0 z-10 font-extralight tracking-tight text-sm h-[20px] hover:h-fit transition-all duration-100 rounded-md rounded-tl-xl rounded-bl-none max-w-[calc(100%-22px)] group overflow-hidden mr-[18px] pr-[7px] ${currentAltText && "bg-accent/70 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
             >
-              <div className="h-[18px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
+              <div className="h-[20px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span
                   className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? "font-medium" : "text-[hsl(var(--muted-2))] group-hover:text-current"}`}
                 >
@@ -186,7 +186,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         <Button
           variant="ghost"
           size="sm"
-          className="absolute bottom-[0px] left-0 z-10 font-extralight tracking-tight text-[hsl(var(--muted-2))] text-sm h-[18px] rounded-md"
+          className="absolute bottom-[0px] left-0 z-10 font-extralight tracking-tight text-[hsl(var(--muted-2))] text-sm h-[18px] rounded-xl"
         >
           caption{" "}
         </Button>
@@ -198,7 +198,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               fill
               unoptimized={isGifUrl(imageUrl)}
               className={`
-                object-cover transition-opacity duration-300 rounded-lg
+                object-cover transition-opacity duration-300 rounded-xl
                 ${isImageLoading || hasError ? "opacity-0" : "opacity-100"}
               `}
               onLoad={handleImageLoad}

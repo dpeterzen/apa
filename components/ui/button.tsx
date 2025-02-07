@@ -15,18 +15,19 @@ const buttonVariants = cva(
         outline:
           "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         outline1:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground dark:bg-secondary/40 dark:hover:bg-[hsl(var(--accent))] dark:border-transparent",
+          "border border-input bg-background hover:bg-accent/40 hover:text-accent-foreground dark:bg-secondary/40 dark:hover:bg-[hsl(var(--accent))] dark:border-transparent",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-[hsl(var(--accent))]",
         tertiary:
             "hover:bg-[hsl(var(--accent))] text-secondary-foreground bg-zinc-800",
         ghost: "hover:bg-accent/40 dark:hover:bg-accent/20 hover:text-accent-foreground",
         ghost1: "hover:bg-accent/50 dark:hover:bg-accent hover:text-accent-foreground",
-        ghost2: "hover:text-accent-foreground",
+        ghost2: "hover:bg-accent/70 dark:hover:bg-accent/40 hover:text-accent-foreground",
+        caption: "hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        segmented: "dark:bg-secondary/40 dark:hover:bg-[hsl(var(--accent))] relative border dark:border-transparent border-r-0 bg-background hover:bg-accent text-accent-foreground after:content-[''] after:absolute after:right-0 after:top-[3px] after:h-4 after:w-[1px] dark:after:bg-white/20 after:bg-black/20",
+        segmented: "dark:bg-secondary/40 dark:hover:bg-[hsl(var(--accent))] relative border dark:border-transparent border-r-0 bg-background hover:bg-accent/40 text-accent-foreground after:content-[''] after:absolute after:right-0 after:top-[3px] after:h-4 after:w-[1px] dark:after:bg-white/20 after:bg-black/20",
         // Add segmented-end variant if needed to remove the divider
-        "segmented-end": "dark:bg-secondary/40 dark:hover:bg-[hsl(var(--accent))] dark:border-transparent relative border border-l-0 bg-background hover:bg-accent text-accent-foreground",
+        "segmented-end": "dark:bg-secondary/40 dark:hover:bg-[hsl(var(--accent))] dark:border-transparent relative border border-l-0 bg-background hover:bg-accent/40 text-accent-foreground",
       },
       size: {
         default: "h-10 px-4 py-2",
