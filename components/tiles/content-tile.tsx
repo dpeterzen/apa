@@ -66,8 +66,8 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         layout: {
           duration: 0.3,
           type: "spring",
-          stiffness: 100,
-          damping: 25,
+          stiffness: 200,
+          damping: 35,
         },
         opacity: { duration: 0.2 },
         scale: { duration: 0.2 },
