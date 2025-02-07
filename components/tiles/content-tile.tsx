@@ -4,6 +4,7 @@ import { ImageTile } from "./image-tile";
 import { Id } from "@/convex/_generated/dataModel";
 import { Tile } from "@/types";
 import * as motion from "motion/react-client";
+import { VideoTile } from "./video-tile";
 
 // xs (<640px): Full width (12 cols)
 // sm (≥640px): Various widths
@@ -50,6 +51,14 @@ export default function ContentTile({ tile }: { tile: Tile }) {
             size={tile.size}
           />
         );
+        case "video":
+          return (
+            <VideoTile
+              tileId={tile.id as Id<"baseTiles">}
+              wallId={tile.wallId}
+              size={tile.size}
+            />
+          );
       default:
         return <div className="p-4">{tile.content}</div>;
     }

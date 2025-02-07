@@ -1,5 +1,5 @@
 import { Id } from "@/convex/_generated/dataModel";
-import { ImagePlus, Loader2 } from "lucide-react";
+import { Image as ImageIcon, Loader2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
@@ -129,7 +129,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
       <div className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${imageUrl ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-accent/70`}>
         {!imageUrl && (
           <Button variant="ghost1" size="lgIcon" className="flex items-center justify-center [&_svg]:size-10 text-muted-foreground hover:!text-accent-foreground">
-            <ImagePlus className="size-10" />
+            <ImageIcon className="size-10" />
           </Button>
         )}
 

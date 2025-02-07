@@ -20,6 +20,7 @@ import type * as imageTiles from "../imageTiles.js";
 import type * as noteTiles from "../noteTiles.js";
 import type * as tiles from "../tiles.js";
 import type * as utils from "../utils.js";
+import type * as videoTiles from "../videoTiles.js";
 import type * as walls from "../walls.js";
 
 /**
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   noteTiles: typeof noteTiles;
   tiles: typeof tiles;
   utils: typeof utils;
+  videoTiles: typeof videoTiles;
   walls: typeof walls;
 }>;
 export declare const api: FilterApi<

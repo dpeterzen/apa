@@ -11,11 +11,11 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   Image as ImageIcon,
-  ImagePlay,
   Paperclip,
   SendHorizontal,
   SquareArrowOutUpRight,
   SquarePen,
+  SquarePlay,
   X,
 } from "lucide-react";
 import * as motion from "motion/react-client";
@@ -130,8 +130,8 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
               <ImageIcon />
               <span>Image / GIF</span>
             </CommandItem>
-            <CommandItem>
-              <ImagePlay />
+            <CommandItem onSelect={() => onSelect("video")}>
+              <SquarePlay />
               <span>Video</span>
             </CommandItem>
             <CommandItem>
