@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import {
   Image as ImageIcon,
   ImagePlay,
+  Paperclip,
   SendHorizontal,
   Smile,
   SquareArrowOutUpRight,
@@ -139,7 +140,7 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
               <span>Link</span>
             </CommandItem>
             <CommandItem disabled>
-              <Smile />
+              <Paperclip />
               <span>File Upload</span>
             </CommandItem>
           </CommandGroup>

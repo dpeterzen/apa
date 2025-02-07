@@ -1,5 +1,5 @@
 import { Id } from "@/convex/_generated/dataModel";
-import { Image as ImageIcon, Loader2 } from "lucide-react";
+import { ImagePlus, Loader2 } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
@@ -126,11 +126,11 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
         </Popover>
       </TileActions>
 
-      <div className="flex-1 flex items-center justify-center relative rounded-xl border dark:!border-none bg-inherit dark:bg-accent/70">
+      <div className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${imageUrl ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-accent/70`}>
         {!imageUrl && (
-          <div className="flex items-center justify-center">
-            <ImageIcon className="size-10 text-muted-foreground/30" />
-          </div>
+          <Button variant="ghost1" size="lgIcon" className="flex items-center justify-center [&_svg]:size-10 text-muted-foreground hover:!text-accent-foreground">
+            <ImagePlus className="size-10" />
+          </Button>
         )}
 
         {(!imageData || !imageUrl || isImageLoading) &&
@@ -150,7 +150,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             <Button
               variant="ghost2"
               size="sm"
-              className={`absolute top-[0] left-0 z-10 font-extralight tracking-tight text-sm h-[20px] hover:h-fit transition-all duration-100 rounded-md rounded-tl-xl rounded-bl-none max-w-[calc(100%-22px)] group overflow-hidden mr-[18px] pr-[7px] ${currentAltText && "bg-accent/70 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
+              className={`absolute top-[0] left-0 z-10 font-extralight tracking-tight text-sm h-[20px] hover:h-fit transition-all duration-100 rounded-md rounded-tl-xl rounded-tr-none rounded-bl-none max-w-[calc(100%-22px)] group overflow-hidden mr-[18px] pr-[7px] ${currentAltText && "bg-accent/70 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
             >
               <div className="h-[20px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span

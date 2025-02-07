@@ -29,6 +29,10 @@ const data = [
       label: "Turn into wiki",
       icon: FileText,
     },
+    {
+      label: "Zen Mode",
+      icon: FileText,
+    },
   ],
 ];
 
