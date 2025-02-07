@@ -14,7 +14,6 @@ import {
   ImagePlay,
   Paperclip,
   SendHorizontal,
-  Smile,
   SquareArrowOutUpRight,
   SquarePen,
   X,
