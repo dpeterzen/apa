@@ -51,14 +51,14 @@ export default function ContentTile({ tile }: { tile: Tile }) {
             size={tile.size}
           />
         );
-        case "video":
-          return (
-            <VideoTile
-              tileId={tile.id as Id<"baseTiles">}
-              wallId={tile.wallId}
-              size={tile.size}
-            />
-          );
+      case "video":
+        return (
+          <VideoTile
+            tileId={tile.id as Id<"baseTiles">}
+            wallId={tile.wallId}
+            size={tile.size}
+          />
+        );
       default:
         return <div className="p-4">{tile.content}</div>;
     }
@@ -81,10 +81,7 @@ export default function ContentTile({ tile }: { tile: Tile }) {
         opacity: { duration: 0.2 },
         scale: { duration: 0.2 },
       }}
-      className={cn(
-        "rounded-xl",
-        sizeClasses[tile.size][tile.type]
-      )}
+      className={cn("rounded-xl", sizeClasses[tile.size][tile.type])}
     >
       <div className="h-full flex flex-col p-0 pb-[30px] relative">
         {renderContent()}

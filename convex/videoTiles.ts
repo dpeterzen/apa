@@ -14,7 +14,10 @@ export const updateVideoUrl = mutation({
 
     // Extract video ID from YouTube URL
     let videoId = args.videoId;
-    if (!videoId && args.url.includes("youtube.com") || args.url.includes("youtu.be")) {
+    if (
+      (!videoId && args.url.includes("youtube.com")) ||
+      args.url.includes("youtu.be")
+    ) {
       const url = new URL(args.url);
       if (url.hostname === "youtu.be") {
         videoId = url.pathname.slice(1);
