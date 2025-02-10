@@ -8,7 +8,6 @@ export const create = mutation({
     type: v.union(v.literal("note"), v.literal("video"), v.literal("image")),
     size: v.union(v.literal("small"), v.literal("medium"), v.literal("large")),
     position: v.number(),
-    title: v.optional(v.string()),
     content: v.optional(v.string()),
     videoUrl: v.optional(v.string()),
     imageUrl: v.optional(v.string()),
@@ -83,7 +82,6 @@ export const create = mutation({
         // Create note tile
         const noteTile = await ctx.db.insert("noteTiles", {
           tileId: baseTile,
-          title: args.title || "",
           content: args.content || "",
         });
 
@@ -383,5 +381,26 @@ export const getWallTiles = query({
       }
       return a.position - b.position;
     });
+  },
+});
+
+export const updateTileName = mutation({
+  args: {
+    tileId: v.id("baseTiles"),
+    name: v.string(),
+  },
+  async handler(ctx, args) {
+    await ctx.db.patch(args.tileId, {
+      name: args.name,
+      updatedAt: Date.now(),
+    });
+  },
+});
+
+export const getTileName = query({
+  args: { tileId: v.id("baseTiles") },
+  async handler(ctx, args) {
+    const tile = await ctx.db.get(args.tileId);
+    return tile?.name || null;
   },
 });

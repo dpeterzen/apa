@@ -16,7 +16,7 @@ import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
 import { Button } from "../ui/button";
 
-const MAX_ALT_TEXT_LENGTH = 125;
+const MAX_IMAGE_NAME_LENGTH = 125;
 
 interface ImageTileProps {
   tileId: Id<"baseTiles">;
@@ -35,16 +35,20 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
       wallId,
       size,
     });
-  const updateImageUrl = useMutation(api.imageTiles.updateImageUrl);
-  const updateAltText = useMutation(api.imageTiles.updateImageTileAltText);
-  const altText = useQuery(api.imageTiles.getAltText, { tileId });
-  const imageData = useQuery(api.imageTiles.getImageUrl, { tileId });
-  const [showUrlPopover, setShowUrlPopover] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
-  const [isImageLoading, setIsImageLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  const [showAltTextPopover, setShowAltTextPopover] = useState(false);
-  const [currentAltText, setCurrentAltText] = useState("");
+
+    const updateImageUrl = useMutation(api.imageTiles.updateImageUrl);
+    const updateTileName = useMutation(api.tiles.updateTileName);
+    const updateAltText = useMutation(api.imageTiles.updateImageTileAltText);
+    
+    const tileName = useQuery(api.tiles.getTileName, { tileId });
+    const imageData = useQuery(api.imageTiles.getImageUrl, { tileId });
+    
+    const [showUrlPopover, setShowUrlPopover] = useState(false);
+    const [imageUrl, setImageUrl] = useState("");
+    const [isImageLoading, setIsImageLoading] = useState(true);
+    const [hasError, setHasError] = useState(false);
+    const [showNamePopover, setShowNamePopover] = useState(false);
+    const [currentName, setCurrentName] = useState("");
 
   const handleImageError = () => {
     setHasError(true);
@@ -60,10 +64,10 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
     if (imageData) {
       setImageUrl(imageData);
     }
-    if (altText !== undefined) {
-      setCurrentAltText(altText || "");
+    if (tileName !== undefined) {
+      setCurrentName(tileName || "");
     }
-  }, [imageData, altText]);
+  }, [imageData, tileName]);
 
   const handleImageUrlUpdate = async () => {
     if (!isDomainAllowed(imageUrl)) {
@@ -77,14 +81,22 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
     setShowUrlPopover(false);
   };
 
-  const handleAltTextUpdate = async () => {
-    const trimmedText = currentAltText.slice(0, MAX_ALT_TEXT_LENGTH);
+  const handleNameUpdate = async () => {
+    const trimmedText = currentName.slice(0, MAX_IMAGE_NAME_LENGTH);
+    
+    await updateTileName({
+      tileId,
+      name: trimmedText,
+    });
+    
+    // Keep alt text in sync with name for accessibility
     await updateAltText({
       tileId,
       altText: trimmedText,
     });
-    setCurrentAltText(trimmedText);
-    setShowAltTextPopover(false);
+    
+    setCurrentName(trimmedText);
+    setShowNamePopover(false);
   };
 
   return (
@@ -145,18 +157,18 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             This image domain is not allowed. Please use a supported image host.
           </div>
         )}
-        <Popover open={showAltTextPopover} onOpenChange={setShowAltTextPopover}>
+        <Popover open={showNamePopover} onOpenChange={setShowNamePopover}>
           <PopoverTrigger asChild>
             <Button
               variant="ghost2"
               size="sm"
-              className={`absolute top-[0] left-0 z-10 font-extralight tracking-tight text-sm h-[20px] hover:h-fit transition-all duration-100 rounded-md rounded-tl-xl rounded-tr-none rounded-bl-none max-w-[calc(100%-22px)] group overflow-hidden mr-[18px] pr-[7px] ${currentAltText && "bg-accent/70 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
+              className={`absolute top-[0] left-0 z-10 font-extralight tracking-tight text-sm h-[20px] hover:h-fit transition-all duration-100 rounded-md rounded-tl-xl rounded-tr-none rounded-bl-none max-w-[calc(100%-22px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/70 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
             >
               <div className="h-[20px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span
-                  className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentAltText ? "font-medium" : "text-[hsl(var(--muted-2))] group-hover:text-current"}`}
+                  className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentName ? "font-medium" : "text-[hsl(var(--muted-2))] group-hover:text-current"}`}
                 >
-                  {currentAltText || "name"}
+                  {currentName || "name"}
                 </span>
               </div>
             </Button>
@@ -171,12 +183,12 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               <Input
                 className="h-7 border-0 p-[2px] min-w-0 w-full"
                 placeholder="Enter image name..."
-                maxLength={MAX_ALT_TEXT_LENGTH}
-                value={currentAltText}
-                onChange={(e) => setCurrentAltText(e.target.value)}
+                maxLength={MAX_IMAGE_NAME_LENGTH}
+                value={currentName}
+                onChange={(e) => setCurrentName(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    handleAltTextUpdate();
+                    handleNameUpdate();
                   }
                 }}
               />
@@ -194,7 +206,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           <>
             <Image
               src={imageUrl}
-              alt={currentAltText || "Tile image"}
+              alt={currentName || "Tile image"}
               fill
               unoptimized={isGifUrl(imageUrl)}
               className={`

@@ -10,7 +10,6 @@ export const getNoteContent = query({
       .unique();
     
     return noteTile ? {
-      title: noteTile.title,
       content: noteTile.content,
     } : null;
   }

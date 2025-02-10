@@ -27,4 +27,6 @@ export interface BaseTile {
   updatedAt: number;
   isArchived: boolean;
   _creationTime: number;
+  name?: string;
+  caption?: string;
 }

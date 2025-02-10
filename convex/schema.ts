@@ -95,6 +95,8 @@ export default defineSchema({
     type: v.string(), // "note", "image", "video", etc.
     size: v.string(), // small" | "medium" | "large"
     position: v.number(),
+    name: v.optional(v.string()),
+    caption: v.optional(v.string()),
     createdAt: v.number(),
     updatedAt: v.number(),
     isArchived: v.boolean()
@@ -105,7 +107,6 @@ export default defineSchema({
   // Type-specific content tables
   noteTiles: defineTable({
     tileId: v.id("baseTiles"),
-    title: v.string(),
     content: v.string()
   })
     .index("byTileId", ["tileId"]),
@@ -113,7 +114,6 @@ export default defineSchema({
   imageUrlTiles: defineTable({
     tileId: v.id("baseTiles"),
     imageUrl: v.string(),
-    caption: v.optional(v.string()),
     altText: v.optional(v.string())
   })
     .index("byTileId", ["tileId"]),
