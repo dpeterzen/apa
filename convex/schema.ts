@@ -138,7 +138,6 @@ export default defineSchema({
     url: v.string(),
     type: v.optional(v.string()), // "youtube", "vimeo", "custom"
     videoId: v.optional(v.string()),
-    title: v.optional(v.string()),
     startTime: v.optional(v.number()),
     endTime: v.optional(v.number())
   })

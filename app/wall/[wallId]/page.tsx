@@ -76,7 +76,6 @@ export default function WallIdPage({
 
   const handleTileSelect = async (
     type: TileType,
-    options?: { title?: string }
   ) => {
     try {
       const currentPosition = wall?.tileCount ?? 0;
@@ -85,7 +84,6 @@ export default function WallIdPage({
         type,
         size: "medium" as TileSize,
         wallId: resolvedParams.wallId as Id<"walls">,
-        title: options?.title || "",
         content: "",
         position: currentPosition,
       };

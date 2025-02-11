@@ -21,7 +21,7 @@ import {
 import * as motion from "motion/react-client";
 
 interface BlankTileProps {
-  onSelect: (type: TileType, options?: { title?: string }) => void;
+  onSelect: (type: TileType) => void;
   setShowBlankTile: (show: boolean) => void;
 }
 
@@ -108,11 +108,11 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
                   Suggestions
                 </div>
                 <button
-                  onClick={() => onSelect("note", { title: inputValue })}
+                  onClick={() => onSelect("note")}
                   className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground w-full"
                 >
                   <SquarePen className="mr-2 h-4 w-4" />
-                  <span>Add note titled &quot;{inputValue}&quot;</span>
+                  <span>Create new note &quot;{inputValue}&quot;</span>
                 </button>
               </>
             )}

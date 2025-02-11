@@ -1,6 +1,7 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { TileSize, TileType } from "../types";
+import { z } from "zod";
 
 export const create = mutation({
   args: {
@@ -384,14 +385,32 @@ export const getWallTiles = query({
   },
 });
 
+// Tile name schema constants
+const tileNameSchema = z.object({
+  name: z.union([
+    z.string().length(0),  // Allow empty string
+    z.string()
+      .max(125, "Name cannot exceed 125 characters")
+      .refine(
+        (text: string) => !text.includes("<script>"),
+        "Invalid characters in name"
+      )
+  ])
+});
+
 export const updateTileName = mutation({
   args: {
     tileId: v.id("baseTiles"),
     name: v.string(),
   },
   async handler(ctx, args) {
+    // Validate input
+    const validatedData = tileNameSchema.parse({
+      name: args.name
+    });
+
     await ctx.db.patch(args.tileId, {
-      name: args.name,
+      name: validatedData.name,
       updatedAt: Date.now(),
     });
   },
