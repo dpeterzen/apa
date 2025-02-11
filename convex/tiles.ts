@@ -152,6 +152,14 @@ export const deleteTile = mutation({
       if (imageUrlTile) {
         await ctx.db.delete(imageUrlTile._id);
       }
+    } else if (baseTile.type === "video") {
+      const videoTile = await ctx.db
+        .query("videoTiles")
+        .filter((q) => q.eq(q.field("tileId"), args.tileId))
+        .unique();
+      if (videoTile) {
+        await ctx.db.delete(videoTile._id);
+      }
     }
 
     // Delete the baseTile
