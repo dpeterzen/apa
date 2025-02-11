@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { FileText, MoreVertical, Settings2 } from "lucide-react";
+import { FileText, MoreHorizontal, Settings2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -46,9 +46,9 @@ export function NavActions() {
           <Button
             variant="ghost"
             size="sm"
-            className="[&_svg]:size-5 px-[3px] w-[36px] h-[36px] mr-[-8px] data-[state=open]:bg-accent"
+            className="[&_svg]:size-5 px-[3px] w-[36px] h-[36px] mr-[-9px] data-[state=open]:bg-accent"
           >
-            <MoreVertical />
+            <MoreHorizontal />
           </Button>
         </PopoverTrigger>
         <PopoverContent
@@ -58,7 +58,7 @@ export function NavActions() {
           <Sidebar collapsible="none" className="bg-transparent">
             <SidebarContent>
               {data.map((group, index) => (
-                <SidebarGroup key={index} className="border-b last:border-none">
+                <SidebarGroup key={index} className="border-b last:border-none py-2 px-1">
                   <SidebarGroupContent className="gap-0">
                     <SidebarMenu>
                       {group.map((item, index) => (

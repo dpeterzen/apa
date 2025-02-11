@@ -4,7 +4,7 @@ import {
   ChevronRight,
   Circle,
   Minus,
-  MoreVertical,
+  MoreHorizontal,
   Plus,
   Trash,
 } from "lucide-react";
@@ -33,7 +33,7 @@ export function TileActions({
   return (
     <>
       <Button
-        className="z-[50] rounded-full absolute top-[-4px] right-[-5px] h-[30px] w-[30px] p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
+        className="z-[50] rounded-full absolute top-[-4px] right-[-4px] h-[36px] w-[36px] p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
         [&:not(:hover)]:opacity-20"
         variant="ghost2"
       >
@@ -61,11 +61,11 @@ export function TileActions({
             variant="outline1"
             className="z-50 rounded-full absolute bottom-[-1px] right-[0px] h-6 w-6 p-0 "
           >
-            <MoreVertical />
+            <MoreHorizontal />
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-40 p-2 rounded-xl"
+          className="w-40 rounded-xl"
           align="start"
           side="left"
         >

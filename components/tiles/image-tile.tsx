@@ -111,7 +111,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           <PopoverTrigger asChild>
             <div
               role="button"
-              className="flex items-center px-2 py-1.5 text-sm rounded-md cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/20"
+              className="flex items-center px-2 py-1.5 text-sm rounded-lg cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/20"
             >
               <Link className="mr-2 h-4 w-4" />
               Image link
@@ -161,10 +161,10 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           <PopoverTrigger asChild>
             <Button
               variant="ghost2"
-              size="sm"
-              className={`absolute top-[0] left-0 z-10 font-extralight tracking-tight text-sm h-[20px] hover:h-fit transition-all duration-100 rounded-md rounded-tl-xl rounded-tr-none rounded-bl-none max-w-[calc(100%-22px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/70 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
+              size="default"
+              className={`h-[29px] absolute top-[0] left-0 z-10 p-1 pl-2 font-extralight tracking-wide text-md hover:h-fit transition-all duration-100 rounded-xl max-w-[calc(100%-28px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/60 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
             >
-              <div className="h-[20px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
+              <div className="h-[21px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span
                   className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentName ? "font-medium" : "text-[hsl(var(--muted-2))] group-hover:text-current"}`}
                 >
@@ -174,10 +174,10 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="max-w-[90vw] w-80 rounded-md p-1"
+            className="max-w-[90vw] w-80 rounded-lg p-1"
             align="start"
             side="top"
-            sideOffset={-56}
+            sideOffset={-67}
           >
             <div className="flex flex-col gap-2">
               <Input
