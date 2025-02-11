@@ -63,7 +63,7 @@ export default function WallIdPage({
   // Show loading state
   if (isLoading || (isAuthenticated && hasAccess === undefined)) {
     return (
-      <main className="flex flex-1 flex-col items-center justify-center">
+      <main className="flex flex-1 flex-col items-center justify-center h-[calc(100vh-48px)]">
         <h1>One moment please...</h1>
       </main>
     );

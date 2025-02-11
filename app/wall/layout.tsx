@@ -16,14 +16,13 @@ export default async function RootLayout({
   return (
     <Providers session={session}>
       <SidebarProvider>
-
         <NavSidebar />
-
-        <SidebarInset>
+        <SidebarInset className="overflow-x-hidden">
           <NavHeader />
-          {children}
+          <div className="overflow-y-auto overflow-x-hidden h-[calc(100vh-48px)]">
+            {children}
+          </div>
         </SidebarInset>
-
       </SidebarProvider>
     </Providers>
   );
