@@ -13,8 +13,11 @@ interface CanvasTileProps {
 }
 
 export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
-  const { theme } = useTheme();
-  const isDarkMode = theme === "dark";
+  const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const isDarkMode = currentTheme === "dark";
+  // Add a key prop to force re-render when theme changes
+  const themeKey = `tldraw-${isDarkMode ? 'dark' : 'light'}`;
 
   const updateCanvasContent = useMutation(api.canvasTiles.updateCanvasContent);
   const canvasData = useQuery(api.canvasTiles.getCanvasContent, { tileId });
@@ -80,8 +83,9 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
     >
       {storeWithStatus.status === 'synced-local' && (
         <Tldraw
+          key={themeKey}
           store={storeWithStatus.store}
-          inferDarkMode 
+          inferDarkMode={isDarkMode}
         />
       )}
     </div>
