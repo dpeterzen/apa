@@ -162,7 +162,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             <Button
               variant="ghost2"
               size="default"
-              className={`h-[29px] absolute top-[0] left-0 z-10 p-1 pl-2 font-extralight text-base hover:h-fit transition-all duration-100 rounded-xl max-w-[calc(100%-28px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/60 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
+              className={`h-[29px] absolute top-[0] left-0 z-10 p-1 pl-2 font-extralight text-base hover:h-fit transition-all duration-100 rounded-xl max-w-[calc(100%-24px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/60 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
             >
               <div className="h-[21px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span
@@ -195,13 +195,13 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             </div>
           </PopoverContent>
         </Popover>
-        <Button
+        {/* <Button
           variant="ghost"
           size="sm"
           className="absolute bottom-[0px] left-0 z-10 font-extralight tracking-tight text-[hsl(var(--muted-2))] text-sm h-[18px] rounded-xl"
         >
           caption{" "}
-        </Button>
+        </Button> */}
         {imageUrl && isDomainAllowed(imageUrl) && (
           <>
             <Image
