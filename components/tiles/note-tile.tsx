@@ -8,7 +8,6 @@ import { debounce } from "lodash";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
 import Tiptap from "@/components/tiptap/Tiptap";
-// import { NoteEditor } from '../editor/note-editor';
 
 interface NoteTileProps {
   tileId: Id<"baseTiles">;

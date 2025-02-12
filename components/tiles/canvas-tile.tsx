@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { Tldraw, createTLStore, getSnapshot, loadSnapshot, TLStoreWithStatus } from "tldraw";
 import "tldraw/tldraw.css";
 import { useTheme } from "next-themes";
+import { useTileActions } from "@/hooks/use-tile-actions";
+import { TileActions } from "./tile-actions";
+
 
 interface CanvasTileProps {
   tileId: Id<"baseTiles">;
@@ -13,6 +16,12 @@ interface CanvasTileProps {
 }
 
 export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
+  const { handleSizeChange, handlePositionChange, handleDelete } =
+    useTileActions({
+      tileId,
+      wallId,
+      size,
+    });
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
   const isDarkMode = currentTheme === "dark";
@@ -77,17 +86,25 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
   }, [storeWithStatus]);
 
   return (
-    <div 
-      className={`tldraw__editor canvas-tile ${size}`} 
-      style={{ position: 'relative', width: '100%', height: '100%' }}
-    >
-      {storeWithStatus.status === 'synced-local' && (
-        <Tldraw
-          key={themeKey}
-          store={storeWithStatus.store}
-          inferDarkMode={isDarkMode}
-        />
-      )}
-    </div>
+    <>
+      <TileActions
+        onSizeChange={handleSizeChange}
+        onPositionChange={handlePositionChange}
+        onDelete={handleDelete}
+        size={size}
+      />
+      <div 
+        className={`tldraw__editor canvas-tile ${size}`} 
+        style={{ position: 'relative', width: '100%', height: '100%' }}
+      >
+        {storeWithStatus.status === 'synced-local' && (
+          <Tldraw
+            key={themeKey}
+            store={storeWithStatus.store}
+            inferDarkMode={isDarkMode}
+          />
+        )}
+      </div>
+    </>
   );
 }
