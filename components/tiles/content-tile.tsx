@@ -5,6 +5,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Tile } from "@/types";
 import * as motion from "motion/react-client";
 import { VideoTile } from "./video-tile";
+import { CanvasTile } from "./canvas-tile";
 
 // xs (<640px): Full width (12 cols)
 // sm (≥640px): Various widths
@@ -15,6 +16,7 @@ const sizeClasses = {
     note: "col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 row-span-2",
     video: "col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 row-span-1",
     image: "sm:col-span-4 md:col-span-4 lg:col-span-3 col-span-6 row-span-2 ",
+    canvas: "col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 row-span-2",
   },
   medium: {
     note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-4 xl:row-span-4",
@@ -22,6 +24,7 @@ const sizeClasses = {
       "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 row-span-3 sm:row-span-2 md:row-span-2 lg:row-span-2 2xl:row-span-3",
     image:
       "col-span-12 sm:col-span-8 md:col-span-6 lg:col-span-4 xl:row-span-4 row-span-3",
+    canvas: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-4 xl:row-span-4",
   },
   large: {
     note: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-8 2xl:row-span-9",
@@ -29,6 +32,7 @@ const sizeClasses = {
       "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-3 sm:row-span-3 md:row-span-4 lg:row-span-4 2xl:row-span-5",
     image:
       "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-7 2xl:row-span-7",
+    canvas: "col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-6 row-span-7 lg:row-span-8 2xl:row-span-9",
   },
 };
 
@@ -54,6 +58,14 @@ export default function ContentTile({ tile }: { tile: Tile }) {
       case "video":
         return (
           <VideoTile
+            tileId={tile.id as Id<"baseTiles">}
+            wallId={tile.wallId}
+            size={tile.size}
+          />
+        );
+      case "canvas":
+        return (
+          <CanvasTile
             tileId={tile.id as Id<"baseTiles">}
             wallId={tile.wallId}
             size={tile.size}

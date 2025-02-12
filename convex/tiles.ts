@@ -6,7 +6,7 @@ import { z } from "zod";
 export const create = mutation({
   args: {
     wallId: v.id("walls"),
-    type: v.union(v.literal("note"), v.literal("video"), v.literal("image")),
+    type: v.union(v.literal("note"), v.literal("video"), v.literal("image"), v.literal("canvas")),
     size: v.union(v.literal("small"), v.literal("medium"), v.literal("large")),
     position: v.number(),
     content: v.optional(v.string()),
@@ -114,6 +114,18 @@ export const create = mutation({
         return {
           ...(baseTile as object),
           tileData: videoTile,
+        };
+
+      case "canvas":
+        // Create canvas tile
+        const canvasTile = await ctx.db.insert("canvasTiles", {
+          tileId: baseTile,
+          content: args.content || "",
+        });
+
+        return {
+          ...(baseTile as object),
+          tileData: canvasTile,
         };
 
       default:

@@ -1,6 +1,6 @@
 import { Id } from "./convex/_generated/dataModel";
 
-export const TILE_TYPES = ['note', 'image', 'video'] as const
+export const TILE_TYPES = ['note', 'image', 'video', 'canvas'] as const
 export const TILE_SIZES = ['small', 'medium', 'large'] as const
 
 export type TileType = typeof TILE_TYPES[number]

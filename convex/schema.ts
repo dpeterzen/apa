@@ -173,4 +173,11 @@ export default defineSchema({
     text: v.string(),
   }),
 
+  // For canvas tiles
+  canvasTiles: defineTable({
+    tileId: v.id("baseTiles"),
+    content: v.string(), // Serialized tldraw content
+  })
+    .index("byTileId", ["tileId"]),
+
 });
