@@ -8,7 +8,6 @@ import { debounce } from "lodash";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
 import Tiptap from "@/components/tiptap/Tiptap";
-// import { NoteEditor } from '../editor/note-editor';
 
 interface NoteTileProps {
   tileId: Id<"baseTiles">;
@@ -48,7 +47,7 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
         onDelete={handleDelete}
         size={size}
       />
-      <div className="flex-1 min-h-0 rounded-xl border border-[hsl(var(--border-3))] dark:border-transparent">
+      <div className="flex-1 min-h-0 rounded-xl border dark:border-transparent">
         <Tiptap
           initialContent={noteData.content || ""}
           placeholder="Write something..."

@@ -134,6 +134,10 @@ const BlankTile = ({ onSelect, setShowBlankTile }: BlankTileProps) => {
               <SquarePlay />
               <span>Video</span>
             </CommandItem>
+            <CommandItem onSelect={() => onSelect("canvas")}>
+              <SquarePen />
+              <span>Canvas</span>
+            </CommandItem>
             <CommandItem>
               <SquareArrowOutUpRight />
               <span>Link</span>

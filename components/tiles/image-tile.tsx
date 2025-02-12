@@ -168,7 +168,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
                 <span
                   className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentName ? "font-medium" : "text-[hsl(var(--muted-2))] group-hover:text-current"}`}
                 >
-                  {currentName || "name"}
+                  {currentName || "tag"}
                 </span>
               </div>
             </Button>
