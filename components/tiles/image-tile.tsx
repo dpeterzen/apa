@@ -1,5 +1,5 @@
 import { Id } from "@/convex/_generated/dataModel";
-import { Hash, Image as ImageIcon, Loader2, Tag } from "lucide-react";
+import { Image as ImageIcon, Loader2, Tag } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
@@ -174,14 +174,16 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="max-w-[90vw] w-80 rounded-lg p-1"
+            className="max-w-[90vw] w-64 rounded-lg p-1"
+            // className="max-w-[90vw] w-64 rounded-lg p-[2px] border-0"
             align="start"
             side="top"
-            sideOffset={-67}
+            sideOffset={-63}
           >
             <div className="flex flex-col gap-2">
               <Input
-                className="h-7 border-0 p-[2px] min-w-0 w-full"
+                className="h-7 border-0 p-[2px] min-w-0 w-full text-sm"
+                // className="h-7 px-2 min-w-0 w-full"
                 placeholder="Tag image..."
                 maxLength={MAX_IMAGE_NAME_LENGTH}
                 value={currentName}

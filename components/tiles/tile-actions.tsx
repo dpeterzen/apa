@@ -3,6 +3,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Circle,
+  MessageSquare,
   Minus,
   MoreHorizontal,
   Plus,
@@ -41,14 +42,21 @@ export function TileActions({
       </Button>
 
       <Button
+        variant="outline1"
+        className="z-50 rounded-full absolute bottom-[-1px] left-[0px] h-6 w-6 p-0 "
+      >
+        <MessageSquare />
+      </Button>
+
+      <Button
         variant="segmented-end"
-        className="z-[50] rounded-r-full absolute bottom-[-1px] left-[28px] h-6 w-7 p-0 "
+        className="z-[50] rounded-r-full absolute bottom-[-1px] left-[59px] h-6 w-7 p-0 "
         onClick={() => onPositionChange("increase")}
       >
         <ChevronRight />
       </Button>
       <Button
-        className="z-[50] rounded-l-full absolute bottom-[-1px] left-[0px] h-6 w-7 p-0 "
+        className="z-[50] rounded-l-full absolute bottom-[-1px] left-[31px] h-6 w-7 p-0 "
         variant="segmented"
         onClick={() => onPositionChange("decrease")}
       >
