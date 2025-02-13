@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -8,6 +8,7 @@ import { debounce } from "lodash";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
 import Tiptap from "@/components/tiptap/Tiptap";
+import { TileComments } from "./tile-comments";
 
 interface NoteTileProps {
   tileId: Id<"baseTiles">;
@@ -16,6 +17,7 @@ interface NoteTileProps {
 }
 
 export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
+  const [showComments, setShowComments] = useState(false);
   const { handleSizeChange, handlePositionChange, handleDelete } =
     useTileActions({
       tileId,
@@ -40,13 +42,7 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
   }
 
   return (
-    <>
-      <TileActions
-        onSizeChange={handleSizeChange}
-        onPositionChange={handlePositionChange}
-        onDelete={handleDelete}
-        size={size}
-      />
+    <div className="relative h-full flex flex-col">
       <div className="flex-1 min-h-0 rounded-xl border border-[hsl(var(--border-3))] dark:border-transparent">
         <Tiptap
           initialContent={noteData.content || ""}
@@ -57,6 +53,15 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
           showMenu={size !== "small"}
         />
       </div>
-    </>
+      <TileActions
+        onSizeChange={handleSizeChange}
+        onPositionChange={handlePositionChange}
+        onDelete={handleDelete}
+        size={size}
+        onCommentToggle={() => setShowComments(!showComments)}
+        showComments={showComments}
+      />
+      <TileComments show={showComments} />
+    </div>
   );
 }

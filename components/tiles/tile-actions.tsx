@@ -4,6 +4,7 @@ import {
   ChevronRight,
   Circle,
   MessageSquare,
+  MessageSquareX,
   Minus,
   MoreHorizontal,
   Plus,
@@ -21,6 +22,8 @@ interface TileActionsProps {
   onSizeChange: (direction: "increase" | "decrease") => void;
   onPositionChange: (direction: "increase" | "decrease") => void;
   onDelete: () => void;
+  onCommentToggle: () => void;
+  showComments: boolean;
   children?: ReactNode; // For popover content
   size: TileSize;
 }
@@ -29,6 +32,8 @@ export function TileActions({
   onSizeChange,
   onPositionChange,
   onDelete,
+  onCommentToggle,
+  showComments,
   children,
 }: TileActionsProps) {
   return (
@@ -43,20 +48,21 @@ export function TileActions({
 
       <Button
         variant="outline1"
-        className="z-50 rounded-full absolute bottom-[-1px] left-[0px] h-6 w-6 p-0 "
+        className="z-[52] rounded-full absolute bottom-[-30px] left-[0px] h-6 w-6 p-0"
+        onClick={onCommentToggle}
       >
-        <MessageSquare />
+        {showComments ? <MessageSquareX /> : <MessageSquare />}
       </Button>
 
       <Button
         variant="segmented-end"
-        className="z-[50] rounded-r-full absolute bottom-[-1px] left-[59px] h-6 w-7 p-0 "
+        className="z-[50] rounded-r-full absolute bottom-[-30px] left-[59px] h-6 w-7 p-0 "
         onClick={() => onPositionChange("increase")}
       >
         <ChevronRight />
       </Button>
       <Button
-        className="z-[50] rounded-l-full absolute bottom-[-1px] left-[31px] h-6 w-7 p-0 "
+        className="z-[50] rounded-l-full absolute bottom-[-30px] left-[31px] h-6 w-7 p-0 "
         variant="segmented"
         onClick={() => onPositionChange("decrease")}
       >
@@ -67,7 +73,7 @@ export function TileActions({
         <PopoverTrigger asChild>
           <Button
             variant="outline1"
-            className="z-50 rounded-full absolute bottom-[-1px] right-[0px] h-6 w-6 p-0 "
+            className="z-50 rounded-full absolute bottom-[-30px] right-[0px] h-6 w-6 p-0 "
           >
             <MoreHorizontal />
           </Button>
@@ -90,7 +96,7 @@ export function TileActions({
       </Popover>
 
       <Button
-        className="z-[50] rounded-r-full absolute bottom-[-1px] right-[31px] h-6 w-7 p-0 "
+        className="z-[50] rounded-r-full absolute bottom-[-30px] right-[31px] h-6 w-7 p-0 "
         variant="segmented-end"
         onClick={() => onSizeChange("increase")}
       >
@@ -98,7 +104,7 @@ export function TileActions({
       </Button>
       <Button
         variant="segmented"
-        className="z-[50] rounded-l-full absolute bottom-[-1px] right-[59px] h-6 w-7 p-0 "
+        className="z-[50] rounded-l-full absolute bottom-[-30px] right-[59px] h-6 w-7 p-0 "
         onClick={() => onSizeChange("decrease")}
       >
         <Minus />

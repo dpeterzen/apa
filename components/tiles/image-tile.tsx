@@ -15,6 +15,7 @@ import { isDomainAllowed } from "@/utils/domain-validation";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
 import { Button } from "../ui/button";
+import { TileComments } from "./tile-comments";
 
 const MAX_IMAGE_NAME_LENGTH = 125;
 
@@ -49,6 +50,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
     const [hasError, setHasError] = useState(false);
     const [showNamePopover, setShowNamePopover] = useState(false);
     const [currentName, setCurrentName] = useState("");
+    const [showComments, setShowComments] = useState(false);
 
   const handleImageError = () => {
     setHasError(true);
@@ -100,43 +102,8 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
   };
 
   return (
-    <>
-      <TileActions
-        onSizeChange={handleSizeChange}
-        onPositionChange={handlePositionChange}
-        onDelete={handleDelete}
-        size={size}
-      >
-        <Popover open={showUrlPopover} onOpenChange={setShowUrlPopover}>
-          <PopoverTrigger asChild>
-            <div
-              role="button"
-              className="flex items-center px-2 py-1.5 text-sm rounded-lg cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/20"
-            >
-              <Link className="mr-2 h-4 w-4" />
-              Image link
-            </div>
-          </PopoverTrigger>
-          <PopoverContent
-            className="max-w-[90vw] w-80 rounded-lg p-1"
-            align="center"
-          >
-            <div className="flex flex-col gap-2">
-              <Input
-                className="h-7 border-0 p-[2px] min-w-0 w-full"
-                placeholder="Enter image URL..."
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleImageUrlUpdate();
-                  }
-                }}
-              />
-            </div>
-          </PopoverContent>
-        </Popover>
-      </TileActions>
+    <div className="relative h-full">
+      <div className="flex flex-col h-full">
 
       <div className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${imageUrl ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-accent/70`}>
         {!imageUrl && (
@@ -233,6 +200,46 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
           </>
         )}
       </div>
-    </>
+      </div>
+      <TileActions
+        onSizeChange={handleSizeChange}
+        onPositionChange={handlePositionChange}
+        onDelete={handleDelete}
+        size={size}
+        onCommentToggle={() => setShowComments(!showComments)}
+        showComments={showComments}
+      >
+        <Popover open={showUrlPopover} onOpenChange={setShowUrlPopover}>
+          <PopoverTrigger asChild>
+            <div
+              role="button"
+              className="flex items-center px-2 py-1.5 text-sm rounded-lg cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/20"
+            >
+              <Link className="mr-2 h-4 w-4" />
+              Image link
+            </div>
+          </PopoverTrigger>
+          <PopoverContent
+            className="max-w-[90vw] w-80 rounded-lg p-1"
+            align="center"
+          >
+            <div className="flex flex-col gap-2">
+              <Input
+                className="h-7 border-0 p-[2px] min-w-0 w-full"
+                placeholder="Enter image URL..."
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleImageUrlUpdate();
+                  }
+                }}
+              />
+            </div>
+          </PopoverContent>
+        </Popover>
+      </TileActions>
+      <TileComments show={showComments} />
+    </div>
   );
 }

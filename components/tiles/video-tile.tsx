@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useTileActions } from "@/hooks/use-tile-actions";
 import { TileActions } from "./tile-actions";
 import { Button } from "../ui/button";
+import { TileComments } from "./tile-comments";
 
 interface VideoTileProps {
   tileId: Id<"baseTiles">;
@@ -35,6 +36,7 @@ export function VideoTile({ tileId, wallId, size }: VideoTileProps) {
   const [showUrlPopover, setShowUrlPopover] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     if (videoData) {
@@ -73,43 +75,8 @@ export function VideoTile({ tileId, wallId, size }: VideoTileProps) {
   };
 
   return (
-    <>
-      <TileActions
-        onSizeChange={handleSizeChange}
-        onPositionChange={handlePositionChange}
-        onDelete={handleDelete}
-        size={size}
-      >
-        <Popover open={showUrlPopover} onOpenChange={setShowUrlPopover}>
-          <PopoverTrigger asChild>
-            <div
-              role="button"
-              className="flex items-center px-2 py-1.5 text-sm rounded-md cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/20"
-            >
-              <Link className="mr-2 h-4 w-4" />
-              Video link
-            </div>
-          </PopoverTrigger>
-          <PopoverContent
-            className="max-w-[90vw] w-80 rounded-lg p-1"
-            align="center"
-          >
-            <div className="flex flex-col gap-2">
-              <Input
-                className="h-7 border-0 p-[2px] min-w-0 w-full"
-                placeholder="Enter YouTube URL..."
-                value={videoUrl}
-                onChange={(e) => setVideoUrl(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleVideoUrlUpdate();
-                  }
-                }}
-              />
-            </div>
-          </PopoverContent>
-        </Popover>
-      </TileActions>
+    <div className="relative h-full">
+      <div className="flex flex-col h-full">
 
       <div
         className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${videoData?.videoId ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-accent/70`}
@@ -148,7 +115,47 @@ export function VideoTile({ tileId, wallId, size }: VideoTileProps) {
             </div>
           </div>
         )}
+        </div>
       </div>
-    </>
+      <TileActions
+        onSizeChange={handleSizeChange}
+        onPositionChange={handlePositionChange}
+        onDelete={handleDelete}
+        size={size}
+        onCommentToggle={() => setShowComments(!showComments)}
+        showComments={showComments}
+      >
+        <Popover open={showUrlPopover} onOpenChange={setShowUrlPopover}>
+          <PopoverTrigger asChild>
+            <div
+              role="button"
+              className="flex items-center px-2 py-1.5 text-sm rounded-md cursor-pointer hover:bg-accent/40 dark:hover:bg-accent/20"
+            >
+              <Link className="mr-2 h-4 w-4" />
+              Video link
+            </div>
+          </PopoverTrigger>
+          <PopoverContent
+            className="max-w-[90vw] w-80 rounded-lg p-1"
+            align="center"
+          >
+            <div className="flex flex-col gap-2">
+              <Input
+                className="h-7 border-0 p-[2px] min-w-0 w-full"
+                placeholder="Enter YouTube URL..."
+                value={videoUrl}
+                onChange={(e) => setVideoUrl(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleVideoUrlUpdate();
+                  }
+                }}
+              />
+            </div>
+          </PopoverContent>
+        </Popover>
+      </TileActions>
+      <TileComments show={showComments} />
+    </div>
   );
 }
