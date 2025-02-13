@@ -32,7 +32,7 @@ const MenuBar = ({ editor }) => {
   if (!editor) return null;
 
   return (
-    <div className="flex flex-wrap pl-1 pt-[6px] pb-1 pr-5 shadow dark:shadow-md rounded-xl">
+    <div className="flex flex-wrap pl-1 pt-[6px] pb-1 pr-5 border-b border-[hsl(var(--border-3))] dark:border-neutral-900 rounded-xl">
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={

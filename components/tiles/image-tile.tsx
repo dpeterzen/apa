@@ -1,5 +1,5 @@
 import { Id } from "@/convex/_generated/dataModel";
-import { Image as ImageIcon, Loader2 } from "lucide-react";
+import { Hash, Image as ImageIcon, Loader2, Tag } from "lucide-react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
@@ -162,13 +162,13 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             <Button
               variant="ghost2"
               size="default"
-              className={`h-[29px] absolute top-[0] left-0 z-10 p-1 pl-2 font-extralight text-base hover:h-fit transition-all duration-100 rounded-xl max-w-[calc(100%-24px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/60 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
+              className={`h-[28px] absolute top-[0] left-0 z-10 p-1 pl-2 [&_svg]:size-[18px] font-extralight text-sm hover:h-fit transition-all duration-100 rounded-xl max-w-[calc(100%-24px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/60 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
             >
               <div className="h-[21px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                 <span
                   className={`truncate group-hover:whitespace-normal group-hover:break-words block w-full text-left transition-all duration-100 ${currentName ? "font-medium" : "text-[hsl(var(--muted-2))] group-hover:text-current"}`}
                 >
-                  {currentName || "tag"}
+                  {currentName || <Tag />}
                 </span>
               </div>
             </Button>
@@ -182,7 +182,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
             <div className="flex flex-col gap-2">
               <Input
                 className="h-7 border-0 p-[2px] min-w-0 w-full"
-                placeholder="Enter image name..."
+                placeholder="Tag image..."
                 maxLength={MAX_IMAGE_NAME_LENGTH}
                 value={currentName}
                 onChange={(e) => setCurrentName(e.target.value)}

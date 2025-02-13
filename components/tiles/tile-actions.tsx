@@ -33,7 +33,7 @@ export function TileActions({
   return (
     <>
       <Button
-        className="z-[50] rounded-full absolute top-[-7px] right-[-7px] h-[36px] w-[36px] p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
+        className="z-[50] rounded-full absolute top-[-5px] right-[-5px] h-[36px] w-[36px] p-0 transition-opacity hover:opacity-100 group-hover:opacity-50
         [&:not(:hover)]:opacity-20"
         variant="ghost2"
       >
