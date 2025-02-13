@@ -30,7 +30,7 @@ export default function TileStash({ tiles, onRestoreTile }: TileStashProps) {
               layout
               layoutId={`removed-tile-${tile._id}`}
               key={tile._id}
-              className="flex items-center justify-between border border-zinc-200 dark:border-zinc-900/30 rounded-xl"
+              className="flex items-center justify-between border border-[hsl(var(--border-3))]  dark:border-zinc-900/30 rounded-xl"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
@@ -43,7 +43,7 @@ export default function TileStash({ tiles, onRestoreTile }: TileStashProps) {
                 },
               }}
             >
-              <div className="h-[25px] border bg-zinc-200/30 dark:bg-zinc-900/30 border-zinc-200 dark:border-zinc-900/30 rounded-xl flex-grow pl-2 whitespace-nowrap overflow-hidden">
+              <div className="h-[25px] bg-inherit dark:bg-accent/70 border-r border-[hsl(var(--border-3))] dark:border-transparent rounded-xl flex-grow pl-2 whitespace-nowrap overflow-hidden">
                 <span className="text-xs align-middle">{tile.type}</span>
               </div>
               <Button

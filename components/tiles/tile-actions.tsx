@@ -47,7 +47,7 @@ export function TileActions({
       </Button>
 
       <Button
-        variant="outline1"
+        variant={showComments ? "outlineCaption" : "outline1"}
         className="z-[52] rounded-full absolute bottom-[-30px] left-[0px] h-6 w-6 p-0"
         onClick={onCommentToggle}
       >
