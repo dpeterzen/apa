@@ -78,11 +78,7 @@ export function TileActions({
             <MoreHorizontal />
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          className="w-40 rounded-xl"
-          align="start"
-          side="left"
-        >
+        <PopoverContent className="w-40 rounded-xl" align="start" side="left">
           {children}
           <div
             role="button"

@@ -56,7 +56,7 @@ export function WallTitle({ wallId, title }: WallTitleProps) {
             variant="ghost"
             size="sm"
             title={title}
-            className="overflow-hidden !text-base !leading-[24px] rounded-xl h-[36px] px-2"
+            className="overflow-hidden !text-base !leading-[24px] rounded-md h-[36px] px-2"
           >
             <span className="truncate block w-full text-left">
               {title}
