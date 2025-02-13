@@ -265,7 +265,7 @@ const Tiptap = ({ initialContent, onUpdate, showMenu = true, placeholder }) => {
   }, [editor, initialContent]);
 
   return (
-    <div className="flex flex-col h-full rounded-xl bg-inherit dark:bg-[hsl(var(--accent-tile))] pt-1 pb-1">
+    <div className="flex flex-col h-full rounded-xl bg-background dark:bg-[hsl(var(--accent-tile))] pt-1 pb-1">
       {showMenu && <MenuBar editor={editor} />}
       <div className="flex-1 min-h-0">
         <EditorContent editor={editor} className="h-full" />
