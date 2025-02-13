@@ -79,7 +79,7 @@ export function VideoTile({ tileId, wallId, size }: VideoTileProps) {
       <div className="flex flex-col h-full">
 
       <div
-        className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${videoData?.videoId ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-accent/70`}
+        className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${videoData?.videoId ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-[hsl(var(--accent-tile))]`}
       >
         {!videoData?.videoId && !isLoading && !isInitialLoading && (
           <Button

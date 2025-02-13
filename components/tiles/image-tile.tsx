@@ -105,7 +105,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
     <div className="relative h-full">
       <div className="flex flex-col h-full">
 
-      <div className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${imageUrl ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-accent/70`}>
+      <div className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${imageUrl ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-[hsl(var(--accent-tile))]`}>
         {!imageUrl && (
           <Button variant="ghost1" size="lgIcon" className="flex items-center justify-center [&_svg]:size-10 text-muted-foreground hover:!text-accent-foreground">
             <ImageIcon className="size-10" />
