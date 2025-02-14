@@ -29,6 +29,8 @@ const MemoizedTldraw = memo(
     onMount: (editor: Editor) => void;
   }) => (
     <Tldraw
+      options={{ maxPages: 1 }}
+      forceMobile
       store={store}
       inferDarkMode={isDarkMode}
       autoFocus={false}
@@ -155,23 +157,25 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
           >
             {storeWithStatus.status === "synced-local" && (
               <MemoizedTldraw
-                key={themeKey}
-                store={storeWithStatus.store}
-                isDarkMode={isDarkMode}
-                onMount={(editor) => {
-                  editorRef.current = editor;
-                  editor.sideEffects.registerAfterChangeHandler(
-                    "instance",
-                    () => {
-                      const isFocused = editor.getInstanceState().isFocused;
-                      setIsFocused(isFocused);
-                      if (!isFocused) {
-                        handleSave();
-                      }
+              key={themeKey}
+              store={storeWithStatus.store}
+              isDarkMode={isDarkMode}
+              onMount={(editor) => {
+                editorRef.current = editor;
+                // Set the default tool to draw
+                editor.setCurrentTool('draw');
+                editor.sideEffects.registerAfterChangeHandler(
+                  "instance",
+                  () => {
+                    const isFocused = editor.getInstanceState().isFocused;
+                    setIsFocused(isFocused);
+                    if (!isFocused) {
+                      handleSave();
                     }
-                  );
-                }}
-              />
+                  }
+                );
+              }}
+            />
             )}
           </div>
         </div>

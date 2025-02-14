@@ -135,7 +135,7 @@ export function ImageTile({ tileId, wallId, size }: ImageTileProps) {
               <Button
                 variant="ghost2"
                 size="default"
-                className={`h-[28px] absolute top-[0] left-0 z-10 p-1 pl-2 [&_svg]:size-[18px] font-extralight text-sm hover:h-fit transition-all duration-100 rounded-xl rounded-bl-none rounded-r-md max-w-[calc(100%-24px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/60 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
+                className={`h-[28px] absolute top-[0] left-0 z-10 p-1 pl-2 [&_svg]:size-[18px] font-extralight text-sm hover:h-fit transition-all duration-100 rounded-xl rounded-bl-none rounded-tr-none rounded-br-md max-w-[calc(100%-24px)] group overflow-hidden mr-[18px] pr-[7px] ${currentName && "bg-accent/60 dark:bg-accent/40 text-foreground/80 dark:text-foreground hover:!text-accent-foreground"}`}
               >
                 <div className="h-[21px] group-hover:h-fit overflow-hidden group-hover:overflow-y-auto">
                   <span
