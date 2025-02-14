@@ -32,7 +32,7 @@ const MenuBar = ({ editor }) => {
   if (!editor) return null;
 
   return (
-    <div className="flex flex-wrap pl-1 pt-[4px] pb-1 pr-5 border-b border-[hsl(var(--border-3))] dark:border-neutral-900 rounded-xl mb-[10px]">
+    <div className="flex flex-wrap pl-1 pt-[4px] pb-1 pr-5 border-b border-[hsl(var(--border-3))] dark:border-neutral-900 rounded-xl">
       <Button
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={
@@ -267,7 +267,7 @@ const Tiptap = ({ initialContent, onUpdate, showMenu = true, placeholder }) => {
   return (
     <div className="flex flex-col h-full rounded-xl bg-background dark:bg-[hsl(var(--accent-tile))] pt-1 pb-1">
       {showMenu && <MenuBar editor={editor} />}
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-0 pt-[9px]">
         <EditorContent editor={editor} className="h-full" />
       </div>
     </div>

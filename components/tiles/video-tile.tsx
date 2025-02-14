@@ -77,44 +77,43 @@ export function VideoTile({ tileId, wallId, size }: VideoTileProps) {
   return (
     <div className="relative h-full">
       <div className="flex flex-col h-full">
+        <div
+          className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${videoData?.videoId ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-[hsl(var(--accent-tile))]`}
+        >
+          {!videoData?.videoId && !isLoading && !isInitialLoading && (
+            <Button
+              variant="ghost1"
+              size="lgIcon"
+              className="flex items-center justify-center [&_svg]:size-10 text-muted-foreground hover:!text-accent-foreground"
+            >
+              <SquarePlay className="size-10" />
+            </Button>
+          )}
 
-      <div
-        className={`flex-1 flex items-center justify-center relative rounded-xl dark:border-none ${videoData?.videoId ? "border-none" : "border border-[hsl(var(--border-3))]"}  bg-inherit dark:bg-[hsl(var(--accent-tile))]`}
-      >
-        {!videoData?.videoId && !isLoading && !isInitialLoading && (
-          <Button
-            variant="ghost1"
-            size="lgIcon"
-            className="flex items-center justify-center [&_svg]:size-10 text-muted-foreground hover:!text-accent-foreground"
-          >
-            <SquarePlay className="size-10" />
-          </Button>
-        )}
-
-        {(isLoading || isInitialLoading) && (
-          <div className="flex items-center justify-center absolute inset-0 bg-background/50">
-            <Loader2 className="animate-spin size-10" />
-          </div>
-        )}
-
-        {videoData?.videoId && (
-          <div className="relative w-full h-full">
-            <div className="absolute inset-0">
-              <iframe
-                src={getEmbedUrl(videoData.videoId)}
-                className="w-full h-full rounded-xl"
-                style={{
-                  aspectRatio: "16/9",
-                  border: "none", // Remove default iframe border
-                }}
-                loading="lazy"
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="YouTube video player" // Add title for accessibility
-              />
+          {(isLoading || isInitialLoading) && (
+            <div className="flex items-center justify-center absolute inset-0 bg-background/50">
+              <Loader2 className="animate-spin size-10" />
             </div>
-          </div>
-        )}
+          )}
+
+          {videoData?.videoId && (
+            <div className="relative w-full h-full">
+              <div className="absolute inset-0">
+                <iframe
+                  src={getEmbedUrl(videoData.videoId)}
+                  className="w-full h-full rounded-xl"
+                  style={{
+                    aspectRatio: "16/9",
+                    border: "none", // Remove default iframe border
+                  }}
+                  loading="lazy"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="YouTube video player" // Add title for accessibility
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <TileActions
