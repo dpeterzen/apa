@@ -1,7 +1,8 @@
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, memo } from "react";
+import { debounce } from "lodash";
 import {
   Editor,
   Tldraw,
@@ -17,6 +18,27 @@ import { TileActions } from "./tile-actions";
 import { TileComments } from "./tile-comments";
 import "./canvas-tile.css";
 
+const MemoizedTldraw = memo(
+  ({
+    store,
+    isDarkMode,
+    onMount,
+  }: {
+    store: TLStoreWithStatus["store"];
+    isDarkMode: boolean;
+    onMount: (editor: Editor) => void;
+  }) => (
+    <Tldraw
+      store={store}
+      inferDarkMode={isDarkMode}
+      autoFocus={false}
+      onMount={onMount}
+    />
+  )
+);
+
+MemoizedTldraw.displayName = "MemoizedTldraw";
+
 interface CanvasTileProps {
   tileId: Id<"baseTiles">;
   wallId: Id<"walls">;
@@ -31,6 +53,8 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
   const currentTheme = theme === "system" ? systemTheme : theme;
   const isDarkMode = currentTheme === "dark";
   const themeKey = `tldraw-${isDarkMode ? "dark" : "light"}`;
+
+  const contentCache = useRef<string | null>(null);
 
   const updateCanvasContent = useMutation(api.canvasTiles.updateCanvasContent);
   const canvasData = useQuery(api.canvasTiles.getCanvasContent, { tileId });
@@ -53,6 +77,9 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
       size,
     });
 
+  const handleCommentToggle = () => {
+    setShowComments(!showComments);
+  };
   // Add click handler for the container
   const handleContainerClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -66,14 +93,19 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
 
     const newContent = canvasData.content;
 
-    // Skip if we've already loaded this content
-    if (lastLoadedContentRef.current === newContent) return;
+    // Skip if we've already loaded this content or if it matches our cache
+    if (
+      lastLoadedContentRef.current === newContent ||
+      contentCache.current === newContent
+    )
+      return;
 
     try {
       if (newContent) {
         const snapshot = JSON.parse(newContent);
         loadSnapshot(storeWithStatus.store, snapshot);
         lastLoadedContentRef.current = newContent;
+        contentCache.current = newContent;
       }
 
       setStoreWithStatus((prev) => ({
@@ -82,40 +114,35 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
       }));
     } catch (error) {
       console.error("Failed to parse canvas content:", error);
-      // Keep existing store state on error
-      setStoreWithStatus((prev) => ({
-        store: prev.store,
-        status: "synced-local",
-      }));
     }
   }, [canvasData]);
 
-  const handleSave = () => {
+  const handleSave = debounce(() => {
     if (storeWithStatus.status === "synced-local") {
       const { document } = getSnapshot(storeWithStatus.store);
-      updateCanvasContent({ tileId, content: JSON.stringify(document) });
-    }
-  };
+      const newContent = JSON.stringify(document);
 
-  // Save when component unmounts if there were changes
-  useEffect(() => {
-    return () => {
-      if (isFocused) {
-        handleSave();
+      // Only save if content has actually changed
+      if (newContent !== contentCache.current) {
+        contentCache.current = newContent;
+        updateCanvasContent({ tileId, content: newContent });
       }
+    }
+  }, 1000);
+
+  useEffect(() => {
+    if (!isFocused) {
+      handleSave.cancel();
+      return;
+    }
+
+    const interval = setInterval(handleSave, 10000);
+
+    return () => {
+      clearInterval(interval);
+      handleSave.flush();
     };
   }, [isFocused]);
-
-  useEffect(() => {
-    if (!isFocused) return;
-
-    const interval = setInterval(handleSave, 5000);
-    return () => clearInterval(interval);
-  }, [storeWithStatus, isFocused]);
-
-  const handleCommentToggle = () => {
-    setShowComments(!showComments);
-  };
 
   return (
     <div className="relative h-full">
@@ -127,19 +154,16 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
             onClick={handleContainerClick}
           >
             {storeWithStatus.status === "synced-local" && (
-              <Tldraw
+              <MemoizedTldraw
                 key={themeKey}
                 store={storeWithStatus.store}
-                inferDarkMode={isDarkMode}
-                autoFocus={false}
+                isDarkMode={isDarkMode}
                 onMount={(editor) => {
                   editorRef.current = editor;
-                  // Listen for instance state changes which includes focus state
                   editor.sideEffects.registerAfterChangeHandler(
                     "instance",
                     () => {
                       const isFocused = editor.getInstanceState().isFocused;
-                      console.log("Canvas focus changed:", isFocused);
                       setIsFocused(isFocused);
                       if (!isFocused) {
                         handleSave();
