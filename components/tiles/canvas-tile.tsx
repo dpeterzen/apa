@@ -120,7 +120,7 @@ export function CanvasTile({ tileId, wallId, size }: CanvasTileProps) {
   return (
     <div className="relative h-full">
       <div className="flex flex-col h-full">
-        <div className="flex-1 flex items-center justify-center relative rounded-xl  border border-[hsl(var(--border-3))] dark:border-transparent bg-inherit dark:bg-[hsl(var(--accent-tile))]">
+        <div className="flex-1 flex items-center justify-center relative rounded-xl border border-[hsl(var(--border-3))] dark:border-none bg-inherit dark:bg-[hsl(var(--accent-tile))]">
           <div
             className={`tldraw__editor canvas-tile ${size} p-[1px]`}
             style={{ position: "relative", width: "100%", height: "100%" }}

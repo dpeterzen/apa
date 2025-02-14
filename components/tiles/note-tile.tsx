@@ -43,7 +43,7 @@ export function NoteTile({ tileId, wallId, size }: NoteTileProps) {
 
   return (
     <div className="relative h-full flex flex-col">
-      <div className="flex-1 min-h-0 rounded-xl border border-[hsl(var(--border-3))] dark:border-transparent">
+      <div className="flex-1 min-h-0 rounded-xl border border-[hsl(var(--border-3))] dark:border-none">
         <Tiptap
           initialContent={noteData.content || ""}
           placeholder="Write something..."
